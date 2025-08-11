@@ -1,6 +1,6 @@
-
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDuzBpeML-DAjCqeF3Z5iX6H_0oZR7v3dg",
@@ -13,27 +13,51 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db = getFirestore(app);
+
 const button = document.getElementById("submit");
 
-button.addEventListener("click", function (event) {
+button.addEventListener("click", async function (event) {
   event.preventDefault();
 
-  // ✨ Fetch values on button click
-  const fullname = document.getElementById("fullname").value;
-  const email = document.getElementById("email").value;
-  const username = document.getElementById("username").value;
+  const fullname = document.getElementById("fullname").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const username = document.getElementById("username").value.trim();
   const password = document.getElementById("password").value;
 
-  createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      alert("Creating Account for " + fullname); 
-      window.location.href="index.html";// Now this will appear
-      // You can store fullname/username in Firestore if needed
-    })
-    .catch((error) => {
-      const errorMessage = error.message;
-      alert(errorMessage);
-    });
-});
+  const role = prompt("Enter role: user / seller / delivery").toLowerCase();
 
+  // Basic role validation
+  if (!["user", "seller", "delivery"].includes(role)) {
+    alert("Invalid role! Please enter: user, seller, or delivery");
+    return;
+  }
+
+  try {
+    // Create the user in Firebase Auth
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+
+    // Save extra user data in Firestore
+    await setDoc(doc(db, "users", user.uid), {
+      fullname: fullname,
+      username: username,
+      email: email,
+      role: role
+    });
+
+    alert("Account created successfully!");
+
+    // Redirect based on role
+    if (role === "user") {
+      window.location.href = "user.html";
+    } else if (role === "seller") {
+      window.location.href = "seller.html";
+    } else if (role === "delivery") {
+      window.location.href = "delivery.html";
+    }
+
+  } catch (error) {
+    alert(error.message);
+  }
+});
