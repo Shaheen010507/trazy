@@ -1,7 +1,9 @@
+// Firebase imports
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
+// Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDuzBpeML-DAjCqeF3Z5iX6H_0oZR7v3dg",
   authDomain: "trazy-2142e.firebaseapp.com",
@@ -32,11 +34,11 @@ document.getElementById("loginBtn").addEventListener("click", async (event) => {
       const role = docSnap.data().role;
 
       if (role === "user") {
-        window.location.href = "user-dashboard.html";
+        window.location.href = "users/user.html";
       } else if (role === "seller") {
-        window.location.href = "seller-dashboard.html";
+        window.location.href = "owner/owner.html";
       } else if (role === "delivery") {
-        window.location.href = "delivery-dashboard.html";
+        window.location.href = "delivery/delivery.html";
       } else {
         alert("Role not found. Contact admin.");
       }
