@@ -35,7 +35,7 @@ document.getElementById("loginBtn").addEventListener("click", async (event) => {
 
       if (role === "user") {
         window.location.href = "users/user.html";
-      } else if (role === "seller") {
+      } else if (role === "owner") {
         window.location.href = "owner/owner.html";
       } else if (role === "delivery") {
         window.location.href = "delivery/delivery.html";
