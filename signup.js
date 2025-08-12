@@ -78,10 +78,13 @@ document.getElementById("submit").addEventListener("click", async (event) => {
 
 // Role-based redirect
 function redirectBasedOnRole(role) {
-  if (role === "") {
-    window.location.href = "admin.html";
-  } else if (role === "User") {
-    window.location.href = "user.html";
+  if (role === "user") {
+    window.location.href = "users/user.html";
+  } else if (role === "owner") {
+    window.location.href = "owner/owner.html";
+  }
+  else if (role === "delivery") {
+    window.location.href = "delivery/delivery.html";
   } else {
     window.location.href = "index.html";
   }
