@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Dashboard</title>
+  <link rel="stylesheet" href="user.css">
+</head>
+<body>
+  <header>
+    <div class="header-container">
+      <h1>Campus Food Delivery</h1>
+      <nav>
+        <button class="profile-btn" onclick="window.location.href='profile.html'">My Profile</button>
+        <button class="logout-btn" id="logoutBtn">Logout</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h2 class="section-title">Shops Near You</h2>
+    <div id="shopsContainer" class="shops-container">
+      <p class="loading-text">Loading shops...</p>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 Campus Food Delivery</p>
+  </footer>
+
+  <script type="module" src="user.js"></script>
+</body>
+</html>
+
+
