@@ -1,0 +1,143 @@
+/* shop.css */
+body {
+  font-family: "Poppins", sans-serif;
+  background: #f9f9f9;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+/* Shop Header */
+h1#shopName {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 600;
+  margin: 20px 0 10px;
+  color: #ff6f61;
+}
+
+#shopDescription,
+#shopLocation {
+  text-align: center;
+  font-size: 16px;
+  color: #666;
+  margin: 4px 0;
+}
+
+/* Section Title */
+h2 {
+  margin: 30px 20px 10px;
+  font-size: 24px;
+  color: #444;
+  border-left: 5px solid #ff6f61;
+  padding-left: 10px;
+}
+
+/* Menu container */
+#menu {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Menu Item Card */
+#menu .item-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#menu .item-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+#menu .item-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+#menu .item-card h3 {
+  margin: 12px;
+  font-size: 20px;
+  color: #222;
+}
+
+#menu .item-card p {
+  margin: 0 12px 12px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #ff6f61;
+}
+
+/* Optional Add to Cart button */
+#menu .item-card button {
+  margin: 10px 12px 15px;
+  padding: 8px 14px;
+  border: none;
+  background: #ff6f61;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+#menu .item-card button:hover {
+  background: #e85a50;
+}
+/* Container for menu */
+#menu {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+  padding: 10px;
+}
+
+/* Each menu card */
+.menu-item {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+/* Card hover effect */
+.menu-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+}
+
+/* Item image */
+.menu-item img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Details inside card */
+.item-details {
+  padding: 12px;
+  text-align: center;
+}
+
+.item-details h3 {
+  font-size: 1.2rem;
+  margin: 8px 0;
+  color: #333;
+}
+
+.item-details p {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #007b5e;
+}
