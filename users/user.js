@@ -39,21 +39,31 @@ async function loadShops() {
         <h3>${shop.name || "Unnamed Shop"}</h3>
         <p>${shop.description || "No description available."}</p>
         <p><strong>Location:</strong> ${shop.location || "Unknown"}</p>
-        <button class="view-btn" onclick="viewShop('${doc.id}')">View Menu</button>
+        <button class="view-btn" data-id="${doc.id}">View Menu</button>
       `;
 
       shopsContainer.appendChild(shopCard);
     });
+
+    // Attach event listeners to all "View Menu" buttons
+    document.querySelectorAll(".view-btn").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        const shopId = e.target.getAttribute("data-id");
+        viewShop(shopId);
+      });
+    });
+
   } catch (error) {
     console.error("Error fetching shops:", error);
     shopsContainer.innerHTML = "<p>Error loading shops.</p>";
   }
 }
 
-window.viewShop = function(shopId) {
+function viewShop(shopId) {
+  // Save shopId for the next page
   localStorage.setItem("selectedShopId", shopId);
-  window.location.href = "shop.html";
-};
+  window.location.href = "shop.html"; // go to shop menu page
+}
 
 // Logout
 document.getElementById("logoutBtn").addEventListener("click", () => {
@@ -65,10 +75,9 @@ document.getElementById("logoutBtn").addEventListener("click", () => {
 });
 
 loadShops();
-// 🌿 Relaxing background color changer
 
-const colors = ["#A8DADC", "#F1FAEE", "#FFE6A7", "#E9D8FD", "#D0F4DE"]; 
-// light teal, off-white, cream yellow, lavender, mint green
+// 🌿 Background color changer
+const colors = ["#A8DADC", "#F1FAEE", "#FFE6A7", "#E9D8FD", "#D0F4DE"];
 const textFor = { 
   "#A8DADC": "#003049", 
   "#F1FAEE": "#1D3557", 
@@ -85,4 +94,4 @@ function applyBg() {
   i = (i + 1) % colors.length;
 }
 applyBg();
-setInterval(applyBg, 4000); // slower change: every 4s
+setInterval(applyBg, 4000);
