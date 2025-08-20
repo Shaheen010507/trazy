@@ -79,7 +79,7 @@ document.getElementById("submit").addEventListener("click", async (event) => {
 // Role-based redirect
 function redirectBasedOnRole(role) {
   if (role === "user") {
-    window.location.href = "trazy/users/user.html";
+    window.location.href = "users/user.html";
   } else if (role === "owner") {
     window.location.href = "owner/owner.html";
   }
