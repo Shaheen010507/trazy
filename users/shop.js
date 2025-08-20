@@ -51,11 +51,84 @@ async function loadShop() {
   menuEl.innerHTML = "";
   itemsSnap.forEach((itemDoc) => {
     const item = itemDoc.data();
-    const p = document.createElement("p");
-    p.textContent = `${item.name} - ₹${item.price}`;
-    menuEl.appendChild(p);
+
+    // Create a card for each menu item
+    const card = document.createElement("div");
+    card.classList.add("menu-item");
+
+    // Image
+    const img = document.createElement("img");
+    img.src = item.image || "https://via.placeholder.com/150?text=No+Image";
+    img.alt = item.name;
+    card.appendChild(img);
+
+    // Item details
+    const details = document.createElement("div");
+    details.classList.add("item-details");
+
+    const name = document.createElement("h3");
+    name.textContent = item.name || "Unnamed Item";
+    details.appendChild(name);
+
+    const price = document.createElement("p");
+    price.textContent = `₹${item.price || "N/A"}`;
+    details.appendChild(price);
+
+    card.appendChild(details);
+
+    // 🔥 Attach click event to open popup
+    card.addEventListener("click", () => openPopup(item));
+
+    menuEl.appendChild(card);
   });
 }
 
 loadShop();
 
+// ==================== Popup Section ==================== //
+const popup = document.createElement("div");
+popup.id = "itemPopup";
+popup.style.display = "none"; // initially hidden
+popup.innerHTML = `
+  <div class="popup-content">
+    <span id="closePopup">&times;</span>
+    <img id="popupImage" src="" alt="Food Image">
+    <h2 id="popupName"></h2>
+    <p id="popupPrice"></p>
+    <div class="popup-actions">
+      <button id="addToCartBtn">Add to Cart</button>
+      <button id="buyNowBtn">Buy Now</button>
+    </div>
+  </div>
+`;
+document.body.appendChild(popup);
+
+// Function to open popup with item data
+function openPopup(item) {
+  document.getElementById("popupImage").src = item.image || "https://via.placeholder.com/200";
+  document.getElementById("popupName").innerText = item.name || "Unnamed Item";
+  document.getElementById("popupPrice").innerText = `₹${item.price || "N/A"}`;
+
+  // Add actions
+  document.getElementById("addToCartBtn").onclick = () => {
+    alert(`${item.name} added to cart!`);
+    closePopup();
+  };
+
+  document.getElementById("buyNowBtn").onclick = () => {
+    // Redirect to payment page (replace with your payment link/page)
+    window.location.href = "payment.html?item=" + encodeURIComponent(item.name) + "&price=" + item.price;
+  };
+
+  popup.style.display = "flex";
+}
+
+// Close popup function
+function closePopup() {
+  popup.style.display = "none";
+}
+
+document.getElementById("closePopup").onclick = closePopup;
+window.onclick = (event) => {
+  if (event.target === popup) closePopup();
+};
