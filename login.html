@@ -1,28 +1,170 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Login</title>
+  <title>Login - Trazy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #f85e16, #fc9b1d); /* matches Trazy palette */
+    }
+
+    .container {
+      background: #fff;
+      width: 380px;
+      padding: 35px 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      animation: slideIn 0.6s ease;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateY(-30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .container h2 {
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 25px;
+      color: #333;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    label {
+      font-size: 14px;
+      font-weight: 500;
+      color: #555;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 14px;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    input:focus {
+      border-color: #fd9737;
+      box-shadow: 0 0 5px rgb(240, 143, 17);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 14px;
+      background: #fc7922;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+      margin-bottom: 15px;
+    }
+
+    .btn:hover {
+      background: #faae22;
+      transform: translateY(-2px);
+    }
+
+    .forgot-btn {
+      width: 100%;
+      padding: 12px;
+      background: #f1f3f5;
+      border: none;
+      border-radius: 10px;
+      color: #333;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-bottom: 15px;
+    }
+
+    .forgot-btn:hover {
+      background: #e0e3e7;
+    }
+
+    .signup-link {
+      font-size: 14px;
+      color: #555;
+    }
+
+    .signup-link a {
+      color: #6C63FF;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .signup-link a:hover {
+      text-decoration: underline;
+    }
+    .google-btn {
+  background: #fff;
+  color: #555;
+  border: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-weight: 500;
+}
+
+.google-btn:hover {
+  background: #f1f3f5;
+  border-color: #ccc;
+}
+
+
+  </style>
 </head>
 <body>
-  <h2>Login</h2>
+  <div class="container">
+    <h2>Login to Trazy</h2>
+    <form>
+      <div class="form-group">
+        <label for="loginEmail">Email</label>
+        <input type="email" id="loginEmail" placeholder="Enter your email" required>
+      </div>
+      <div class="form-group">
+        <label for="loginPassword">Password</label>
+        <input type="password" id="loginPassword" placeholder="Enter your password" required>
+      </div>
+      <button class="btn" id="loginBtn">Login</button>
+      <button type="button" class="btn google-btn" onclick="signInWithGoogle()">
+  <img src="https://img.icons8.com/color/24/google-logo.png" alt="Google Logo" style="vertical-align: middle; margin-right: 8px;">
+  Sign in with Google
+</button>
 
-  <form>
-    <label for="loginEmail">Email:</label>
-    <input type="email" id="loginEmail" required><br><br>
-
-    <label for="loginPassword">Password:</label>
-    <input type="password" id="loginPassword" required><br><br>
-
-    <button id="loginBtn">Login</button>
-    <button type="button" id="forgotPasswordBtn">Forgot Password?</button>
-  </form>
-
-  <p>
-    Don't have an account? <a href="signup.html">Sign Up</a>
-  </p>
+      <button type="button" class="forgot-btn" id="forgotPasswordBtn">Forgot Password?</button>
+    </form>
+    <p class="signup-link">
+      Don't have an account? <a href="signup.html">Sign Up</a>
+    </p>
+  </div>
 
   <script type="module" src="login.js"></script>
 </body>

@@ -141,3 +141,120 @@ h2 {
   font-weight: bold;
   color: #007b5e;
 }
+/* Popup overlay */
+#itemPopup {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: none; /* hidden initially */
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 15px; /* small gap for mobile edges */
+}
+
+/* Popup box */
+#itemPopup .popup-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+  text-align: center;
+  position: relative;
+  animation: scaleIn 0.3s ease-in-out;
+}
+
+/* Close button (X) */
+#itemPopup #closePopup {
+  position: absolute;
+  top: 10px; right: 15px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+}
+
+/* Popup image */
+#itemPopup img {
+  width: 100%;
+  max-height: 220px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+/* Food name */
+#itemPopup h2 {
+  margin: 0;
+  font-size: 20px;
+  color: #222;
+}
+
+/* Price */
+#itemPopup p {
+  font-size: 18px;
+  color: #555;
+  margin: 10px 0 20px 0;
+}
+
+/* Buttons container */
+.popup-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap; /* stack if no space */
+}
+
+.popup-actions button {
+  flex: 1;
+  min-width: 120px;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.2s;
+}
+
+/* Buttons */
+#addToCartBtn {
+  background: #ff6600;
+  color: white;
+}
+
+#buyNowBtn {
+  background: #28a745;
+  color: white;
+}
+
+.popup-actions button:hover {
+  opacity: 0.9;
+}
+
+/* Animation */
+@keyframes scaleIn {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* 🔥 Responsive tweaks */
+@media (max-width: 480px) {
+  #itemPopup .popup-content {
+    padding: 15px;
+    border-radius: 10px;
+  }
+  #itemPopup h2 {
+    font-size: 18px;
+  }
+  #itemPopup p {
+    font-size: 16px;
+  }
+  .popup-actions button {
+    font-size: 14px;
+    min-width: 100px;
+    padding: 8px;
+  }
+}
