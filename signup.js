@@ -1,16 +1,9 @@
+// Firebase imports
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-import { 
-  getAuth, 
-  createUserWithEmailAndPassword, 
-  signInWithEmailAndPassword 
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-import { 
-  getFirestore, 
-  setDoc, 
-  doc, 
-  getDoc 
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import { getFirestore, setDoc, doc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
+// Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDuzBpeML-DAjCqeF3Z5iX6H_0oZR7v3dg",
   authDomain: "trazy-2142e.firebaseapp.com",
@@ -24,15 +17,21 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-document.getElementById("submit").addEventListener("click", async (event) => {
+// Signup button
+document.getElementById("signupBtn").addEventListener("click", async (event) => {
   event.preventDefault();
 
   const fullname = document.getElementById("fullname").value.trim();
-  const email = document.getElementById("email").value.trim();
   const username = document.getElementById("username").value.trim();
-  const password = document.getElementById("password").value.trim();
-  const confirmPassword = document.getElementById("confirm-password").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  const confirmPassword = document.getElementById("confirmpassword").value;
   const role = document.getElementById("role").value;
+
+  if (!fullname || !username || !email || !password || !confirmPassword || !role) {
+    alert("Please fill all fields.");
+    return;
+  }
 
   if (password !== confirmPassword) {
     alert("Passwords do not match!");
@@ -40,52 +39,30 @@ document.getElementById("submit").addEventListener("click", async (event) => {
   }
 
   try {
-    // Try creating new account
+    // Create user in Firebase Auth
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
+    const uid = userCredential.user.uid;
 
-    // Store extra data in Firestore
-    await setDoc(doc(db, "users", user.uid), {
-      fullname,
-      username,
-      role
+    // Save extra details in Firestore
+    await setDoc(doc(db, "users", uid), {
+      fullname: fullname,
+      username: username,
+      email: email,
+      role: role,
+      createdAt: new Date()
     });
 
-    alert("Account created successfully!");
-    redirectBasedOnRole(role);
-
-  } catch (error) {
-    if (error.code === "auth/email-already-in-use") {
-      // If email exists → try logging in
-      try {
-        const loginCred = await signInWithEmailAndPassword(auth, email, password);
-        const userDoc = await getDoc(doc(db, "users", loginCred.user.uid));
-
-        if (userDoc.exists()) {
-          redirectBasedOnRole(userDoc.data().role);
-        } else {
-          alert("User data not found.");
-        }
-      } catch (loginError) {
-        alert("Email already registered. Please log in manually.");
-        window.location.href = "login.html";
-      }
+    // Redirect based on role
+    if (role === "user") {
+      window.location.href = "users/user.html";
+    } else if (role === "owner") {
+      window.location.href = "owner/owner.html";
+    } else if (role === "delivery") {
+      window.location.href = "delivery/delivery.html";
     } else {
-      alert(error.message);
+      alert("Unknown role. Contact admin.");
     }
+  } catch (error) {
+    alert(error.message);
   }
 });
-
-// Role-based redirect
-function redirectBasedOnRole(role) {
-  if (role === "user") {
-    window.location.href = "users/user.html";
-  } else if (role === "owner") {
-    window.location.href = "owner/owner.html";
-  }
-  else if (role === "delivery") {
-    window.location.href = "delivery/delivery.html";
-  } else {
-    window.location.href = "index.html";
-  }
-}

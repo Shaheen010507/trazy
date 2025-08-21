@@ -131,3 +131,26 @@ main { background-color: #f8f8f8; }
 .shop-card { background: #fff; }
 
 /* header/footer can keep their own colors */
+/* Cart icon container */
+.cart-container {
+  position: fixed;  /* always visible */
+  top: 15px; 
+  right: 20px;
+  font-size: 28px;
+  cursor: pointer;
+  color: #333;
+  z-index: 1100;
+}
+
+/* Count badge */
+#cartCount {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  background: red;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 2px 7px;
+  border-radius: 50%;
+}
