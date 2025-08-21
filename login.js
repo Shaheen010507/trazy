@@ -1,7 +1,7 @@
 // Firebase imports
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -13,14 +13,15 @@ const firebaseConfig = {
   appId: "1:4891427196:web:b8a9b5d0e05232c25124f9"
 };
 
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+const provider = new GoogleAuthProvider();
 
-// Login
+// ---------------- Email/Password Login ----------------
 document.getElementById("loginBtn").addEventListener("click", async (event) => {
   event.preventDefault();
-
   const email = document.getElementById("loginEmail").value;
   const password = document.getElementById("loginPassword").value;
 
@@ -28,20 +29,11 @@ document.getElementById("loginBtn").addEventListener("click", async (event) => {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const uid = userCredential.user.uid;
 
-    // Get role from Firestore
+    // Fetch role from Firestore
     const docSnap = await getDoc(doc(db, "users", uid));
     if (docSnap.exists()) {
       const role = docSnap.data().role;
-
-      if (role === "user") {
-        window.location.href = "users/user.html";
-      } else if (role === "owner") {
-        window.location.href = "owner/owner.html";
-      } else if (role === "delivery") {
-        window.location.href = "delivery/delivery.html";
-      } else {
-        alert("Role not found. Contact admin.");
-      }
+      redirectByRole(role);
     } else {
       alert("No user data found.");
     }
@@ -50,7 +42,7 @@ document.getElementById("loginBtn").addEventListener("click", async (event) => {
   }
 });
 
-// Forgot Password
+// ---------------- Forgot Password ----------------
 document.getElementById("forgotPasswordBtn").addEventListener("click", async () => {
   const email = prompt("Enter your email for password reset:");
   if (!email) return;
@@ -62,3 +54,39 @@ document.getElementById("forgotPasswordBtn").addEventListener("click", async () 
     alert(error.message);
   }
 });
+
+// ---------------- Google Sign-In ----------------
+window.signInWithGoogle = async () => {
+  try {
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+
+    // Check if user already exists in Firestore
+    const docRef = doc(db, "users", user.uid);
+    const docSnap = await getDoc(docRef);
+
+    if (!docSnap.exists()) {
+      // If new user, add to Firestore with default role "user"
+      await setDoc(docRef, { email: user.email, role: "user" });
+    }
+
+    redirectByRole(docSnap.exists() ? docSnap.data().role : "user");
+
+  } catch (error) {
+    console.error("Error during Google sign-in:", error);
+    alert(error.message);
+  }
+};
+
+// ---------------- Helper Function ----------------
+function redirectByRole(role) {
+  if (role === "user") {
+    window.location.href = "users/user.html";
+  } else if (role === "owner") {
+    window.location.href = "owner/owner.html";
+  } else if (role === "delivery") {
+    window.location.href = "delivery/delivery.html";
+  } else {
+    alert("Role not found. Contact admin.");
+  }
+}

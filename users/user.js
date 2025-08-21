@@ -1,6 +1,6 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-firestore.js";
-import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-auth.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
 // Firebase config
 const firebaseConfig = {
@@ -95,3 +95,22 @@ function applyBg() {
 }
 applyBg();
 setInterval(applyBg, 4000);
+let cartItems = []; // temporary array (later we connect Firebase)
+
+// Function to update badge
+function updateCartCount() {
+  document.getElementById("cartCount").innerText = cartItems.length;
+}
+
+// Example: when user clicks "Add to Cart" in popup
+document.getElementById("addToCartBtn").onclick = () => {
+  cartItems.push(item); // add item to cart
+  updateCartCount();
+  alert(`${item.name} added to cart!`);
+  closePopup();
+};
+
+// Redirect to cart page
+function goToCart() {
+  window.location.href = "cart.html"; // create this page later
+}
