@@ -116,8 +116,8 @@ function openPopup(item) {
   };
 
   document.getElementById("buyNowBtn").onclick = () => {
-    // Redirect to payment page (replace with your payment link/page)
-    window.location.href = "payment.html?item=" + encodeURIComponent(item.name) + "&price=" + item.price;
+    // Redirect to order.html instead of payment.html
+    window.location.href = "order.html?name=" + encodeURIComponent(item.name) + "&price=" + item.price;
   };
 
   popup.style.display = "flex";
