@@ -50,7 +50,8 @@ async function loadShop() {
 
   menuEl.innerHTML = "";
   itemsSnap.forEach((itemDoc) => {
-    const item = itemDoc.data();
+    // 🔥 include the item ID
+    const item = { id: itemDoc.id, ...itemDoc.data() };
 
     // Create a card for each menu item
     const card = document.createElement("div");
@@ -76,7 +77,7 @@ async function loadShop() {
 
     card.appendChild(details);
 
-    // 🔥 Attach click event to open popup
+    // 🔥 open popup with full item info
     card.addEventListener("click", () => openPopup(item));
 
     menuEl.appendChild(card);
@@ -116,8 +117,8 @@ function openPopup(item) {
   };
 
   document.getElementById("buyNowBtn").onclick = () => {
-    // Redirect to order.html instead of payment.html
-    window.location.href = "order.html?name=" + encodeURIComponent(item.name) + "&price=" + item.price;
+    // 🔥 Pass shopId and itemId in URL
+    window.location.href = `order.html?shopId=${shopId}&itemId=${item.id}`;
   };
 
   popup.style.display = "flex";
