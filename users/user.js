@@ -68,7 +68,7 @@ function viewShop(shopId) {
 // Logout
 document.getElementById("logoutBtn").addEventListener("click", () => {
   signOut(auth).then(() => {
-    window.location.href = "login.html";
+    window.location.href = "../login.html";
   }).catch((error) => {
     console.error("Logout error:", error);
   });
