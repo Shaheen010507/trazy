@@ -1,111 +1,57 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Trazy — Owner Dashboard</title>
-<link rel="stylesheet" href="owner.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Owner Dashboard</title>
 </head>
 <body>
-  <header class="topbar">
-    <div class="brand">
-      <div class="logo">T</div>
-      <div>
-        <h1>Trazy Owner Panel</h1>
-        <div class="muted" style="font-size:12px">Manage orders • Manage menu • Live updates</div>
-      </div>
-    </div>
-    <div class="controls">
-      <button class="btn" id="simulateOrder">Simulate Order</button>
-      <button class="btn" id="addItemBtn">+ Add Item</button>
-      <button class="btn">Logout</button>
+  <header>
+    <h1 id="shopTitle">Your Shop</h1>
+    <div>
+      <span>Owner: <strong id="ownerEmail"></strong></span>
+      <button id="signOutBtn">Sign Out</button>
     </div>
   </header>
 
-  <main class="container">
-    <!-- Left: Live Orders -->
-    <section class="panel">
-      <h2>Live Orders <span id="liveCount" class="badge"></span></h2>
-      <div class="orders-list" id="ordersList"></div>
-    </section>
-
-    <!-- Center: Inventory -->
-    <section class="panel">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-        <h2>Menu Inventory</h2>
-        <div class="search">
-          <input id="searchInventory" type="text" placeholder="Search items..." style="padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit">
-        </div>
-      </div>
-
-      <div class="inventory-grid" id="inventoryList"></div>
-      <div style="margin-top:12px;font-size:13px;color:var(--muted)">Tip: Use <strong>Add Item</strong> to create menu entries. Edit or Delete as needed.</div>
-    </section>
-
-    <!-- Right: Order History -->
-    <aside class="panel">
-      <h2>Order History <span id="histCount" class="badge"></span></h2>
-      <div class="history-list" id="historyList"></div>
-    </aside>
-  </main>
-
-  <footer class="hint">Trazy • Owner dashboard prototype — frontend only. We'll plug Firebase next to persist per-shop menu & real-time orders.</footer>
-
-  <!-- Modals -->
-  <div class="modal-backdrop" id="itemModalBackdrop">
-    <div class="modal" role="dialog" aria-modal="true">
-      <h3 id="modalTitle">Add Item</h3>
+  <main>
+    <section>
+      <h2>Add / Edit Item</h2>
       <form id="itemForm">
-        <div class="form-row" style="margin-top:8px">
-          <div style="flex:1">
-            <label>Name</label>
-            <input id="itemName" type="text" required />
-          </div>
-          <div style="width:140px">
-            <label>Price</label>
-            <input id="itemPrice" type="number" min="0" step="0.5" required />
-          </div>
+        <input type="hidden" id="editItemId">
+        <div>
+          <label for="itemName">Item Name:</label>
+          <input type="text" id="itemName" required>
         </div>
-        <div style="margin-top:8px">
-          <label>Description</label>
-          <textarea id="itemDesc"></textarea>
+        <div>
+          <label for="itemPrice">Price (₹):</label>
+          <input type="number" id="itemPrice" step="0.01" required>
         </div>
-        <div class="form-row" style="margin-top:8px">
-          <div style="flex:1">
-            <label>Quantity available</label>
-            <input id="itemQty" type="number" min="0" step="1" value="10" />
-          </div>
-          <div style="width:160px">
-            <label>Image (optional)</label>
-            <input id="itemImage" type="file" accept="image/*" />
-          </div>
+        <div>
+          <label for="itemAvailable">Available:</label>
+          <input type="checkbox" id="itemAvailable" checked>
         </div>
-
-        <div style="margin-top:10px;display:flex;gap:8px;align-items:center">
-          <div style="width:80px;height:60px;border-radius:8px;overflow:hidden;background:#061226;display:flex;align-items:center;justify-content:center" id="imagePreview">No image</div>
-          <div style="color:var(--muted);font-size:13px">Tip: images are stored locally for demo. We'll switch to storage bucket when integrating backend.</div>
-        </div>
-
-        <div class="modal-actions">
-          <button type="button" class="btn" id="cancelItem">Cancel</button>
-          <button type="submit" class="primary" id="saveItem">Save Item</button>
-        </div>
+        <button type="submit" id="saveBtn">Save Item</button>
       </form>
-    </div>
-  </div>
+    </section>
 
-  <div class="modal-backdrop" id="confirmDeleteBackdrop">
-    <div class="modal">
-      <h3>Delete Item?</h3>
-      <p class="muted">Are you sure you want to remove this menu item? This action cannot be undone in this demo.</p>
-      <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px">
-        <button class="btn" id="cancelDelete">Cancel</button>
-        <button class="primary" id="confirmDelete">Delete</button>
-      </div>
-    </div>
-  </div>
-
-  <script src="owner.js"></script>
-
+    <section>
+      <h2>Shop Items</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Available</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="itemsTbody">
+          <!-- Items will populate here live -->
+        </tbody>
+      </table>
+    </section>
+  </main>
+  <script type="module" src="owner.js"></script>
 </body>
 </html>
