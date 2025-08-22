@@ -1,7 +1,18 @@
 // Firebase imports
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+import { 
+  getAuth, 
+  signInWithEmailAndPassword, 
+  sendPasswordResetEmail, 
+  GoogleAuthProvider, 
+  signInWithPopup 
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import { 
+  getFirestore, 
+  doc, 
+  getDoc, 
+  setDoc 
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -29,13 +40,28 @@ document.getElementById("loginBtn").addEventListener("click", async (event) => {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const uid = userCredential.user.uid;
 
-    // Fetch role from Firestore
-    const docSnap = await getDoc(doc(db, "users", uid));
-    if (docSnap.exists()) {
-      const role = docSnap.data().role;
+    // Check across all collections
+    let role = null;
+
+    const userSnap = await getDoc(doc(db, "users", uid));
+    if (userSnap.exists()) {
+      role = "user";
+    }
+
+    const ownerSnap = await getDoc(doc(db, "owners", uid));
+    if (ownerSnap.exists()) {
+      role = "owner";
+    }
+
+    const deliverySnap = await getDoc(doc(db, "delivery", uid));
+    if (deliverySnap.exists()) {
+      role = "delivery";
+    }
+
+    if (role) {
       redirectByRole(role);
     } else {
-      alert("No user data found.");
+      alert("No account found. Please sign up first.");
     }
   } catch (error) {
     alert(error.message);
@@ -61,24 +87,21 @@ window.signInWithGoogle = async () => {
     const result = await signInWithPopup(auth, provider);
     const user = result.user;
 
-    // Check if user already exists in Firestore
+    // Default: save Google user in "users" collection
     const docRef = doc(db, "users", user.uid);
     const docSnap = await getDoc(docRef);
 
     if (!docSnap.exists()) {
-      // If new user, add to Firestore with default role "user"
-      await setDoc(docRef, { email: user.email, role: "user" });
+      await setDoc(docRef, { email: user.email });
     }
 
-    redirectByRole(docSnap.exists() ? docSnap.data().role : "user");
-
+    redirectByRole("user"); // Google sign-in always treated as "user"
   } catch (error) {
     console.error("Error during Google sign-in:", error);
     alert(error.message);
   }
 };
 
-// ---------------- Helper Function ----------------
 function redirectByRole(role) {
   if (role === "user") {
     window.location.href = "users/user.html";
