@@ -37,7 +37,7 @@ function escapeHtml(s) {
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
     alert("Please log in as an owner.");
-    window.location.href = "login.html";
+    window.location.href = "../login.html";
     return;
   }
 
@@ -49,7 +49,7 @@ onAuthStateChanged(auth, async (user) => {
   if (!ownerDoc.exists()) {
     alert("Access denied: not an owner account.");
     await signOut(auth);
-    window.location.href = "login.html";
+    window.location.href = "../login.html";
     return;
   }
 
