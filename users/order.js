@@ -84,7 +84,7 @@ document.getElementById("orderForm").addEventListener("submit", async (e) => {
     });
 
     alert("Order placed successfully!");
-    window.location.href = "thankyou.html";
+    window.location.href = "shop.html";
 
   } catch (error) {
     console.error("Error placing order:", error);
