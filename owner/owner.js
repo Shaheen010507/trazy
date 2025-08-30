@@ -2,7 +2,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebas
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 import {
   getFirestore, doc, getDoc, setDoc, serverTimestamp,
-  collection, addDoc, onSnapshot, updateDoc, deleteDoc
+  collection, addDoc, onSnapshot, updateDoc, deleteDoc, query, where
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 // Firebase config
@@ -24,6 +24,7 @@ const ownerEmailEl = document.getElementById("ownerEmail");
 const signOutBtn = document.getElementById("signOutBtn");
 const itemForm = document.getElementById("itemForm");
 const itemsTbody = document.getElementById("itemsTbody");
+const ordersContainer = document.getElementById("ordersContainer");
 
 let CURRENT_UID = null;
 let ITEMS_REF = null;
@@ -33,7 +34,7 @@ function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
 
-// Auth & Role Check
+// ------------------- Auth & Owner Check -------------------
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
     alert("Please log in as an owner.");
@@ -69,10 +70,8 @@ onAuthStateChanged(auth, async (user) => {
   const shopData = (await getDoc(shopRef)).data();
   shopTitle.textContent = shopData?.shopname || "Your Shop";
 
-  // Items reference
+  // ------------------- Shop Items -------------------
   ITEMS_REF = collection(db, "shops", CURRENT_UID, "items");
-
-  // Live snapshot of items
   onSnapshot(ITEMS_REF, (snap) => {
     itemsTbody.innerHTML = "";
     snap.forEach(d => {
@@ -90,9 +89,38 @@ onAuthStateChanged(auth, async (user) => {
       itemsTbody.appendChild(tr);
     });
   });
+
+  // ------------------- Orders Section -------------------
+  const ordersRef = collection(db, "orders");
+  const ordersQuery = query(ordersRef, where("shopId", "==", CURRENT_UID));
+
+  onSnapshot(ordersQuery, (snapshot) => {
+    ordersContainer.innerHTML = "";
+    if (snapshot.empty) {
+      ordersContainer.innerHTML = "<p>No orders yet.</p>";
+    }
+    snapshot.forEach(doc => {
+      const order = doc.data();
+      const div = document.createElement("div");
+      div.className = "order-card";
+      div.innerHTML = `
+        <h3>Order ID: ${doc.id}</h3>
+        <p><strong>Customer:</strong> ${escapeHtml(order.customerName)}</p>
+        <p><strong>Address:</strong> ${escapeHtml(order.address)}</p>
+        <p><strong>Item:</strong> ${escapeHtml(order.item.name)} - ₹${order.item.price}</p>
+        <p><strong>Payment:</strong> ${escapeHtml(order.paymentMethod)}</p>
+        <p><strong>Status:</strong> <span id="status-${doc.id}">${escapeHtml(order.status)}</span></p>
+        <p>
+          <button onclick="updateOrderStatus('${doc.id}', 'accepted')">Accept</button>
+          <button onclick="updateOrderStatus('${doc.id}', 'delivered')">Delivered</button>
+        </p>
+      `;
+      ordersContainer.appendChild(div);
+    });
+  });
 });
 
-// Add / Update item
+// ------------------- Add / Update Shop Item -------------------
 itemForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   if (!ITEMS_REF) return;
@@ -123,7 +151,7 @@ itemForm.addEventListener("submit", async (e) => {
   }
 });
 
-// Edit/Delete buttons
+// ------------------- Edit / Delete Buttons -------------------
 itemsTbody.addEventListener("click", async (e) => {
   const editId = e.target.getAttribute("data-edit");
   const delId = e.target.getAttribute("data-del");
@@ -148,7 +176,17 @@ itemsTbody.addEventListener("click", async (e) => {
   }
 });
 
-// Sign out
+// ------------------- Update Order Status -------------------
+window.updateOrderStatus = async function(orderId, status) {
+  try {
+    await updateDoc(doc(db, "orders", orderId), { status });
+  } catch (err) {
+    console.error(err);
+    alert("Error updating order: " + err.message);
+  }
+}
+
+// ------------------- Sign Out -------------------
 signOutBtn.addEventListener("click", async () => {
   await signOut(auth);
   window.location.href = "../login.html";

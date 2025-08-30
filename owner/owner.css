@@ -148,3 +148,124 @@ button.delete-btn {
 button.delete-btn:hover {
   background: #dc2626;
 }
+/* ---------------- Orders Section Styling ---------------- */
+#ordersContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* space between orders */
+  margin-top: 20px;
+}
+
+.order-card {
+  background: #fafafa;
+  border-left: 5px solid #4CAF50;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.order-card:hover {
+  transform: scale(1.01);
+}
+
+.order-card h3 {
+  margin-top: 0;
+  font-size: 1.1em;
+  color: #333;
+}
+
+.order-card p {
+  margin: 5px 0;
+}
+
+.order-card button {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 8px;
+  font-size: 0.9em;
+}
+
+.order-card button:hover {
+  background: #45a049;
+}
+
+/* Optional: color-coded status badges */
+.order-card span[id^="status-"] {
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.order-card span[id^="status-"][data-status="pending"] {
+  background-color: #f0ad4e;
+  color: white;
+}
+
+.order-card span[id^="status-"][data-status="accepted"] {
+  background-color: #5bc0de;
+  color: white;
+}
+
+.order-card span[id^="status-"][data-status="delivered"] {
+  background-color: #5cb85c;
+  color: white;
+}
+.order-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 15px;
+  margin: 10px 0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.order-card ul {
+  margin: 5px 0 10px;
+  padding-left: 20px;
+}
+
+button.accept-btn, button.delivered-btn {
+  margin-right: 8px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.accept-btn {
+  background: #ff9800;
+  color: white;
+}
+
+.delivered-btn {
+  background: #4caf50;
+  color: white;
+}
+
+.status-badge {
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.status-badge.pending {
+  background: #9e9e9e;
+  color: white;
+}
+
+.status-badge.accepted {
+  background: #ff9800;
+  color: white;
+}
+
+.status-badge.delivered {
+  background: #4caf50;
+  color: white;
+}
