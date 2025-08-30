@@ -1,8 +1,8 @@
-// ---------------- Firebase ----------------
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-import { getFirestore, collection, query, where, getDocs, orderBy } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+import { getFirestore, collection, query, where, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 
-// Your Firebase config
+// --- Firebase config ---
 const firebaseConfig = {
   apiKey: "AIzaSyDuzBpeML-DAjCqeF3Z5iX6H_0oZR7v3dg",
   authDomain: "trazy-2142e.firebaseapp.com",
@@ -12,37 +12,56 @@ const firebaseConfig = {
   appId: "1:4891427196:web:b8a9b5d0e05232c25124f9"
 };
 
-// Init Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = getAuth(app);
 
-// Function to load orders for a specific customer
-async function loadOrders(customerName) {
+// --- Containers ---
+const ongoingList = document.getElementById("ongoing-orders");
+const receivedList = document.getElementById("received-orders");
+
+// --- Load Orders ---
+function loadOrders(userId) {
   const ordersRef = collection(db, "orders");
-  const q = query(ordersRef, where("customerName", "==", customerName), orderBy("createdAt", "desc"));
-  const querySnapshot = await getDocs(q);
+  const q = query(ordersRef, where("userId", "==", userId), orderBy("createdAt", "desc"));
 
-  const orderList = document.getElementById("order-list");
-  orderList.innerHTML = "";
+  // Real-time updates
+  onSnapshot(q, (snapshot) => {
+    ongoingList.innerHTML = "";
+    receivedList.innerHTML = "";
 
-  if (querySnapshot.empty) {
-    orderList.innerHTML = "<p>No orders found.</p>";
-    return;
-  }
+    if (snapshot.empty) {
+      ongoingList.innerHTML = "<p>No orders found.</p>";
+      return;
+    }
 
-  querySnapshot.forEach((doc) => {
-    const order = doc.data();
-    const li = document.createElement("li");
-    li.innerHTML = `
-      <strong>${order.item.name}</strong> - ₹${order.item.price} <br>
-      Status: ${order.status} <br>
-      Address: ${order.address} <br>
-      Payment: ${order.paymentMethod} <br>
-      <small>${order.createdAt.toDate()}</small>
-    `;
-    orderList.appendChild(li);
+    snapshot.forEach((doc) => {
+      const order = doc.data();
+      const li = document.createElement("li");
+      li.className = "order-item";
+      li.innerHTML = `
+        <strong>${order.item.name}</strong> - ₹${order.item.price} <br>
+        Status: <span class="status">${order.status}</span> <br>
+        Address: ${order.address} <br>
+        Payment: ${order.paymentMethod} <br>
+        <small>${order.createdAt?.toDate ? order.createdAt.toDate().toLocaleString() : ""}</small>
+      `;
+
+      if (order.status === "delivered") {
+        receivedList.appendChild(li);
+      } else {
+        ongoingList.appendChild(li);
+      }
+    });
   });
 }
 
-// Load for your test user (replace "nithi" with logged-in customer later)
-loadOrders("nithi");
+// --- Use Firebase Auth to get current user ---
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    loadOrders(user.uid); // dynamically load orders for this user
+  } else {
+    // Not logged in, redirect to login page
+    window.location.href = "../login.html";
+  }
+});

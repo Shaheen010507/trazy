@@ -1,0 +1,41 @@
+
+  body {
+    background: linear-gradient(135deg, #fdf6e3, #e0f7fa);
+    font-family: 'Poppins', sans-serif;
+  }
+
+  header {
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  }
+
+  #ordersContainer {
+    margin-top: 20px;
+  }
+
+  .order-card {
+    transition: transform 0.2s, box-shadow 0.2s;
+    border-left: 5px solid #34d399; /* green accent for Trazy */
+  }
+
+  .order-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+  }
+
+  .order-card h3 {
+    color: #0f766e;
+  }
+
+  button {
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  button:hover {
+    opacity: 0.85;
+  }
+
+  /* Status text colors */
+  .status-pending { color: #f59e0b; }      /* yellow */
+  .status-on-the-way { color: #3b82f6; }   /* blue */
+  .status-delivered { color: #10b981; }    /* green */

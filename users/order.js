@@ -91,3 +91,16 @@ document.getElementById("orderForm").addEventListener("submit", async (e) => {
     alert("Failed to place order. Try again.");
   }
 });
+const statusEl = document.getElementById("orderStatus");
+
+onSnapshot(doc(db, "orders", orderId), (snap) => {
+  if (!snap.exists()) return;
+  const data = snap.data();
+  if(data.status === "accepted") {
+    statusEl.textContent = "Your order is being processed!";
+  } else if(data.status === "delivered") {
+    statusEl.textContent = "Your order has been delivered!";
+  } else {
+    statusEl.textContent = "Order pending...";
+  }
+});

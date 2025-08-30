@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trazy Delivery Dashboard</title>
+  <link rel="stylesheet" href="delivery.css">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 font-sans">
+  <header class="bg-green-500 text-white p-4 flex justify-between items-center">
+    <h1 class="text-2xl font-bold">Trazy Delivery</h1>
+    <button id="logoutBtn" class="bg-red-600 px-3 py-1 rounded">Logout</button>
+  </header>
+
+  <main class="p-4">
+    <h2 class="text-xl font-semibold mb-4">Your Assigned Orders</h2>
+    <div id="ordersContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- Order cards will be injected here -->
+    </div>
+  </main>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+    import { getFirestore, collection, query, where, getDocs, doc, updateDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+    // Firebase config
+    const firebaseConfig = {
+  apiKey: "AIzaSyDuzBpeML-DAjCqeF3Z5iX6H_0oZR7v3dg",
+  authDomain: "trazy-2142e.firebaseapp.com",
+  projectId: "trazy-2142e",
+  storageBucket: "trazy-2142e.firebasestorage.app",
+  messagingSenderId: "4891427196",
+  appId: "1:4891427196:web:b8a9b5d0e05232c25124f9"
+};
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth();
+    const db = getFirestore();
+
+    const ordersContainer = document.getElementById('ordersContainer');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    // Logout
+    logoutBtn.addEventListener('click', () => {
+      signOut(auth).then(() => window.location.href = 'login.html');
+    });
+
+    // Check auth state
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        loadOrders(user.uid);
+      } else {
+        window.location.href = '../login.html';
+      }
+    });
+
+    // Load orders assigned to this delivery person
+    async function loadOrders(deliveryPersonId) {
+      const q = query(collection(db, "orders"), where("assignedTo", "==", deliveryPersonId));
+
+      // Real-time listener
+      onSnapshot(q, (snapshot) => {
+        ordersContainer.innerHTML = ""; // Clear old orders
+        snapshot.forEach(docSnap => {
+          const order = docSnap.data();
+          const orderId = docSnap.id;
+          createOrderCard(order, orderId);
+        });
+      });
+    }
+
+    // Create order card
+    function createOrderCard(order, orderId) {
+      const card = document.createElement('div');
+      card.className = "bg-white p-4 rounded shadow";
+
+      card.innerHTML = `
+        <h3 class="font-bold text-lg mb-2">Order #${orderId}</h3>
+        <p><strong>Student:</strong> ${order.studentName}</p>
+        <p><strong>Items:</strong> ${order.items.join(", ")}</p>
+        <p><strong>Pickup:</strong> ${order.pickupLocation}</p>
+        <p><strong>Delivery:</strong> ${order.deliveryLocation}</p>
+        <p><strong>Status:</strong> <span id="status-${orderId}">${order.status}</span></p>
+        <div class="mt-2 flex gap-2">
+          <button class="bg-yellow-400 px-2 py-1 rounded" onclick="updateStatus('${orderId}', 'On the way')">Picked Up</button>
+          <button class="bg-green-500 text-white px-2 py-1 rounded" onclick="updateStatus('${orderId}', 'Delivered')">Delivered</button>
+        </div>
+      `;
+
+      ordersContainer.appendChild(card);
+    }
+
+    // Update order status
+    window.updateStatus = async (orderId, status) => {
+      const orderRef = doc(db, "orders", orderId);
+      await updateDoc(orderRef, { status });
+      document.getElementById(`status-${orderId}`).innerText = status;
+    };
+  </script>
+</body>
+</html>
