@@ -119,3 +119,37 @@ select:focus {
     opacity: 1;
   }
 }
+.role-buttons {
+  display: flex;
+  justify-content: center; /* center horizontally */
+  gap: 20px; /* space between buttons */
+  margin-top: 50px;
+}
+
+.role-buttons button {
+  padding: 12px 25px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #fff;
+  background-color: #007bff; /* blue button */
+}
+
+.role-buttons button:hover {
+  background-color: #0056b3; /* darker blue on hover */
+  transform: translateY(-2px); /* slight lift effect */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Optional: Different colors for each role */
+.role-buttons button:nth-child(1) { background-color: #28a745; } /* User - green */
+.role-buttons button:nth-child(1):hover { background-color: #1e7e34; }
+
+.role-buttons button:nth-child(2) { background-color: #ffc107; color: #000; } /* Owner - yellow */
+.role-buttons button:nth-child(2):hover { background-color: #e0a800; }
+
+.role-buttons button:nth-child(3) { background-color: #17a2b8; } /* Delivery - teal */
+.role-buttons button:nth-child(3):hover { background-color: #117a8b; }
