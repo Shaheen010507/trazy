@@ -5,7 +5,8 @@ import {
   getDoc, 
   collection, 
   addDoc, 
-  serverTimestamp 
+  serverTimestamp,
+  onSnapshot   // ✅ FIX: import added
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -26,10 +27,11 @@ const itemId = params.get("itemId");
 
 const productNameEl = document.getElementById("productName");
 const productPriceEl = document.getElementById("productPrice");
+const statusEl = document.getElementById("orderStatus");
 
 let currentItem = null; // store loaded product
 
-// ---------------- Load product from Firestore ----------------
+// ---------------- Load product ----------------
 async function loadProduct() {
   if (!shopId || !itemId) {
     alert("Invalid product data!");
@@ -46,15 +48,14 @@ async function loadProduct() {
   }
 
   currentItem = snap.data();
-  currentItem.id = itemId; // include itemId
+  currentItem.id = itemId;
 
   productNameEl.innerText = currentItem.name;
   productPriceEl.innerText = "₹" + currentItem.price;
 }
-
 loadProduct();
 
-// ---------------- Handle order submit ----------------
+// ---------------- Place order ----------------
 document.getElementById("orderForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -63,13 +64,13 @@ document.getElementById("orderForm").addEventListener("submit", async (e) => {
     return;
   }
 
-  // Get customer input
   const name = document.getElementById("name").value;
   const address = document.getElementById("address").value;
   const payment = document.getElementById("payment").value;
 
   try {
-    await addDoc(collection(db, "orders"), {
+    // ✅ Save order and get ID
+    const docRef = await addDoc(collection(db, "orders"), {
       customerName: name,
       address: address,
       paymentMethod: payment,
@@ -84,23 +85,35 @@ document.getElementById("orderForm").addEventListener("submit", async (e) => {
     });
 
     alert("Order placed successfully!");
-    window.location.href = "shop.html";
+
+    // ✅ Now listen for status updates of THIS order
+    trackOrderStatus(docRef.id);
+
+    // Optional: redirect after short delay
+    setTimeout(() => {
+      window.location.href = "thankyou.html";
+    }, 2000);
 
   } catch (error) {
     console.error("Error placing order:", error);
     alert("Failed to place order. Try again.");
   }
 });
-const statusEl = document.getElementById("orderStatus");
 
-onSnapshot(doc(db, "orders", orderId), (snap) => {
-  if (!snap.exists()) return;
-  const data = snap.data();
-  if(data.status === "accepted") {
-    statusEl.textContent = "Your order is being processed!";
-  } else if(data.status === "delivered") {
-    statusEl.textContent = "Your order has been delivered!";
-  } else {
-    statusEl.textContent = "Order pending...";
-  }
-});
+// ---------------- Track order status ----------------
+function trackOrderStatus(orderId) {
+  const orderRef = doc(db, "orders", orderId);
+
+  onSnapshot(orderRef, (snap) => {
+    if (!snap.exists()) return;
+    const data = snap.data();
+
+    if (data.status === "accepted") {
+      statusEl.textContent = "✅ Your order is being processed!";
+    } else if (data.status === "delivered") {
+      statusEl.textContent = "🎉 Your order has been delivered!";
+    } else {
+      statusEl.textContent = "⏳ Order pending...";
+    }
+  });
+}

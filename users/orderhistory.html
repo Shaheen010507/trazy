@@ -1,19 +1,90 @@
+<!-- orderhistory.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Order History</title>
-  <link rel="stylesheet" href="orderhistory.css">
 </head>
 <body>
-  <h2>Your Orders</h2>
   <h2>Ongoing Orders</h2>
-<ul id="ongoing-orders"></ul>
+  <ul id="ongoing-orders"></ul>
 
-<h2>Received Products</h2>
-<ul id="received-orders"></ul>
+  <h2>Received Orders</h2>
+  <ul id="received-orders"></ul>
 
-  
-  <script type="module" src="orderhistory.js"></script>
+  <h2 id="total-spent">Total Spent: ₹0</h2>
+
+  <!-- Firebase + Your JS -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+    import { getFirestore, collection, query, where, onSnapshot } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDuzBpeML-DAjCqeF3Z5iX6H_0oZR7v3dg",
+      authDomain: "trazy-2142e.firebaseapp.com",
+      projectId: "trazy-2142e",
+      storageBucket: "trazy-2142e.firebasestorage.app",
+      messagingSenderId: "4891427196",
+      appId: "1:4891427196:web:b8a9b5d0e05232c25124f9"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+
+    // Wait for DOM
+    document.addEventListener("DOMContentLoaded", () => {
+      const ongoingList = document.getElementById("ongoing-orders");
+      const receivedList = document.getElementById("received-orders");
+      const totalSpentEl = document.getElementById("total-spent");
+
+      if (!ongoingList || !receivedList || !totalSpentEl) {
+        console.error("DOM elements missing. Check IDs!");
+        return;
+      }
+
+      // Check logged-in user
+      onAuthStateChanged(auth, (user) => {
+        if (!user) {
+          console.log("No user logged in");
+          window.location.href = "login.html";
+          return;
+        }
+
+        const q = query(collection(db, "orders"), where("userId", "==", user.uid));
+
+        onSnapshot(q, (snapshot) => {
+          ongoingList.innerHTML = "";
+          receivedList.innerHTML = "";
+          let totalSpent = 0;
+
+          snapshot.forEach((doc) => {
+            const order = doc.data();
+
+            if (!order.item || !order.item.name || order.item.price === undefined) {
+              console.warn("Order missing item details:", order);
+              return;
+            }
+
+            const li = document.createElement("li");
+            li.textContent = `${order.item.name} - ₹${order.item.price} | ${order.status} | ${order.createdAt || ""}`;
+
+            if (order.status.toLowerCase() === "delivered") {
+              totalSpent += order.item.price;
+              receivedList.appendChild(li);
+            } else {
+              ongoingList.appendChild(li);
+            }
+          });
+
+          totalSpentEl.textContent = "Total Spent: ₹" + totalSpent;
+        }, (error) => {
+          console.error("Error fetching orders:", error);
+        });
+      });
+    });
+  </script>
 </body>
 </html>
