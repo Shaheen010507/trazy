@@ -177,9 +177,20 @@ itemsTbody.addEventListener("click", async (e) => {
 });
 
 // ------------------- Update Order Status -------------------
-window.updateOrderStatus = async function(orderId, status) {
+window.updateOrderStatus = async function(orderId, action) {
   try {
-    await updateDoc(doc(db, "orders", orderId), { status });
+    let newStatus;
+
+    if (action === "accepted") {
+      newStatus = "processing"; // user side will see "Order Processing"
+    } else if (action === "delivered") {
+      newStatus = "out-for-delivery"; // delivery boy dashboard
+    }
+
+    if (newStatus) {
+      await updateDoc(doc(db, "orders", orderId), { status: newStatus });
+      console.log(`Order ${orderId} updated → ${newStatus}`);
+    }
   } catch (err) {
     console.error(err);
     alert("Error updating order: " + err.message);
@@ -191,4 +202,3 @@ signOutBtn.addEventListener("click", async () => {
   await signOut(auth);
   window.location.href = "../login.html";
 });
-

@@ -1,67 +1,73 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-import { getFirestore, collection, query, where, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+// Wait for the DOM to be fully loaded
+document.addEventListener("DOMContentLoaded", () => {
+  // Get DOM elements
+  const ongoingList = document.getElementById("ongoing-orders");
+  const receivedList = document.getElementById("received-orders");
+  const totalSpentEl = document.getElementById("total-spent");
 
-// --- Firebase config ---
-const firebaseConfig = {
-  apiKey: "AIzaSyDuzBpeML-DAjCqeF3Z5iX6H_0oZR7v3dg",
-  authDomain: "trazy-2142e.firebaseapp.com",
-  projectId: "trazy-2142e",
-  storageBucket: "trazy-2142e.firebasestorage.app",
-  messagingSenderId: "4891427196",
-  appId: "1:4891427196:web:b8a9b5d0e05232c25124f9"
-};
+  // Check if elements exist
+  if (!ongoingList || !receivedList || !totalSpentEl) {
+    console.error("One or more DOM elements not found. Check your HTML IDs!");
+    return;
+  }
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const auth = getAuth(app);
 
-// --- Containers ---
-const ongoingList = document.getElementById("ongoing-orders");
-const receivedList = document.getElementById("received-orders");
+  const firebaseConfig = {
+    apiKey: "AIzaSyDuzBpeML-DAjCqeF3Z5iX6H_0oZR7v3dg",
+    authDomain: "trazy-2142e.firebaseapp.com",
+    projectId: "trazy-2142e",
+    storageBucket: "trazy-2142e.firebasestorage.app",
+    messagingSenderId: "4891427196",
+    appId: "1:4891427196:web:b8a9b5d0e05232c25124f9"
+  };
 
-// --- Load Orders ---
-function loadOrders(userId) {
-  const ordersRef = collection(db, "orders");
-  const q = query(ordersRef, where("userId", "==", userId), orderBy("createdAt", "desc"));
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const auth = getAuth(app);
 
-  // Real-time updates
-  onSnapshot(q, (snapshot) => {
-    ongoingList.innerHTML = "";
-    receivedList.innerHTML = "";
-
-    if (snapshot.empty) {
-      ongoingList.innerHTML = "<p>No orders found.</p>";
+  // Listen for logged-in user
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+      console.log("No user logged in");
+      window.location.href = "login.html";
       return;
     }
 
-    snapshot.forEach((doc) => {
-      const order = doc.data();
-      const li = document.createElement("li");
-      li.className = "order-item";
-      li.innerHTML = `
-        <strong>${order.item.name}</strong> - ₹${order.item.price} <br>
-        Status: <span class="status">${order.status}</span> <br>
-        Address: ${order.address} <br>
-        Payment: ${order.paymentMethod} <br>
-        <small>${order.createdAt?.toDate ? order.createdAt.toDate().toLocaleString() : ""}</small>
-      `;
+    // Query orders for current user
+    const q = query(collection(db, "orders"), where("userId", "==", user.uid));
 
-      if (order.status === "delivered") {
-        receivedList.appendChild(li);
-      } else {
-        ongoingList.appendChild(li);
-      }
+    // Listen to changes in real-time
+    onSnapshot(q, (snapshot) => {
+      // Clear lists before re-rendering
+      ongoingList.innerHTML = "";
+      receivedList.innerHTML = "";
+      let totalSpent = 0;
+
+      snapshot.forEach((doc) => {
+        const order = doc.data();
+
+        // Safety check: Make sure order.item exists
+        if (!order.item || !order.item.name || order.item.price === undefined) {
+          console.warn("Order missing item details:", order);
+          return;
+        }
+
+        // Create list item
+        const li = document.createElement("li");
+        li.textContent = `${order.item.name} - ₹${order.item.price} | ${order.status} | ${order.createdAt}`;
+
+        if (order.status.toLowerCase() === "delivered") {
+          totalSpent += order.item.price;
+          receivedList.appendChild(li);
+        } else {
+          ongoingList.appendChild(li);
+        }
+      });
+
+      // Update total spent
+      totalSpentEl.textContent = "Total Spent: ₹" + totalSpent;
+    }, (error) => {
+      console.error("Error fetching orders:", error);
     });
   });
-}
-
-// --- Use Firebase Auth to get current user ---
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    loadOrders(user.uid); // dynamically load orders for this user
-  } else {
-    // Not logged in, redirect to login page
-    window.location.href = "../login.html";
-  }
 });

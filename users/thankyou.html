@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You - Trazy</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(-45deg, #6EE7B7, #3B82F6, #9333EA, #F59E0B);
+      background-size: 400% 400%;
+      animation: gradientBG 12s ease infinite;
+      font-family: 'Poppins', sans-serif;
+      overflow: hidden;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .thankyou-card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 25px;
+      padding: 40px;
+      text-align: center;
+      box-shadow: 0px 12px 30px rgba(0,0,0,0.2);
+      animation: fadeIn 1.5s ease-in-out;
+      position: relative;
+      z-index: 10;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .emoji {
+      font-size: 70px;
+      animation: bounce 1.8s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .title {
+      font-size: 2.5rem;
+      font-weight: bold;
+      background: linear-gradient(90deg, #10B981, #3B82F6, #9333EA);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px rgba(16,185,129,0.5); }
+      to { text-shadow: 0 0 20px rgba(59,130,246,0.8); }
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 25px;
+      padding: 14px 28px;
+      background: linear-gradient(90deg, #10B981, #059669);
+      color: white;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0px 8px 20px rgba(0,0,0,0.3);
+    }
+
+    /* Floating confetti effect */
+    .confetti {
+      position: absolute;
+      top: -10px;
+      width: 10px;
+      height: 10px;
+      background: #F59E0B;
+      opacity: 0.8;
+      animation: fall 6s linear infinite;
+    }
+    .confetti:nth-child(2) { left: 20%; background: #3B82F6; animation-delay: 1s; }
+    .confetti:nth-child(3) { left: 40%; background: #10B981; animation-delay: 2s; }
+    .confetti:nth-child(4) { left: 60%; background: #9333EA; animation-delay: 3s; }
+    .confetti:nth-child(5) { left: 80%; background: #EF4444; animation-delay: 4s; }
+
+    @keyframes fall {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(100vh) rotate(720deg); }
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center h-screen">
+  <!-- Floating confetti -->
+  <div class="confetti"></div>
+  <div class="confetti"></div>
+  <div class="confetti"></div>
+  <div class="confetti"></div>
+  <div class="confetti"></div>
+
+  <!-- Thank You Card -->
+  <div class="thankyou-card max-w-lg">
+    <div class="emoji">🎉</div>
+    <h1 class="title mt-4">Thank You!</h1>
+    <p class="text-gray-700 mt-4 text-lg">
+      Your journey with <span class="font-semibold text-green-600">Trazy</span> makes us proud.  
+      Every order delivered is more than food — it’s happiness shared.  
+    </p>
+    <p class="text-gray-600 mt-2 italic">
+      “Good vibes, good food, and great moments — that’s what we deliver.”  
+    </p>
+    <a href="../index.html" class="btn">Back to Home</a>
+  </div>
+</body>
+</html>
