@@ -39,6 +39,7 @@ async function loadOrderHistory(userEmail) {
   });
 
   displayOrders(orders);
+  displayOrderChart(orders);
 }
 
 function displayOrders(orders) {
@@ -75,4 +76,66 @@ function displayOrders(orders) {
   html += "</table>";
 
   container.innerHTML = html;
+}
+
+function displayOrderChart(orders) {
+  const monthlyData = {};
+
+  orders.forEach(order => {
+    if (!order.createdAt) return;
+
+    const date = new Date(order.createdAt.seconds * 1000);
+    const monthYear = `${date.getMonth() + 1}-${date.getFullYear()}`;
+
+    if (!monthlyData[monthYear]) {
+      monthlyData[monthYear] = 0;
+    }
+
+    monthlyData[monthYear] += Number(order.item.price);
+  });
+
+  const labels = Object.keys(monthlyData).sort((a, b) => {
+    const [m1, y1] = a.split('-').map(Number);
+    const [m2, y2] = b.split('-').map(Number);
+    return y1 !== y2 ? y1 - y2 : m1 - m2;
+  });
+
+  const data = labels.map(month => monthlyData[month]);
+
+  const ctx = document.getElementById('ordersChart').getContext('2d');
+  
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels.map(l => {
+        const [m, y] = l.split('-');
+        return `${m}/${y}`;
+      }),
+      datasets: [{
+        label: 'Total Spent (₹) per Month',
+        data: data,
+        backgroundColor: 'rgba(52, 152, 219, 0.7)',
+        borderColor: 'rgba(41, 128, 185, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: {
+            display: true,
+            text: 'Amount Spent (₹)'
+          }
+        },
+        x: {
+          title: {
+            display: true,
+            text: 'Month-Year'
+          }
+        }
+      }
+    }
+  });
 }
