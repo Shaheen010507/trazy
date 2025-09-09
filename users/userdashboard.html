@@ -3,12 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <title>Trazy – My Orders</title>
+  <link rel="stylesheet" href="userdashboard.css">  <!-- 🌺 Add your CSS -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- 🌟 Chart.js Library -->
 </head>
 <body>
   <h1>Your Order History</h1>
+
   <div id="order-history">
     Loading your orders...
   </div>
+
+  <h2>📊 Month-wise Order Analysis</h2>
+  <canvas id="ordersChart" width="800" height="400"></canvas>
 
   <script type="module" src="userdashboard.js"></script>
 </body>
