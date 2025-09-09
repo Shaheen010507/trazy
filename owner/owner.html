@@ -1,3 +1,63 @@
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Owner Dashboard</title>
+  <link rel="stylesheet" href="owner.css">
+</head>
+<body>
+  <header>
+    <h1 id="shopTitle">Your Shop</h1>
+    <div>
+      Owner: <strong id="ownerEmail"></strong>
+      <button id="signOutBtn">Sign Out</button>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <h2>Add / Edit Item</h2>
+      <form id="itemForm">
+        <input type="hidden" id="editItemId">
+        <label for="itemName">Item Name:</label>
+        <input type="text" id="itemName" required>
+        <label for="itemPrice">Price (₹):</label>
+        <input type="number" id="itemPrice" step="0.01" required>
+        <label for="itemAvailable">Available:</label>
+        <input type="checkbox" id="itemAvailable" checked>
+        <button type="submit" id="saveBtn">Save Item</button>
+      </form>
+    </section>
+
+    <section>
+      <h2>Shop Items</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Available</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="itemsTbody"></tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Orders</h2>
+      <div id="ordersContainer"></div>
+    </section>
+  </main>
+
+  <script type="module" src="owner.js"></script>
+</body>
+</html>
+-->
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,34 +70,26 @@
   <header>
     <h1 id="shopTitle">Your Shop</h1>
     <div>
-      <span>Owner: <strong id="ownerEmail"></strong></span>
+      Owner: <strong id="ownerEmail"></strong>
       <button id="signOutBtn">Sign Out</button>
     </div>
   </header>
 
   <main>
-    <!-- Add / Edit Item Section -->
     <section>
       <h2>Add / Edit Item</h2>
       <form id="itemForm">
         <input type="hidden" id="editItemId">
-        <div>
-          <label for="itemName">Item Name:</label>
-          <input type="text" id="itemName" required>
-        </div>
-        <div>
-          <label for="itemPrice">Price (₹):</label>
-          <input type="number" id="itemPrice" step="0.01" required>
-        </div>
-        <div>
-          <label for="itemAvailable">Available:</label>
-          <input type="checkbox" id="itemAvailable" checked>
-        </div>
+        <label for="itemName">Item Name:</label>
+        <input type="text" id="itemName" required>
+        <label for="itemPrice">Price (₹):</label>
+        <input type="number" id="itemPrice" step="0.01" required>
+        <label for="itemAvailable">Available:</label>
+        <input type="checkbox" id="itemAvailable" checked>
         <button type="submit" id="saveBtn">Save Item</button>
       </form>
     </section>
 
-    <!-- Shop Items Section -->
     <section>
       <h2>Shop Items</h2>
       <table>
@@ -49,18 +101,13 @@
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody id="itemsTbody">
-          Items will populate here live 
-        </tbody>
+        <tbody id="itemsTbody"></tbody>
       </table>
     </section>
 
-    <!-- New Orders Section -->
     <section>
       <h2>Orders</h2>
-      <div id="ordersContainer">
-        <!-- Orders will populate here live -->
-      </div>
+      <div id="ordersContainer"></div>
     </section>
   </main>
 
