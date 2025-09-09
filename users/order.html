@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Place Order</title>
   <link rel="stylesheet" href="order.css">
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
 </head>
 <body>
   <div class="order-container">
@@ -27,7 +29,8 @@
       <select id="payment" required>
         <option value="cash">Cash on Delivery</option>
         <option value="upi">UPI</option>
-        <option value="card">Credit/Debit Card</option>
+        <!--<option value="card">Credit/Debit Card</option>-->
+          <option value="netbanking">Netbanking</option>
       </select>
 
       <button type="submit" class="submit">Place Order</button>
@@ -39,6 +42,4 @@
 
 </body>
 </html>
-
-
 
