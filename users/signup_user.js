@@ -2,7 +2,6 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebas
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 import { getFirestore, setDoc, doc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-// Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDuzBpeML-DAjCqeF3Z5iX6H_0oZR7v3dg",
   authDomain: "trazy-2142e.firebaseapp.com",
@@ -16,17 +15,17 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// Handle signup
 document.getElementById("userSignupForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const fullname = document.getElementById("fullname").value;
-  const email = document.getElementById("email").value;
+  const fullname = document.getElementById("fullname").value.trim();
+  const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
   const confirmPassword = document.getElementById("confirmpassword").value;
+  const phone = document.getElementById("phone").value.trim();
 
   if (password !== confirmPassword) {
-    alert("Passwords do not match!");
+    alert("Passwords do not match! 🚫");
     return;
   }
 
@@ -34,16 +33,18 @@ document.getElementById("userSignupForm").addEventListener("submit", async (e) =
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
-    // Save in Firestore under "users"
+    // Save user info in Firestore
     await setDoc(doc(db, "users", user.uid), {
       fullname,
       email,
+      phone,
       role: "user",
-      createdAt: new Date()
+      createdAt: new Date().toISOString()
     });
 
-    alert("User account created successfully!");
+    alert("User account created successfully! 🎉");
     window.location.href = "user.html";
+
   } catch (error) {
     alert(error.message);
   }

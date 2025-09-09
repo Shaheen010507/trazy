@@ -1,0 +1,23 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 20px;
+  background: #f9f9f9;
+}
+
+h2, h3 {
+  text-align: center;
+}
+
+#menu-items, #cart-items, #order-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.card {
+  background: #fff;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}

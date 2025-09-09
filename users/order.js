@@ -6,8 +6,10 @@ import {
   collection, 
   addDoc, 
   serverTimestamp,
-  onSnapshot   // ✅ FIX: import added
+  onSnapshot   
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+import { getAuth } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js"; // ✅ Import Auth
 
 const firebaseConfig = {
   apiKey: "AIzaSyDuzBpeML-DAjCqeF3Z5iX6H_0oZR7v3dg",
@@ -20,6 +22,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = getAuth(app);  // ✅ Auth Initialized
 
 const params = new URLSearchParams(window.location.search);
 const shopId = params.get("shopId");
@@ -29,9 +32,8 @@ const productNameEl = document.getElementById("productName");
 const productPriceEl = document.getElementById("productPrice");
 const statusEl = document.getElementById("orderStatus");
 
-let currentItem = null; // store loaded product
+let currentItem = null;
 
-// ---------------- Load product ----------------
 async function loadProduct() {
   if (!shopId || !itemId) {
     alert("Invalid product data!");
@@ -55,7 +57,6 @@ async function loadProduct() {
 }
 loadProduct();
 
-// ---------------- Place order ----------------
 document.getElementById("orderForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -64,14 +65,22 @@ document.getElementById("orderForm").addEventListener("submit", async (e) => {
     return;
   }
 
+  const user = auth.currentUser;
+
+  if (!user) {
+    alert("You must be logged in to place an order.");
+    window.location.href = "login.html";
+    return;
+  }
+
   const name = document.getElementById("name").value;
   const address = document.getElementById("address").value;
   const payment = document.getElementById("payment").value;
 
   try {
-    // ✅ Save order and get ID
     const docRef = await addDoc(collection(db, "orders"), {
       customerName: name,
+      customerEmail: user.email,  // ✅ Store email here
       address: address,
       paymentMethod: payment,
       shopId: shopId,
@@ -86,10 +95,8 @@ document.getElementById("orderForm").addEventListener("submit", async (e) => {
 
     alert("Order placed successfully!");
 
-    // ✅ Now listen for status updates of THIS order
     trackOrderStatus(docRef.id);
 
-    // Optional: redirect after short delay
     setTimeout(() => {
       window.location.href = "thankyou.html";
     }, 2000);
@@ -100,7 +107,6 @@ document.getElementById("orderForm").addEventListener("submit", async (e) => {
   }
 });
 
-// ---------------- Track order status ----------------
 function trackOrderStatus(orderId) {
   const orderRef = doc(db, "orders", orderId);
 

@@ -133,28 +133,35 @@ select:focus {
   <div class="container">
     <h2>User Signup</h2>
     <form id="userSignupForm">
-      <div class="form-group">
-        <label for="fullname">Full Name</label>
-        <input type="text" id="fullname" required>
-      </div>
+  <div class="form-group">
+    <label for="fullname">Full Name</label>
+    <input type="text" id="fullname" required>
+  </div>
 
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" required>
-      </div>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" id="email" required>
+  </div>
 
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" required>
-      </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" id="password" required>
+  </div>
 
-      <div class="form-group">
-        <label for="confirmpassword">Confirm Password</label>
-        <input type="password" id="confirmpassword" required>
-      </div>
+  <div class="form-group">
+    <label for="confirmpassword">Confirm Password</label>
+    <input type="password" id="confirmpassword" required>
+  </div>
 
-      <button class="btn" type="submit">Sign Up</button>
-    </form>
+  <!-- 🌟 New Field: Phone Number -->
+  <div class="form-group">
+    <label for="phone">Phone Number</label>
+    <input type="tel" id="phone" placeholder="e.g., 99999XXXXX" required>
+  </div>
+
+  <button class="btn" type="submit">Sign Up</button>
+</form>
+
 
     <p class="login-link">
       Already have an account? <a href="../login.html">Login</a>
