@@ -186,7 +186,7 @@ onAuthStateChanged(auth, user => {
     ownerEmailEl.textContent = user.email;
     loadOwnerDetails(user.uid);
   } else {
-    window.location.href = "login.html";
+    window.location.href = "../login.html";
   }
 });
 

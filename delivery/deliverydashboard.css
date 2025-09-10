@@ -1,0 +1,71 @@
+/*body { font-family: Arial, sans-serif; margin:0; padding:0; }
+header { background:#4caf50; color:white; padding:10px; display:flex; justify-content:space-between; align-items:center; }
+main { padding:20px; }
+section { margin-bottom:30px; }
+#deliveryList div { border:1px solid #ccc; padding:10px; margin-bottom:10px; }
+*/
+
+
+body {
+  font-family: Arial, sans-serif;
+  margin:0; padding:0;
+}
+
+header {
+  background: #16a085;
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+header button {
+  padding: 5px 12px;
+  cursor: pointer;
+}
+
+main {
+  padding: 20px;
+}
+
+.summary-section {
+  margin-bottom: 30px;
+}
+
+.summary-cards {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: #ecf0f1;
+  padding: 15px;
+  border-radius: 6px;
+  font-size: 18px;
+}
+
+.card.delivered { background: #27ae60; color: white; }
+.card.pending { background: #c0392b; color: white; }
+
+.charts-section {
+  margin-bottom: 30px;
+}
+
+.orders-section table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.orders-section th, .orders-section td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+.orders-section th {
+  background: #16a085;
+  color: white;
+}
