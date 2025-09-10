@@ -1,4 +1,4 @@
-/*import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 import { getFirestore, doc, collection, updateDoc, onSnapshot, query, where } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
@@ -75,10 +75,10 @@ window.markDelivered = async function(orderId){
 
 
 
-*/
 
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+
+/*import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 import { getFirestore, doc, collection, updateDoc, onSnapshot, query, where } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
@@ -150,3 +150,4 @@ window.markDelivered = async function(orderId){
   await updateDoc(doc(db, "orders", orderId), { status: "delivered" });
   await updateDoc(doc(db, "delivery", deliveryId), { status: "free" });
 }
+*/
