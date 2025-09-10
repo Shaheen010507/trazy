@@ -1,6 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+import Chart from "https://cdn.jsdelivr.net/npm/chart.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDuzBpeML-DAjCqeF3Z5iX6H_0oZR7v3dg",
@@ -39,7 +40,7 @@ async function loadOrderHistory(userEmail) {
   });
 
   displayOrders(orders);
-  displayOrderChart(orders);
+  displayOrderChart(orders); 
 }
 
 function displayOrders(orders) {
@@ -103,7 +104,6 @@ function displayOrderChart(orders) {
   const data = labels.map(month => monthlyData[month]);
 
   const ctx = document.getElementById('ordersChart').getContext('2d');
-  
   new Chart(ctx, {
     type: 'bar',
     data: {
