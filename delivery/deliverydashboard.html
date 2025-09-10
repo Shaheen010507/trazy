@@ -1,0 +1,101 @@
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delivery Dashboard</title>
+  <link rel="stylesheet" href="deliverydashboard.css">
+</head>
+<body>
+  <header>
+    <h1>Delivery Dashboard</h1>
+    <div>
+      <span id="ownerEmail"></span>
+      <button id="signOutBtn">Sign Out</button>
+    </div>
+  </header>
+
+  <main>
+    <section>
+      <h2>Delivery Performance Summary</h2>
+      <div id="summary">
+        <p>Total Orders Assigned: <span id="totalOrders">0</span></p>
+        <p>Delivered Orders: <span id="deliveredOrders">0</span></p>
+        <p>Pending Orders: <span id="pendingOrders">0</span></p>
+        <p>Active Delivery Men: <span id="activeDelivery">0</span></p>
+      </div>
+    </section>
+
+    <section>
+      <h2>All Delivery Men</h2>
+      <div id="deliveryList"></div>
+    </section>
+
+    <section>
+      <h2>Delivery Orders Chart</h2>
+      <canvas id="deliveryChart"></canvas>
+    </section>
+  </main>
+
+  <script type="module" src="deliverydashboard.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>
+-->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delivery Dashboard</title>
+  <link rel="stylesheet" href="deliverydashboard.css">
+</head>
+<body>
+  <header>
+    <h1>Delivery Dashboard</h1>
+    <div>
+      <span id="deliveryEmail"></span>
+      <button id="signOutBtn">Sign Out</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="summary-section">
+      <h2>Summary</h2>
+      <div class="summary-cards">
+        <div class="card">Total Orders: <span id="totalOrders">0</span></div>
+        <div class="card delivered">Delivered: <span id="deliveredOrders">0</span></div>
+        <div class="card pending">Pending: <span id="pendingOrders">0</span></div>
+      </div>
+    </section>
+
+    <section class="charts-section">
+      <h2>Delivery Charts</h2>
+      <canvas id="dailyChart" width="400" height="200"></canvas>
+      <canvas id="monthlyChart" width="400" height="200"></canvas>
+    </section>
+
+    <section class="orders-section">
+      <h2>Assigned Orders</h2>
+      <table id="ordersTable">
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>User</th>
+            <th>Food</th>
+            <th>Amount (₹)</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="ordersContainer"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script type="module" src="deliverydashboard.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</body>
+</html>
