@@ -1,12 +1,116 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>jarvis</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trazy – Taste the Ease</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- AOS Animation Library -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <p>i am jarvis</p>
-    
+  <!-- Navbar -->
+  <header class="navbar" id="navbar">
+    <div class="logo">Trazy</div>
+    <nav>
+      <ul>
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#students">Students</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-content" data-aos="fade-up">
+      <h1>Skip the Queue. Taste the Ease.</h1>
+      <p>Order your food in seconds and get it delivered right on time — Trazy makes campus dining effortless.</p>
+      <div class="hero-buttons">
+        <a href="login.html" class="btn primary">Login Now</a>
+        <a href="signup.html" class="btn secondary">Register</a>
+      </div>
+    </div>
+    <div class="floating-icons">
+      <img src="https://cdn-icons-png.flaticon.com/512/3595/3595455.png" alt="Burger">
+      <img src="https://cdn-icons-png.flaticon.com/512/1046/1046784.png" alt="Drink">
+      <img src="https://cdn-icons-png.flaticon.com/512/2921/2921820.png" alt="Pizza">
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <h2 data-aos="fade-up">Why Choose Trazy?</h2>
+    <div class="feature-cards">
+      <div class="card" data-aos="fade-up" data-aos-delay="100">
+        <img src="https://cdn-icons-png.flaticon.com/512/2921/2921823.png" alt="">
+        <h3>Fast Orders</h3>
+        <p>Skip the waiting line. Order your meal instantly with a few taps.</p>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="200">
+        <img src="https://cdn-icons-png.flaticon.com/512/3600/3600918.png" alt="">
+        <h3>Real-Time Tracking</h3>
+        <p>Track your order status and know when it’s ready for pickup or delivery.</p>
+      </div>
+      <div class="card" data-aos="fade-up" data-aos-delay="300">
+        <img src="https://cdn-icons-png.flaticon.com/512/1046/1046786.png" alt="">
+        <h3>Smart Delivery</h3>
+        <p>Our delivery partners ensure every order reaches you hot and fresh.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Students Section -->
+  <section class="students" id="students">
+    <h2 data-aos="fade-up">Students Love Trazy ❤️</h2>
+    <div class="testimonials">
+      <div class="testimonial" data-aos="zoom-in">
+        <p>"No more long queues in the canteen! Trazy made college lunch breaks so much easier."</p>
+
+      </div>
+      <div class="testimonial" data-aos="zoom-in" data-aos-delay="150">
+        <p>"Fast, friendly, and fun to use — Trazy keeps me on time for every class!"</p>
+      </div>
+      <div class="testimonial" data-aos="zoom-in" data-aos-delay="300">
+        <p>"The best campus food experience ever! I just love how smooth it works."</p>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+ <section class="contact" id="contact">
+  <h2 data-aos="fade-up">Get in Touch</h2>
+  <form action="https://formspree.io/f/xgvrvkjr" method="POST" data-aos="fade-up" data-aos-delay="150">
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="email" placeholder="Your Email" required>
+    <textarea name="message" placeholder="Your Message" rows="4" required></textarea>
+    <button type="submit" class="btn primary">Send Message</button>
+  </form>
+</section>
+
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Trazy. All Rights Reserved.</p>
+  </footer>
+
+  <!-- AOS JS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 1000, once: true });
+
+    // Navbar scroll effect
+    window.addEventListener("scroll", function() {
+      const navbar = document.getElementById("navbar");
+      navbar.classList.toggle("scrolled", window.scrollY > 50);
+    });
+  </script>
 </body>
 </html>
