@@ -1,0 +1,22 @@
+/*body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+header { background-color: #333; color: #fff; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
+main { padding: 20px; }
+section { margin-bottom: 30px; }
+button { padding: 5px 10px; margin-top: 10px; cursor: pointer; }
+.orderCard { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; }
+*/
+
+/*body { font-family: Arial, sans-serif; margin:0; padding:0; }
+header { background:#4caf50; color:white; padding:10px; display:flex; justify-content:space-between; align-items:center; }
+main { padding:20px; }
+section { margin-bottom:30px; }
+button { padding:5px 10px; cursor:pointer; margin-top:5px; }
+#assignedOrders div { border:1px solid #ccc; padding:10px; margin-bottom:10px; }
+*/
+
+body { font-family: Arial, sans-serif; margin:0; padding:0; }
+header { background:#4caf50; color:white; padding:10px; display:flex; justify-content:space-between; align-items:center; }
+main { padding:20px; }
+section { margin-bottom:30px; }
+button { padding:5px 10px; cursor:pointer; margin-top:5px; }
+#assignedOrders div { border:1px solid #ccc; padding:10px; margin-bottom:10px; }

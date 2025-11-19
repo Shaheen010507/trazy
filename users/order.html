@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Place Order</title>
+  <link rel="stylesheet" href="order.css">
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+</head>
+<body>
+  <div class="order-container">
+    <h1>Confirm Your Order</h1>
+
+    <div class="product-details">
+      <h2 id="productName">Loading...</h2>
+      <p id="productPrice"></p>
+      <p id="productDesc"></p>
+    </div>
+
+    <form id="orderForm">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" placeholder="Enter your name" required>
+
+      <label for="address">Delivery Address</label>
+      <input type="text" id="address" placeholder="Enter your address" required>
+
+      <label for="payment">Payment Method</label>
+      <select id="payment" required>
+        <option value="cash">Cash on Delivery</option>
+        <option value="upi">UPI</option>
+        <!--<option value="card">Credit/Debit Card</option>-->
+          <option value="netbanking">Netbanking</option>
+      </select>
+
+      <button type="submit" class="submit">Place Order</button>
+      <button type="button" class="cancel" onclick="window.history.back()">Cancel</button>
+    </form>
+  </div>
+    <script type="module" src="order.js"></script>
+
+
+</body>
+</html>
+

@@ -1,0 +1,111 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+body {
+  background: #f5f6fa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Main container */
+.order-container {
+  background: #fff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 400px;
+  max-width: 95%;
+}
+
+/* Heading */
+.order-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+/* Product details */
+.product-details {
+  background: #f9fafc;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.product-details h2 {
+  font-size: 20px;
+  margin-bottom: 8px;
+  color: #34495e;
+}
+
+.product-details p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 5px;
+}
+
+/* Form */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form label {
+  margin: 10px 0 5px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+form input,
+form select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  font-size: 14px;
+}
+
+form input:focus,
+form select:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 4px rgba(52, 152, 219, 0.3);
+}
+
+/* Buttons */
+button {
+  margin-top: 20px;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+button.submit {
+  background: #3498db;
+  color: white;
+}
+
+button.submit:hover {
+  background: #2980b9;
+}
+
+button.cancel {
+  background: #e74c3c;
+  color: white;
+  margin-top: 10px;
+}
+
+button.cancel:hover {
+  background: #c0392b;
+}
