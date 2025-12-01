@@ -76,20 +76,27 @@
   </header>
 
   <main>
+
+    <!-- ADD / EDIT ITEMS -->
     <section>
       <h2>Add / Edit Item</h2>
       <form id="itemForm">
         <input type="hidden" id="editItemId">
-        <label for="itemName">Item Name:</label>
+
+        <label>Item Name:</label>
         <input type="text" id="itemName" required>
-        <label for="itemPrice">Price (₹):</label>
+
+        <label>Price (₹):</label>
         <input type="number" id="itemPrice" step="0.01" required>
-        <label for="itemAvailable">Available:</label>
+
+        <label>Available:</label>
         <input type="checkbox" id="itemAvailable" checked>
+
         <button type="submit" id="saveBtn">Save Item</button>
       </form>
     </section>
 
+    <!-- ITEM LIST -->
     <section>
       <h2>Shop Items</h2>
       <table>
@@ -105,14 +112,23 @@
       </table>
     </section>
 
+    <!-- ORDER LIST -->
     <section>
       <h2>Orders</h2>
       <div id="ordersContainer"></div>
     </section>
-    <button onclick="window.location.href='ownerdashboard.html'">
-  View Owner Dashboard
-</button>
+<div style="text-align:center; margin-top:30px;">
+  <button id="openDashboardBtn" class="dashboard-btn">
+    Go to Owner Dashboard
+  </button>
+</div>
+
   </main>
+<script>
+  document.getElementById("openDashboardBtn").addEventListener("click", () => {
+    window.location.href = "ownerdashboard.html";   // or ownerDashboard.html
+  });
+</script>
 
   <script type="module" src="owner.js"></script>
 </body>

@@ -1,49 +1,168 @@
-/*body { font-family: Arial, sans-serif; margin:0; padding:0; }
-header { background:#f39c12; color:white; padding:10px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; }
-main { padding:20px; }
-section { margin-bottom:30px; }
-#summary p { font-size: 18px; margin: 5px 0; }
-#ordersContainer div { border:1px solid #ccc; padding:10px; margin-bottom:10px; }
-button { padding:5px 10px; cursor:pointer; margin-left:5px; }
-*/
-
+/* ---- Base Layout ---- */
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Poppins", Arial, sans-serif;
   margin: 0;
   padding: 0;
+  background: #fafafa;
+  color: #333;
 }
 
+/* ---- Header ---- */
 header {
   background: #f39c12;
   color: white;
-  padding: 10px;
+  padding: 15px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
 }
 
-main {
-  padding: 20px;
+header h1 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 600;
 }
 
-section {
-  margin-bottom: 30px;
+header div {
+  font-size: 16px;
 }
 
-#summary p {
-  font-size: 18px;
-  margin: 5px 0;
-}
-
-#ordersContainer div {
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin-bottom: 10px;
-}
-
-button {
-  padding: 5px 10px;
+#signOutBtn {
+  background: white;
+  color: #f39c12;
+  padding: 6px 14px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  margin-left: 10px;
   cursor: pointer;
-  margin-left: 5px;
+  transition: 0.2s ease;
+}
+
+#signOutBtn:hover {
+  background: #fff5e6;
+  transform: translateY(-2px);
+}
+
+/* ---- Main Content ---- */
+main {
+  padding: 25px;
+}
+
+/* ---- Section ---- */
+section {
+  margin-bottom: 35px;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+
+section h2 {
+  margin-top: 0;
+  color: #f39c12;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+/* ---- Item Form ---- */
+#itemForm label {
+  display: block;
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+#itemForm input[type=text],
+#itemForm input[type=number] {
+  width: 100%;
+  padding: 10px;
+  margin-top: 4px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+#saveBtn {
+  margin-top: 15px;
+  padding: 10px 18px;
+  background: #f39c12;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+#saveBtn:hover {
+  background: #d98a0e;
+  transform: translateY(-2px);
+}
+
+/* ---- Table ---- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+th, td {
+  border: 1px solid #eee;
+  padding: 12px;
+  text-align: center;
+}
+
+th {
+  background: #f39c12;
+  color: white;
+  font-weight: 600;
+}
+
+td {
+  background: #fff;
+}
+
+.action-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: 0.2s ease;
+}
+
+.edit-btn {
+  background: #3498db;
+  color: white;
+}
+
+.edit-btn:hover {
+  background: #2d82ba;
+}
+
+.delete-btn {
+  background: #e74c3c;
+  color: white;
+}
+
+.delete-btn:hover {
+  background: #c4372a;
+}
+
+/* ---- Orders Section ---- */
+#ordersContainer div {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  background: #fffef6;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+#ordersContainer strong {
+  color: #f39c12;
 }
