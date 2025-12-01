@@ -1,34 +1,159 @@
-/*body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-header { background-color: #333; color: #fff; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
-main { padding: 20px; }
-section { margin-bottom: 30px; }
-form label { display: block; margin-top: 10px; }
-form input[type="text"], form input[type="number"] { width: 200px; padding: 5px; margin-top: 5px; }
-form button { margin-top: 10px; padding: 5px 10px; }
-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-table, th, td { border: 1px solid #ccc; }
-th, td { padding: 8px; text-align: left; }
-button.assignBtn { padding: 5px 10px; cursor: pointer; }
-select { padding: 5px; }
-*/
+/* Global Styling */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', Arial, sans-serif;
+    background: #f4f7fb;
+    color: #333;
+}
 
+/* Header / Navbar */
+header {
+    background: #1a73e8;
+    color: white;
+    padding: 14px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
 
-/*body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-header { background: #2196f3; color: white; padding: 10px; display: flex; justify-content: space-between; align-items: center; }
-main { padding: 20px; }
-section { margin-bottom: 30px; }
-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
-button { cursor: pointer; padding: 5px 10px; margin-top: 5px; }
-select { padding: 5px; }*/
+header h1 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+}
 
+header button {
+    background: white;
+    color: #1a73e8;
+    border: none;
+    padding: 8px 16px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
 
-body { font-family: Arial, sans-serif; margin:0; padding:0; }
-header { background:#2196f3; color:white; padding:10px; display:flex; justify-content:space-between; align-items:center; }
-main { padding:20px; }
-section { margin-bottom:30px; }
-table { width:100%; border-collapse: collapse; margin-top:10px; }
-th, td { border:1px solid #ccc; padding:8px; text-align:center; }
-button { cursor:pointer; padding:5px 10px; margin-top:5px; }
-select { padding:5px; }
+header button:hover {
+    background: #e3edfc;
+}
 
+/* Main Layout */
+main {
+    padding: 25px;
+}
+
+/* Section Title */
+section h2 {
+    margin-bottom: 10px;
+    color: #1a73e8;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+/* Card for sections */
+section {
+    background: white;
+    padding: 18px 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    margin-bottom: 30px;
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+th {
+    background: #1a73e8;
+    color: white;
+    padding: 12px;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    font-size: 14px;
+}
+
+tr:hover {
+    background: #f4f7ff;
+}
+
+/* Buttons */
+button {
+    background: #1a73e8;
+    border: none;
+    color: white;
+    padding: 7px 14px;
+    font-size: 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+button:hover {
+    background: #0f5cc8;
+}
+
+/* Dropdown */
+select {
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+/* Status Badge */
+.status {
+    padding: 6px 10px;
+    border-radius: 20px;
+    color: white;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.status.pending {
+    background: #ff9800;
+}
+
+.status.accepted {
+    background: #4caf50;
+}
+
+.status.delivered {
+    background: #1a73e8;
+}
+.dashboard-btn {
+  background: #1a73e8;
+  color: white;
+  padding: 12px 22px;
+  font-size: 18px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.dashboard-btn:hover {
+  background: #0f5acc;
+  transform: translateY(-2px);
+}
+
+.dashboard-btn:active {
+  transform: scale(0.97);
+}

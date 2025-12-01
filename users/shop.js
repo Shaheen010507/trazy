@@ -1,5 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-import { getFirestore, doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+import { 
+  getFirestore, doc, getDoc, collection, getDocs 
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDuzBpeML-DAjCqeF3Z5iX6H_0oZR7v3dg",
@@ -39,7 +41,7 @@ async function loadShop() {
   shopDescriptionEl.innerText = shopData.description || "";
   shopLocationEl.innerText = "Location: " + (shopData.location || "Unknown");
 
-  // Load menu items
+  // Load items
   const itemsRef = collection(shopRef, "items");
   const itemsSnap = await getDocs(itemsRef);
 
@@ -50,10 +52,8 @@ async function loadShop() {
 
   menuEl.innerHTML = "";
   itemsSnap.forEach((itemDoc) => {
-    // 🔥 include the item ID
     const item = { id: itemDoc.id, ...itemDoc.data() };
 
-    // Create a card for each menu item
     const card = document.createElement("div");
     card.classList.add("menu-item");
 
@@ -63,7 +63,7 @@ async function loadShop() {
     img.alt = item.name;
     card.appendChild(img);
 
-    // Item details
+    // Details
     const details = document.createElement("div");
     details.classList.add("item-details");
 
@@ -75,9 +75,29 @@ async function loadShop() {
     price.textContent = `₹${item.price || "N/A"}`;
     details.appendChild(price);
 
+    // ⭐ Rating Display
+    const ratingEl = document.createElement("p");
+    ratingEl.className = "rating-info";
+
+    const total = item.totalRating || 0;
+    const count = item.ratingCount || 0;
+    const avg = count > 0 ? (total / count).toFixed(1) : "No ratings";
+
+    if (count > 0) {
+      ratingEl.innerHTML = `
+        ⭐ <strong>${avg}</strong> (${count} ratings)
+      `;
+    } else {
+      ratingEl.innerHTML = `
+        ⭐ No ratings yet
+      `;
+    }
+
+    details.appendChild(ratingEl);
+
     card.appendChild(details);
 
-    // 🔥 open popup with full item info
+    // Popup open
     card.addEventListener("click", () => openPopup(item));
 
     menuEl.appendChild(card);
@@ -86,16 +106,17 @@ async function loadShop() {
 
 loadShop();
 
-// ==================== Popup Section ==================== //
+// ---------------------- Popup ---------------------- //
 const popup = document.createElement("div");
 popup.id = "itemPopup";
-popup.style.display = "none"; // initially hidden
+popup.style.display = "none";
 popup.innerHTML = `
   <div class="popup-content">
     <span id="closePopup">&times;</span>
     <img id="popupImage" src="" alt="Food Image">
     <h2 id="popupName"></h2>
     <p id="popupPrice"></p>
+    <p id="popupRating"></p>
     <div class="popup-actions">
       <button id="addToCartBtn">Add to Cart</button>
       <button id="buyNowBtn">Buy Now</button>
@@ -104,27 +125,35 @@ popup.innerHTML = `
 `;
 document.body.appendChild(popup);
 
-// Function to open popup with item data
+// Open popup
 function openPopup(item) {
-  document.getElementById("popupImage").src = item.image || "https://via.placeholder.com/200";
-  document.getElementById("popupName").innerText = item.name || "Unnamed Item";
-  document.getElementById("popupPrice").innerText = `₹${item.price || "N/A"}`;
+  document.getElementById("popupImage").src = item.image;
+  document.getElementById("popupName").innerText = item.name;
+  document.getElementById("popupPrice").innerText = `₹${item.price}`;
 
-  // Add actions
+  // ⭐ Rating inside popup
+  const total = item.totalRating || 0;
+  const count = item.ratingCount || 0;
+  const avg = count > 0 ? (total / count).toFixed(1) : "No ratings";
+
+  document.getElementById("popupRating").innerHTML =
+    count > 0
+      ? `⭐ <strong>${avg}</strong> (${count} ratings)`
+      : "⭐ No ratings yet";
+
   document.getElementById("addToCartBtn").onclick = () => {
     alert(`${item.name} added to cart!`);
     closePopup();
   };
 
   document.getElementById("buyNowBtn").onclick = () => {
-    // 🔥 Pass shopId and itemId in URL
     window.location.href = `order.html?shopId=${shopId}&itemId=${item.id}`;
   };
 
   popup.style.display = "flex";
 }
 
-// Close popup function
+// Close popup
 function closePopup() {
   popup.style.display = "none";
 }

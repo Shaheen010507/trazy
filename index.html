@@ -5,16 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Trazy – Taste the Ease</title>
 
-  <!-- Google Fonts -->
+  
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <!-- AOS Animation Library -->
+  
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Navbar -->
   <header class="navbar" id="navbar">
     <div class="logo">Trazy</div>
     <nav>
@@ -27,7 +26,6 @@
     </nav>
   </header>
 
-  <!-- Hero Section -->
   <section class="hero" id="hero">
     <div class="hero-content" data-aos="fade-up">
       <h1>Skip the Queue. Taste the Ease.</h1>
@@ -44,7 +42,6 @@
     </div>
   </section>
 
-  <!-- Features Section -->
   <section class="features" id="features">
     <h2 data-aos="fade-up">Why Choose Trazy?</h2>
     <div class="feature-cards">
@@ -66,7 +63,7 @@
     </div>
   </section>
 
-  <!-- Students Section -->
+
   <section class="students" id="students">
     <h2 data-aos="fade-up">Students Love Trazy ❤️</h2>
     <div class="testimonials">
@@ -84,7 +81,6 @@
     </div>
   </section>
 
-  <!-- Contact Section -->
  <section class="contact" id="contact">
   <h2 data-aos="fade-up">Get in Touch</h2>
   <form action="https://formspree.io/f/xgvrvkjr" method="POST" data-aos="fade-up" data-aos-delay="150">
@@ -96,17 +92,15 @@
 </section>
 
 
-  <!-- Footer -->
   <footer>
     <p>© 2025 Trazy. All Rights Reserved.</p>
   </footer>
 
-  <!-- AOS JS -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
     AOS.init({ duration: 1000, once: true });
 
-    // Navbar scroll effect
+
     window.addEventListener("scroll", function() {
       const navbar = document.getElementById("navbar");
       navbar.classList.toggle("scrolled", window.scrollY > 50);
