@@ -465,51 +465,68 @@ function displayOrders(orders) {
 }
 
 // ---------------- MONTHLY SPENDING CHART ----------------
+// ---------------- MONTHLY SPENDING CHART ----------------
+let ordersChart = null;
+
 function updateMonthlySpendingChart(orders) {
-  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
-                      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  if (!orders.length) return;
 
-  const monthlyTotals = Array(12).fill(0);
+  const monthlyData = {};
 
-  orders.forEach(order => {
-    if (!order.timestamp) return;
-    const date = order.timestamp.toDate();
-    const month = date.getMonth();
-    const price = Number(order.item.price) || 0;
-    monthlyTotals[month] += price;
+  orders.forEach(o => {
+    if (!o.createdAt) return;
+
+    const date = new Date(o.createdAt.seconds * 1000);
+    const key = `${date.getMonth() + 1}-${date.getFullYear()}`;
+
+    monthlyData[key] = (monthlyData[key] || 0) + Number(o.item.price);
   });
 
-  const canvas = document.getElementById("ordersChart");
-  if (!canvas) return console.error("Chart canvas missing!");
+  // Sort months
+  const labels = Object.keys(monthlyData).sort((a, b) => {
+    const [m1, y1] = a.split("-").map(Number);
+    const [m2, y2] = b.split("-").map(Number);
+    return y1 !== y2 ? y1 - y2 : m1 - m2;
+  });
 
-  const ctx = canvas.getContext("2d");
+  const data = labels.map(l => monthlyData[l]);
 
-  if (chartInstance) chartInstance.destroy();
+  // Destroy old chart
+  if (ordersChart) ordersChart.destroy();
 
-  chartInstance = new Chart(ctx, {
-    type: "line",
+  const ctx = document.getElementById("ordersChart").getContext("2d");
+
+  ordersChart = new Chart(ctx, {
+    type: "bar",
     data: {
-      labels: monthNames,
+      labels: labels.map(l => {
+        const [m, y] = l.split("-");
+        return `${m}/${y}`;
+      }),
       datasets: [{
-        label: "Monthly Spending (₹)",
-        data: monthlyTotals,
-        fill: true,
-        tension: 0.3,
-        borderWidth: 2
+        label: "Total Spending (₹)",
+        data: data,
+        backgroundColor: "rgba(255,159,64,0.7)",
+        borderColor: "rgba(255,99,32,1)",
+        borderWidth: 2,
+        borderRadius: 5
       }]
     },
     options: {
-      animation: true,
       responsive: true,
       scales: {
         y: {
           beginAtZero: true,
-          ticks: { stepSize: 100 }
+          title: { display: true, text: "Amount (₹)" }
+        },
+        x: {
+          title: { display: true, text: "Month / Year" }
         }
       }
     }
   });
 }
+
 
 // ---------------- Rating Popup ----------------
 const popup = document.createElement("div");
