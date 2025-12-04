@@ -1,48 +1,8 @@
-<!--<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Delivery Dashboard</title>
-  <link rel="stylesheet" href="delivery.css">
-</head>
-<body>
-  <header>
-    <h1>Delivery Dashboard</h1>
-    <div>
-      <span id="deliveryEmail"></span>
-      <button id="signOutBtn">Sign Out</button>
-    </div>
-  </header>
-
-  <main>
-    <section>
-      <h2>Status</h2>
-      <label>Free <input type="radio" name="status" value="free"></label>
-      <label>Busy <input type="radio" name="status" value="busy"></label>
-    </section>
-
-    <section>
-      <h2>Assigned Orders</h2>
-      <div id="assignedOrders"></div>
-    </section>
-  </main>
-
-  <script type="module" src="delivery.js"></script>
-</body>
-</html>
-
--->
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
   <title>Delivery Dashboard</title>
   <link rel="stylesheet" href="delivery.css">
 </head>
@@ -58,25 +18,29 @@
   <main>
     <section>
       <h2>Status</h2>
-      <label>Free <input type="radio" name="status" value="free"></label>
-      <label>Busy <input type="radio" name="status" value="busy"></label>
+      <label>Free <input type="radio" name="status" value="free" id="free"></label>
+      <label>Busy <input type="radio" name="status" value="busy" id="busy"></label>
     </section>
 
     <section>
-      <h2>Assigned Orders</h2>
-      <div id="assignedOrders"></div>
+      <h2>New Orders</h2>
+      <div id="newOrders"></div>
     </section>
-    <button onclick="window.location.href='deliverydashboard.html'">
-  View Delivery Dashboard
-</button>
 
+    <section>
+      <h2>Your Accepted Orders</h2>
+      <div id="myOrders"></div>
+    </section>
+    <div style="text-align:center; margin-top:30px;">
+  <button id="openDashboardBtn" class="dashboard-btn">Go to Owner Dashboard</button>
+</div>
   </main>
 
+<script>
+document.getElementById("openDashboardBtn").addEventListener("click", ()=>{
+  window.location.href="deliverydashboard.html";
+});
+</script>
   <script type="module" src="delivery.js"></script>
-<<<<<<< HEAD
-=======
-
->>>>>>> ef122d2f54980fcc1e74070d3406023db9c97a52
 </body>
 </html>
-
