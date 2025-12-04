@@ -1,13 +1,13 @@
 
 /* Reset */
-* {
+/** {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: Arial, sans-serif;
 }
 
-/* Layout */
+/* Layout 
 body {
   display: flex;
   flex-direction: column;
@@ -108,26 +108,183 @@ footer {
   bottom: 0;
   width: 100%;
 }
-/* ensure the body’s color change is visible and smooth */
+/* ensure the body’s color change is visible and smooth 
 html, body { height: 100%; }
 body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  transition: background-color 1s ease; /* smooth fade */
+  transition: background-color 1s ease; /* smooth fade 
 }
 
-/* IMPORTANT: remove any solid background on main */
+/* IMPORTANT: remove any solid background on main 
 main { 
   flex: 1; 
-  background: transparent;   /* not #f8f8f8 */
+  background: transparent;   /* not #f8f8f8 
 }
 
 /* if you had this earlier, DELETE it:
 main { background-color: #f8f8f8; }
 */
 
-/* keep cards white (that’s fine); the gaps will show the changing bg */
+/* keep cards white (that’s fine); the gaps will show the changing bg 
 .shop-card { background: #fff; }
 
 
+
+
+
+
+//new 
+
+
+/* Global */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: #000000; /* Deep black */
+  color: #e0ffe2; /* Soft neon-white */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+header {
+  background: #020202;
+  padding: 15px 0;
+  box-shadow: 0 0 15px rgba(0, 255, 170, 0.5);
+}
+
+.header-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  color: #00ffea; /* Neon Cyan */
+  font-size: 26px;
+  text-shadow: 0 0 10px #00ffea;
+}
+
+/* Buttons */
+nav button {
+  background: transparent;
+  color: #39ff14; /* Neon Green */
+  border: 2px solid #39ff14;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-left: 10px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  text-shadow: 0 0 6px #39ff14;
+  box-shadow: 0 0 10px rgba(57, 255, 20, 0.4);
+}
+
+nav button:hover {
+  background: linear-gradient(45deg, #39ff14, #00ffea);
+  color: #000;
+  box-shadow: 0 0 20px #39ff14, 0 0 30px #00ffea;
+  text-shadow: 0 0 8px #00ffea;
+}
+
+/* Dashboard Button (inline style override) */
+nav button[style] {
+  border: 2px solid #00fff2 !important;
+  color: #00fff2 !important;
+  background: transparent !important;
+  text-shadow: 0 0 6px #00fff2 !important;
+}
+nav button[style]:hover {
+  background: linear-gradient(45deg, #00fff2, #39ff14) !important;
+  color: #000 !important;
+  box-shadow: 0 0 20px #00fff2, 0 0 30px #39ff14 !important;
+  text-shadow: 0 0 8px #00fff2 !important;
+}
+
+/* Main Section */
+main {
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 0 20px;
+  flex: 1;
+}
+
+.section-title {
+  font-size: 30px;
+  margin-bottom: 20px;
+  color: #00ffea;
+  text-shadow: 0 0 10px #00ffea;
+}
+
+/* Shops Container - Horizontal Scroll */
+.shops-container {
+  display: flex;                /* horizontal layout */
+  gap: 20px;                    /* spacing between cards */
+  overflow-x: auto;             /* allow horizontal scroll */
+  padding-bottom: 10px;
+  scroll-behavior: smooth;      /* smooth scroll */
+}
+
+/* Hide default scrollbar (optional for cleaner look) */
+.shops-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.shops-container::-webkit-scrollbar-thumb {
+  background-color: #39ff14;  /* neon green scrollbar */
+  border-radius: 4px;
+}
+
+.shops-container::-webkit-scrollbar-track {
+  background: #000;            /* track background */
+}
+
+/* Shop Card */
+.shop-card {
+  min-width: 260px;            /* ensure cards don’t shrink too much */
+  flex-shrink: 0;              /* prevent shrinking */
+  background: #050505;
+  border: 2px solid #00ffea;
+  padding: 20px;
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+  box-shadow: 0 0 15px rgba(0, 255, 234, 0.4);
+}
+
+.shop-card:hover {
+  transform: translateY(-6px);
+  border-color: #39ff14; /* hover border color */
+  box-shadow: 0 0 25px #39ff14, 0 0 50px #00ffea; /* dual neon glow */
+  background: linear-gradient(145deg, #0a0a0a, #111111); /* subtle gradient */
+}
+
+.shop-card h3 {
+  color: #39ff14;
+  text-shadow: 0 0 8px #39ff14;
+  margin-bottom: 8px;
+}
+
+.shop-card p {
+  color: #e0ffe2;
+}
+
+/* Footer */
+footer {
+  background: #020202;
+  padding: 15px;
+  text-align: center;
+  color: #00ffea;
+  border-top: 2px solid #00ffea;
+  text-shadow: 0 0 6px #00ffea;
+}
