@@ -1,46 +1,77 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Delivery Dashboard</title>
-  <link rel="stylesheet" href="delivery.css">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Delivery Dashboard</title>
+<link rel="stylesheet" href="delivery.css">
+<style>
+  table { width:100%; border-collapse: collapse; }
+  th, td { padding:8px; border:1px solid #eee; text-align:left; }
+  .btn { padding:6px 10px; border-radius:6px; cursor:pointer; border:none; }
+  .btn-accept { background:#0984e3; color:white; }
+  .btn-deliver { background:#00b894; color:white; }
+  .badge { padding:4px 8px; border-radius:6px; }
+</style>
 </head>
 <body>
-  <header>
-    <h1>Delivery Dashboard</h1>
-    <div>
-      <span id="deliveryEmail"></span>
-      <button id="signOutBtn">Sign Out</button>
-    </div>
-  </header>
 
-  <main>
-    <section>
-      <h2>Status</h2>
-      <label>Free <input type="radio" name="status" value="free" id="free"></label>
-      <label>Busy <input type="radio" name="status" value="busy" id="busy"></label>
-    </section>
+<header>
+  <h1>Delivery Dashboard</h1>
+  <div>
+    Logged in as: <strong id="deliveryEmail"></strong>
+    <button id="signOutBtn">Sign Out</button>
+  </div>
+</header>
 
-    <section>
-      <h2>New Orders</h2>
-      <div id="newOrders"></div>
-    </section>
+<main>
+  <!-- Available Requests (broadcast) -->
+  <section>
+    <h2>Available Delivery Requests</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Request ID</th>
+          <th>User</th>
+          <th>Food</th>
+          <th>Amount</th>
+          <th>Address</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="newOrders">
+        <!-- deliveryRequests documents will appear here -->
+      </tbody>
+    </table>
+  </section>
 
-    <section>
-      <h2>Your Accepted Orders</h2>
-      <div id="myOrders"></div>
-    </section>
-    <div style="text-align:center; margin-top:30px;">
-  <button id="openDashboardBtn" class="dashboard-btn">Go to Owner Dashboard</button>
-</div>
-  </main>
+  <!-- My Orders (assigned) -->
+  <section>
+    <h2>My Orders</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>User</th>
+          <th>Food</th>
+          <th>Amount</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="myOrders">
+        <!-- assigned orders will appear here -->
+      </tbody>
+    </table>
+  </section>
 
-<script>
-document.getElementById("openDashboardBtn").addEventListener("click", ()=>{
-  window.location.href="deliverydashboard.html";
-});
-</script>
-  <script type="module" src="delivery.js"></script>
+  <div style="text-align:center; margin-top:20px;">
+    <button onclick="window.location.href='deliverydashboard.html'">Open Dashboard</button>
+  </div>
+</main>
+
+<script type="module" src="delivery.js"></script>
 </body>
 </html>

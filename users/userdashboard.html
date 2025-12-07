@@ -1,5 +1,5 @@
 
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -28,6 +28,69 @@
       <canvas id="ordersChart"></canvas>
   </div>
 </section>
+
+  </main>
+
+  <script type="module" src="userdashboard.js"></script>
+</body>
+</html>-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Dashboard</title>
+  <link rel="stylesheet" href="userdashboard.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <h1>Welcome, <span id="userName"></span></h1>
+    <button id="logoutBtn" class="logout-btn">Logout</button>
+  </header>
+
+  <main>
+
+    <!-- SPENDING CARDS -->
+    <section class="spending-section">
+      <div class="card">
+        <h3>Total Spending</h3>
+        <p id="totalSpending">₹0</p>
+      </div>
+
+      <div class="card">
+        <h3>Today's Spending</h3>
+        <p id="todaySpending">₹0</p>
+      </div>
+    </section>
+
+    <!-- ORDER HISTORY -->
+    <section class="order-section">
+      <h2>Order History</h2>
+      <div id="order-history" class="order-table-container">
+        <p>Loading orders...</p>
+      </div>
+    </section>
+
+    <!-- MONTHLY CHART -->
+    <section class="chart-section">
+      <h2>Monthly Spending</h2>
+      <div class="chart-box">
+        <canvas id="ordersChart"></canvas>
+      </div>
+    </section>
+
+    <!-- DAILY CHART -->
+    <section class="chart-section">
+      <h2>Daily Spending</h2>
+      <div class="chart-box">
+        <canvas id="dailyChart"></canvas>
+      </div>
+    </section>
 
   </main>
 

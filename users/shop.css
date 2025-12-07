@@ -1,5 +1,5 @@
 /* shop.css */
-body {
+/*body {
   font-family: "Poppins", sans-serif;
   background: #f9f9f9;
   margin: 0;
@@ -8,7 +8,7 @@ body {
 }
 
 /* Shop Header */
-h1#shopName {
+/*h1#shopName {
   text-align: center;
   font-size: 32px;
   font-weight: 600;
@@ -25,7 +25,7 @@ h1#shopName {
 }
 
 /* Section Title */
-h2 {
+/*h2 {
   margin: 30px 20px 10px;
   font-size: 24px;
   color: #444;
@@ -34,7 +34,7 @@ h2 {
 }
 
 /* Menu container */
-#menu {
+/*#menu {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 20px;
@@ -42,7 +42,7 @@ h2 {
 }
 
 /* Menu Item Card */
-#menu .item-card {
+/*#menu .item-card {
   background: white;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
@@ -75,7 +75,7 @@ h2 {
 }
 
 /* Optional Add to Cart button */
-#menu .item-card button {
+/*#menu .item-card button {
   margin: 10px 12px 15px;
   padding: 8px 14px;
   border: none;
@@ -92,7 +92,7 @@ h2 {
   background: #e85a50;
 }
 /* Container for menu */
-#menu {
+/*#menu {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 20px;
@@ -101,7 +101,7 @@ h2 {
 }
 
 /* Each menu card */
-.menu-item {
+/*.menu-item {
   background: #fff;
   border-radius: 12px;
   overflow: hidden;
@@ -111,13 +111,13 @@ h2 {
 }
 
 /* Card hover effect */
-.menu-item:hover {
+/*.menu-item:hover {
   transform: translateY(-5px);
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
 }
 
 /* Item image */
-.menu-item img {
+/*.menu-item img {
   width: 100%;
   height: 150px;
   object-fit: cover;
@@ -125,7 +125,7 @@ h2 {
 }
 
 /* Details inside card */
-.item-details {
+/*.item-details {
   padding: 12px;
   text-align: center;
 }
@@ -142,20 +142,20 @@ h2 {
   color: #007b5e;
 }
 /* Popup overlay */
-#itemPopup {
+/*#itemPopup {
   position: fixed;
   top: 0; left: 0;
   width: 100%; height: 100%;
   background: rgba(0,0,0,0.6);
-  display: none; /* hidden initially */
+  display: none; /* hidden initially 
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  padding: 15px; /* small gap for mobile edges */
-}
+  padding: 15px; /* small gap for mobile edges 
+}*/
 
 /* Popup box */
-#itemPopup .popup-content {
+/*#itemPopup .popup-content {
   background: #fff;
   padding: 20px;
   border-radius: 15px;
@@ -168,7 +168,7 @@ h2 {
 }
 
 /* Close button (X) */
-#itemPopup #closePopup {
+/*#itemPopup #closePopup {
   position: absolute;
   top: 10px; right: 15px;
   font-size: 24px;
@@ -178,7 +178,7 @@ h2 {
 }
 
 /* Popup image */
-#itemPopup img {
+/*#itemPopup img {
   width: 100%;
   max-height: 220px;
   object-fit: cover;
@@ -187,25 +187,25 @@ h2 {
 }
 
 /* Food name */
-#itemPopup h2 {
+/*#itemPopup h2 {
   margin: 0;
   font-size: 20px;
   color: #222;
 }
 
 /* Price */
-#itemPopup p {
+/*#itemPopup p {
   font-size: 18px;
   color: #555;
   margin: 10px 0 20px 0;
 }
 
 /* Buttons container */
-.popup-actions {
+/*.popup-actions {
   display: flex;
   justify-content: center;
   gap: 10px;
-  flex-wrap: wrap; /* stack if no space */
+  flex-wrap: wrap; /* stack if no space *
 }
 
 .popup-actions button {
@@ -220,7 +220,7 @@ h2 {
 }
 
 /* Buttons */
-#addToCartBtn {
+/*#addToCartBtn {
   background: #ff6600;
   color: white;
 }
@@ -235,12 +235,12 @@ h2 {
 }
 
 /* Animation */
-@keyframes scaleIn {
+/*@keyframes scaleIn {
   from { transform: scale(0.9); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
 
-/* 🔥 Responsive tweaks */
+/* 🔥 Responsive tweaks 
 @media (max-width: 480px) {
   #itemPopup .popup-content {
     padding: 15px;
@@ -257,4 +257,215 @@ h2 {
     min-width: 100px;
     padding: 8px;
   }
+}*/
+
+/*new
+/* ===== Global Styling ===== */
+body {
+    font-family: "Poppins", sans-serif;
+    background-color: #e0f7f1; /* light mint background */
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+/* ===== Shop Header ===== */
+h1#shopName {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 600;
+    margin: 20px 0 10px;
+    color: #1dd1a1; /* updated color */
+}
+
+#shopDescription,
+#shopLocation {
+    text-align: center;
+    font-size: 16px;
+    color: #555; /* updated color */
+    margin: 4px 0;
+}
+
+/* ===== Section Titles ===== */
+h2 {
+    margin: 30px 20px 10px;
+    font-size: 24px;
+    color: #1dd1a1; /* updated color */
+    border-left: 5px solid #1dd1a1;
+    padding-left: 10px;
+}
+
+/* ===== Menu Container ===== */
+#menu {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+    padding: 10px;
+}
+
+/* ===== Menu Item Card ===== */
+.menu-item {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.menu-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+}
+
+.menu-item img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    display: block;
+}
+
+/* ===== Item Details ===== */
+.item-details {
+    padding: 12px;
+    text-align: center;
+}
+
+.item-details h3 {
+    font-size: 1.2rem;
+    margin: 8px 0;
+    color: #333;
+}
+
+.item-details p {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #007b5e; /* updated color */
+}
+
+/* ===== Popup Overlay ===== */
+#itemPopup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 15px;
+    display: none;
+}
+
+/* ===== Popup Box ===== */
+#itemPopup .popup-content {
+    background: #ffffff;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+    position: relative;
+    animation: scaleIn 0.3s ease-in-out;
+
+    /* Shift slightly to the right */
+    transform: translateX(20px);
+}
+
+/* Close Button */
+#itemPopup #closePopup {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+}
+
+/* Popup Image */
+#itemPopup img {
+    width: 100%;
+    max-height: 220px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+/* Popup Food Name */
+#itemPopup h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #222;
+}
+
+/* Popup Description / Price */
+#itemPopup p {
+    font-size: 18px;
+    color: #555;
+    margin: 10px 0 20px 0;
+}
+
+/* ===== Buttons Container ===== */
+.popup-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.popup-actions button {
+    flex: 1;
+    min-width: 120px;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.2s;
+}
+
+/* Add to Cart Button */
+#addToCartBtn {
+    background: #ff6b6b; /* red */
+    color: #fff;
+}
+
+/* Buy Now Button */
+#buyNowBtn {
+    background: #1dd1a1; /* green */
+    color: #fff;
+}
+
+.popup-actions button:hover {
+    opacity: 0.9;
+}
+
+/* ===== Popup Animation ===== */
+@keyframes scaleIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 480px) {
+    #itemPopup .popup-content {
+        padding: 15px;
+        border-radius: 10px;
+    }
+    #itemPopup h2 {
+        font-size: 18px;
+    }
+    #itemPopup p {
+        font-size: 16px;
+    }
+    .popup-actions button {
+        font-size: 14px;
+        min-width: 100px;
+        padding: 8px;
+    }
 }

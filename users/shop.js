@@ -162,3 +162,4 @@ document.getElementById("closePopup").onclick = closePopup;
 window.onclick = (event) => {
   if (event.target === popup) closePopup();
 };
+

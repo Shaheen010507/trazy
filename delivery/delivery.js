@@ -1,7 +1,7 @@
 // -----------------------------
 // Firebase Config (YOUR CONFIG)
 // -----------------------------
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+/*import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 import { 
   getAuth, 
   onAuthStateChanged, 
@@ -183,4 +183,321 @@ async function markDelivered(orderId) {
   });
 
   alert("Order marked as Delivered!");
+}
+*/
+
+
+/*import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+import { 
+  getAuth, onAuthStateChanged, signOut 
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+import { 
+  getFirestore, collection, query, where, onSnapshot, doc, updateDoc, getDocs, serverTimestamp 
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+// Firebase config
+const firebaseConfig = {
+  apiKey: "AIzaSyDuzBpeML-DAjCqeF3Z5iX6H_0oZR7v3dg",
+  authDomain: "trazy-2142e.firebaseapp.com",
+  projectId: "trazy-2142e",
+  storageBucket: "trazy-2142e.firebasestorage.app",
+  messagingSenderId: "4891427196",
+  appId: "1:4891427196:web:b8a9b5d0e05232c25124f9"
+};
+
+// Init Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// UI elements
+const deliveryEmail = document.getElementById("deliveryEmail");
+const signOutBtn = document.getElementById("signOutBtn");
+const newOrdersTbody = document.getElementById("newOrders");
+const myOrdersTbody = document.getElementById("myOrders");
+
+let deliveryId = null;
+
+// Auth check
+onAuthStateChanged(auth, user => {
+  if(!user) {
+    window.location.href = "../login.html";
+    return;
+  }
+  deliveryEmail.innerText = user.email;
+  getDeliveryId(user.email);
+});
+
+// Sign out
+signOutBtn.addEventListener("click", () => signOut(auth));
+
+// Get delivery Firestore ID
+async function getDeliveryId(email) {
+  const snap = await getDocs(collection(db, "delivery"));
+  snap.forEach(d => {
+    if(d.data().email === email){
+      deliveryId = d.id;
+      startFCFSListener();
+    }
+  });
+}
+
+// -------------------- FCFS Orders Listener --------------------
+function startFCFSListener() {
+  const ordersRef = collection(db, "orders");
+
+  onSnapshot(ordersRef, snapshot => {
+    newOrdersTbody.innerHTML = "";
+    myOrdersTbody.innerHTML = "";
+
+    snapshot.forEach(async docu => {
+      const order = docu.data();
+
+      if(order.deliveryId && order.deliveryId !== deliveryId) return;
+
+      // Assigned to this delivery boy
+      if(order.deliveryId === deliveryId){
+        addMyOrderRow(docu.id, order);
+        return;
+      }
+
+      // Unassigned order
+      if(!order.deliveryId){
+        addAvailableOrderRow(docu.id, order);
+      }
+    });
+  });
+}
+
+// -------------------- Add row for Available Orders --------------------
+function addAvailableOrderRow(orderId, order){
+  const tr = document.createElement("tr");
+
+  tr.innerHTML = `
+    <td>${orderId}</td>
+    <td>${order.customerName}</td>
+    <td>${order.item.name}</td>
+    <td>₹${order.item.price}</td>
+    <td>${order.address}</td>
+    <td><button class="acceptBtn">ACCEPT</button></td>
+  `;
+
+  newOrdersTbody.appendChild(tr);
+
+  tr.querySelector(".acceptBtn").addEventListener("click", () => {
+    acceptOrder(orderId);
+  });
+}
+
+// -------------------- Add row for My Orders --------------------
+function addMyOrderRow(orderId, order){
+  const tr = document.createElement("tr");
+
+  tr.innerHTML = `
+    <td>${orderId}</td>
+    <td>${order.customerName}</td>
+    <td>${order.item.name}</td>
+    <td>₹${order.item.price}</td>
+    <td>${order.status}</td>
+    <td><button class="deliverBtn">MARK DELIVERED</button></td>
+  `;
+
+  myOrdersTbody.appendChild(tr);
+
+  tr.querySelector(".deliverBtn").addEventListener("click", () => {
+    markDelivered(orderId);
+  });
+}
+
+// -------------------- Accept Order --------------------
+async function acceptOrder(orderId){
+  try{
+    await updateDoc(doc(db,"orders",orderId), {
+      deliveryId: deliveryId,
+      status: "Accepted by Delivery",
+      acceptedTime: serverTimestamp()
+    });
+    alert("Order Accepted Successfully!");
+  }
+  catch(err){
+    alert("Someone else accepted this order first!");
+  }
+}
+
+// -------------------- Mark Order Delivered --------------------
+async function markDelivered(orderId){
+  await updateDoc(doc(db,"orders",orderId), {
+    status: "Delivered",
+    deliveredTime: serverTimestamp()
+  });
+  alert("Order marked as Delivered!");
+}
+
+*/
+
+
+
+// delivery.js - listens to deliveryRequests (pending) and uses a Firestore transaction to claim (FCFS).
+// Also listens to orders assigned to this delivery partner (deliveryId == this delivery doc id).
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import {
+  getFirestore, collection, query, where, onSnapshot, doc, updateDoc, getDocs, runTransaction, serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+// ---------- Firebase config ----------
+const firebaseConfig = {
+  apiKey: "AIzaSyDuzBpeML-DAjCqeF3Z5iX6H_0oZR7v3dg",
+  authDomain: "trazy-2142e.firebaseapp.com",
+  projectId: "trazy-2142e",
+  storageBucket: "trazy-2142e.firebasestorage.app",
+  messagingSenderId: "4891427196",
+  appId: "1:4891427196:web:b8a9b5d0e05232c25124f9"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// ---------- DOM ----------
+const deliveryEmail = document.getElementById("deliveryEmail");
+const signOutBtn = document.getElementById("signOutBtn");
+const newOrdersTbody = document.getElementById("newOrders");
+const myOrdersTbody = document.getElementById("myOrders");
+
+let deliveryDocId = null; // document id in delivery collection for this logged-in partner
+
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    window.location.href = "../login.html";
+    return;
+  }
+  deliveryEmail.innerText = user.email;
+  // find delivery doc by email
+  const dsnap = await getDocs(query(collection(db, "delivery"), where("email", "==", user.email)));
+  if (!dsnap.empty) {
+    deliveryDocId = dsnap.docs[0].id;
+  } else {
+    console.warn("No delivery profile found for:", user.email);
+  }
+  listenDeliveryRequests();
+  listenAssignedOrders();
+});
+
+if (signOutBtn) signOutBtn.addEventListener("click", () => signOut(auth));
+
+// ---------- Listen to deliveryRequests (pending) ----------
+function listenDeliveryRequests() {
+  const q = query(collection(db, "deliveryRequests"), where("status", "==", "pending"));
+  onSnapshot(q, snapshot => {
+    newOrdersTbody.innerHTML = "";
+    snapshot.forEach(docu => {
+      const r = docu.data();
+      const id = docu.id;
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${escapeHtml(id)}</td>
+        <td>${escapeHtml(r.customerName || "")}</td>
+        <td>${escapeHtml(r.item?.name || "")}</td>
+        <td>₹${Number(r.item?.price || 0)}</td>
+        <td>${escapeHtml(r.address || "")}</td>
+        <td><button class="btn btn-accept" data-req="${id}">Accept</button></td>
+      `;
+      newOrdersTbody.appendChild(tr);
+    });
+
+    // attach listeners
+    document.querySelectorAll(".btn-accept").forEach(b => {
+      b.addEventListener("click", async (e) => {
+        const reqId = e.target.dataset.req;
+        await tryAcceptDeliveryRequest(reqId);
+      });
+    });
+  }, err => {
+    console.error("deliveryRequests snapshot error:", err);
+  });
+}
+
+// ---------- FCFS accept using runTransaction ----------
+async function tryAcceptDeliveryRequest(reqId) {
+  if (!deliveryDocId) return alert("Delivery profile not found. Add your delivery profile in Firestore.");
+  const reqRef = doc(db, "deliveryRequests", reqId);
+  try {
+    await runTransaction(db, async (tx) => {
+      const reqSnap = await tx.get(reqRef);
+      if (!reqSnap.exists()) throw "Request not found";
+      const req = reqSnap.data();
+      if (req.status !== "pending") throw "Already taken or expired";
+
+      // assign request to this delivery partner
+      tx.update(reqRef, {
+        status: "assigned",
+        assignedTo: deliveryDocId,
+        assignedAt: serverTimestamp()
+      });
+
+      // update the corresponding orders doc atomically
+      const orderRef = doc(db, "orders", req.orderId);
+      tx.update(orderRef, {
+        deliveryId: deliveryDocId,
+        status: "AcceptedByDelivery",
+        deliveryAssignedAt: serverTimestamp()
+      });
+
+      // optionally set delivery partner status busy
+      const delRef = doc(db, "delivery", deliveryDocId);
+      tx.update(delRef, { status: "busy", lastAssignedAt: serverTimestamp() });
+    });
+
+    alert("You accepted the delivery. Check My Orders.");
+  } catch (err) {
+    console.error("Accept transaction error:", err);
+    alert("Could not accept. Likely already assigned or expired.");
+  }
+}
+
+// ---------- Listen to assigned orders where deliveryId == this deliveryDocId ----------
+function listenAssignedOrders() {
+  if (!deliveryDocId) return;
+  const q = query(collection(db, "orders"), where("deliveryId", "==", deliveryDocId));
+  onSnapshot(q, snap => {
+    myOrdersTbody.innerHTML = "";
+    snap.forEach(d => {
+      const o = d.data();
+      const id = d.id;
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${escapeHtml(id)}</td>
+        <td>${escapeHtml(o.customerName || "")}</td>
+        <td>${escapeHtml(o.item?.name || "")}</td>
+        <td>₹${Number(o.item?.price || 0)}</td>
+        <td>${escapeHtml(o.status || "")}</td>
+        <td><button class="btn btn-deliver" data-order="${id}">Mark Delivered</button></td>
+      `;
+      myOrdersTbody.appendChild(tr);
+    });
+
+    // attach mark delivered buttons
+    document.querySelectorAll(".btn-deliver").forEach(b => {
+      b.addEventListener("click", async (e) => {
+        const orderId = e.target.dataset.order;
+        try {
+          await updateDoc(doc(db, "orders", orderId), { status: "Delivered", deliveredAt: serverTimestamp() });
+          // mark delivery partner free
+          if (deliveryDocId) await updateDoc(doc(db, "delivery", deliveryDocId), { status: "free", lastDeliveredAt: serverTimestamp() });
+        } catch (err) {
+          console.error("Mark delivered failed:", err);
+          alert("Failed to mark delivered.");
+        }
+      });
+    });
+  }, err => console.error("assigned orders snapshot error:", err));
+}
+
+// ---------- helpers ----------
+function escapeHtml(str) {
+  if (typeof str !== "string") return str;
+  return str.replace(/[&<>"'`]/g, (m) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;', "'":"&#39;", "`":"&#96;"}[m]));
 }

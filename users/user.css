@@ -138,153 +138,167 @@ main { background-color: #f8f8f8; }
 //new 
 
 
-/* Global */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+
+
+/* ======================= FORCE THEME (OVERWRITE INLINE STYLES) ======================= */
+/* Theme colors */
+:root{
+  --primary: #F87440;       /* main orange */
+  --primary-dark: #d65a28;  /* darker hover */
+  --accent: #FBC859;        /* soft yellow */
+  --text-strong: #3A2E2E;   /* heading text (not black) */
+  --card-bg: rgba(255,255,255,0.40);
+  --card-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  --radius: 12px;
 }
 
-body {
-  background: #000000; /* Deep black */
-  color: #e0ffe2; /* Soft neon-white */
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+/* reset small things */
+*{box-sizing:border-box}
+body,html{height:100%;margin:0;padding:0;font-family:'Poppins',sans-serif}
+
+/* Gradient background like your landing */
+body{
+  background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+  color: var(--text-strong);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
 }
 
-/* Header */
-header {
-  background: #020202;
-  padding: 15px 0;
-  box-shadow: 0 0 15px rgba(0, 255, 170, 0.5);
+/* ====== HEADER ====== */
+/* make header translucent (not black) and title color softer */
+header{
+  padding:16px 22px;
+  background: rgba(255,255,255,0.12); /* translucent to blend with gradient */
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  position: relative;
+  z-index: 20;
 }
 
-.header-container {
-  max-width: 1200px;
-  margin: auto;
-  padding: 0 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.header-container{
+  max-width:1200px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
 }
 
-header h1 {
-  color: #00ffea; /* Neon Cyan */
-  font-size: 26px;
-  text-shadow: 0 0 10px #00ffea;
+header h1{
+  margin:0;
+  font-size:26px;
+  font-weight:700;
+  color:var(--text-strong); /* softer than black */
+  text-shadow: 0 1px 0 rgba(255,255,255,0.03);
 }
 
-/* Buttons */
-nav button {
-  background: transparent;
-  color: #39ff14; /* Neon Green */
-  border: 2px solid #39ff14;
-  padding: 8px 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-left: 10px;
-  font-weight: bold;
-  transition: all 0.3s ease;
-  text-shadow: 0 0 6px #39ff14;
-  box-shadow: 0 0 10px rgba(57, 255, 20, 0.4);
+/* ====== NAV BUTTONS: FORCE SAME COLOR (OVERRIDE INLINE STYLES) ====== */
+/* target any button inside nav */
+header nav button,
+header nav .btn,
+header nav a.button {
+  background: var(--primary) !important;   /* force orange even if inline green */
+  color: #fff !important;
+  border: none !important;
+  border-radius: 10px !important;
+  padding: 10px 16px !important;
+  font-weight:600;
+  cursor:pointer;
+  box-shadow: none !important;
+  transition: background .18s ease, transform .12s ease;
+  outline: none !important;
 }
 
-nav button:hover {
-  background: linear-gradient(45deg, #39ff14, #00ffea);
-  color: #000;
-  box-shadow: 0 0 20px #39ff14, 0 0 30px #00ffea;
-  text-shadow: 0 0 8px #00ffea;
+/* hover effect only on the button itself (no orange bleeding) */
+header nav button:hover,
+header nav .btn:hover,
+header nav a.button:hover {
+  background: var(--primary-dark) !important;
+  transform: translateY(-2px);
+  color: #fff !important;
 }
 
-/* Dashboard Button (inline style override) */
-nav button[style] {
-  border: 2px solid #00fff2 !important;
-  color: #00fff2 !important;
-  background: transparent !important;
-  text-shadow: 0 0 6px #00fff2 !important;
-}
-nav button[style]:hover {
-  background: linear-gradient(45deg, #00fff2, #39ff14) !important;
-  color: #000 !important;
-  box-shadow: 0 0 20px #00fff2, 0 0 30px #39ff14 !important;
-  text-shadow: 0 0 8px #00fff2 !important;
+/* remove any focus ring that might change large white area */
+header nav button:focus,
+header nav button:active { outline: none !important; box-shadow: none !important; }
+
+/* ====== SECTION TITLE ====== */
+.section-title{
+  font-size:24px;
+  font-weight:700;
+  margin:20px 0 8px 22px;
+  color:var(--text-strong);
 }
 
-/* Main Section */
-main {
-  max-width: 1200px;
-  margin: 30px auto;
-  padding: 0 20px;
-  flex: 1;
+/* ====== SHOPS CONTAINER & CARDS ====== */
+main{max-width:1200px;margin:0 auto;padding:18px}
+
+.shops-container{
+  display:flex;
+  flex-wrap:wrap;
+  gap:20px;
+  padding: 14px 20px 60px;
+  justify-content:flex-start;
 }
 
-.section-title {
-  font-size: 30px;
-  margin-bottom: 20px;
-  color: #00ffea;
-  text-shadow: 0 0 10px #00ffea;
+/* card style - softer glass so it matches the gradient */
+.shop-card{
+  width:250px;
+  background: var(--card-bg); /* glass */
+  backdrop-filter: blur(6px);
+  border-radius: var(--radius);
+  padding:16px;
+  box-shadow: var(--card-shadow);
+  transition: transform .18s ease, box-shadow .18s ease;
 }
 
-/* Shops Container - Horizontal Scroll */
-.shops-container {
-  display: flex;                /* horizontal layout */
-  gap: 20px;                    /* spacing between cards */
-  overflow-x: auto;             /* allow horizontal scroll */
-  padding-bottom: 10px;
-  scroll-behavior: smooth;      /* smooth scroll */
-}
-
-/* Hide default scrollbar (optional for cleaner look) */
-.shops-container::-webkit-scrollbar {
-  height: 8px;
-}
-
-.shops-container::-webkit-scrollbar-thumb {
-  background-color: #39ff14;  /* neon green scrollbar */
-  border-radius: 4px;
-}
-
-.shops-container::-webkit-scrollbar-track {
-  background: #000;            /* track background */
-}
-
-/* Shop Card */
-.shop-card {
-  min-width: 260px;            /* ensure cards don’t shrink too much */
-  flex-shrink: 0;              /* prevent shrinking */
-  background: #050505;
-  border: 2px solid #00ffea;
-  padding: 20px;
-  border-radius: 12px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
-  box-shadow: 0 0 15px rgba(0, 255, 234, 0.4);
-}
-
-.shop-card:hover {
+.shop-card:hover{
   transform: translateY(-6px);
-  border-color: #39ff14; /* hover border color */
-  box-shadow: 0 0 25px #39ff14, 0 0 50px #00ffea; /* dual neon glow */
-  background: linear-gradient(145deg, #0a0a0a, #111111); /* subtle gradient */
+  box-shadow: 0 10px 28px rgba(0,0,0,0.14);
 }
 
-.shop-card h3 {
-  color: #39ff14;
-  text-shadow: 0 0 8px #39ff14;
-  margin-bottom: 8px;
+.shop-card h3{margin:0 0 6px 0;color:var(--text-strong);font-size:18px}
+.shop-card p{margin:4px 0;color:rgba(0,0,0,0.6);font-size:14px}
+
+/* ====== VIEW BUTTON — FORCE ORANGE (handle both class names) ====== */
+/* many of your files use .view-btn or .view-menu-btn — cover both */
+.view-btn, .view-menu-btn, button.view{
+  background: var(--primary) !important;
+  color: #fff !important;
+  border-radius: 10px !important;
+  padding: 10px 12px !important;
+  border: none !important;
+  width:100%;
+  font-weight:600;
+  cursor:pointer;
+  transition: background .18s ease, transform .12s ease;
+  box-shadow: none !important;
 }
 
-.shop-card p {
-  color: #e0ffe2;
+.view-btn:hover, .view-menu-btn:hover, button.view:hover {
+  background: var(--primary-dark) !important;
+  transform: translateY(-2px);
 }
 
-/* Footer */
-footer {
-  background: #020202;
-  padding: 15px;
-  text-align: center;
-  color: #00ffea;
-  border-top: 2px solid #00ffea;
-  text-shadow: 0 0 6px #00ffea;
+/* If some button was rendered white by inline CSS, hide that by forcing color */
+.view-btn[style], .view-menu-btn[style] { background: var(--primary) !important; color:#fff !important; }
+
+/* ====== FOOTER ====== */
+footer{
+  text-align:center;
+  padding:20px;
+  color:var(--text-strong);
+  font-weight:600;
+}
+
+/* ====== RESPONSIVE TWEAKS ====== */
+@media (max-width:900px){
+  .header-container{flex-direction:column;align-items:flex-start;gap:10px}
+  .shops-container{justify-content:center}
+}
+
+@media (max-width:600px){
+  header h1{font-size:20px}
+  .shop-card{width:100%}
+  header nav button{width:100%}
 }

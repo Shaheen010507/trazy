@@ -1,10 +1,29 @@
+
+
+
+<!--new-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Owner Dashboard</title>
-<link rel="stylesheet" href="owner.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Owner Dashboard</title>
+  <link rel="stylesheet" href="owner.css">
+  <style>
+    /* small inline helpers for better immediate UX */
+    table { width:100%; border-collapse: collapse; }
+    th, td { padding:8px; border:1px solid #e6e6e6; text-align:left; }
+    .btn { padding:6px 10px; border-radius:6px; cursor:pointer; border:none; }
+    .btn-accept { background:#00b894; color:white; }
+    .btn-reject { background:#ff7675; color:white; }
+    .badge { padding:4px 8px; border-radius:6px; font-weight:600; }
+    .status-pending { background:#ffeaa7; }
+    .status-owneraccepted { background:#81ecec; }
+    .status-rejectedbyowner { background:#fab1a0; }
+    .status-autoRejectedByOwner { background:#d63031; color:white; }
+    .status-deliverynotavailable { background:#b2bec3; }
+  </style>
 </head>
 <body>
 <header>
@@ -16,47 +35,68 @@
 </header>
 
 <main>
-<section>
-  <h2>Add / Edit Item</h2>
-  <form id="itemForm">
-    <input type="hidden" id="editItemId">
-    <label>Item Name:</label>
-    <input type="text" id="itemName" required>
-    <label>Price (₹):</label>
-    <input type="number" id="itemPrice" step="0.01" required>
-    <label>Available:</label>
-    <input type="checkbox" id="itemAvailable" checked>
-    <button type="submit" id="saveBtn">Save Item</button>
-  </form>
-</section>
+  <!-- Add / Edit Items Section -->
+  <section>
+    <h2>Add / Edit Item</h2>
+    <form id="itemForm">
+      <input type="hidden" id="editItemId">
+      <label>Item Name:</label>
+      <input type="text" id="itemName" required>
+      <label>Price (₹):</label>
+      <input type="number" id="itemPrice" step="0.01" required>
+      <label>Available:</label>
+      <input type="checkbox" id="itemAvailable" checked>
+      <button type="submit" id="saveBtn" class="btn">Save Item</button>
+    </form>
+  </section>
 
-<section>
-  <h2>Shop Items</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th><th>Price</th><th>Available</th><th>Actions</th>
-      </tr>
-    </thead>
-    <tbody id="itemsTbody"></tbody>
-  </table>
-</section>
+  <!-- Shop Items Section -->
+  <section>
+    <h2>Shop Items</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th><th>Price</th><th>Available</th><th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="itemsTbody"></tbody>
+    </table>
+  </section>
 
-<section>
-  <h2>Orders</h2>
-  <div id="ordersContainer"></div>
-</section>
+  <!-- Orders Section -->
+  <section>
+    <h2>Incoming Orders (Owner)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>User</th>
+          <th>Food</th>
+          <th>Amount</th>
+          <th>Place</th>
+          <th>Status</th>
+          <th>Delivery</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="comingOrdersTbody">
+        <!-- Orders will be injected by JS -->
+      </tbody>
+    </table>
+  </section>
 
-<div style="text-align:center; margin-top:30px;">
-  <button id="openDashboardBtn" class="dashboard-btn">Go to Owner Dashboard</button>
-</div>
+  <div style="text-align:center; margin-top:30px;">
+    <button id="openDashboardBtn" class="dashboard-btn">Go to Owner Dashboard</button>
+  </div>
 </main>
 
 <script>
-document.getElementById("openDashboardBtn").addEventListener("click", ()=>{
-  window.location.href="ownerdashboard.html";
-});
+  document.getElementById("openDashboardBtn").addEventListener("click", ()=>{
+    window.location.href="ownerdashboard.html";
+  });
 </script>
+
 <script type="module" src="owner.js"></script>
 </body>
 </html>
+

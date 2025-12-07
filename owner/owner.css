@@ -157,3 +157,16 @@ select {
 .dashboard-btn:active {
   transform: scale(0.97);
 }
+/* Add horizontal line between each order row */
+table tr {
+    border-bottom: 2px solid #d1d9f0; /* soft blue line */
+}
+
+table tr:last-child {
+    border-bottom: none; /* remove line after last row */
+}
+
+/* Optional: add spacing between rows for better clarity */
+table td {
+    padding: 12px 12px;
+}

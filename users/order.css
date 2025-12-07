@@ -1,5 +1,5 @@
 /* Reset */
-* {
+/** {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -15,7 +15,7 @@ body {
 }
 
 /* Main container */
-.order-container {
+/*.order-container {
   background: #fff;
   padding: 30px;
   border-radius: 15px;
@@ -25,14 +25,14 @@ body {
 }
 
 /* Heading */
-.order-container h1 {
+/*.order-container h1 {
   text-align: center;
   margin-bottom: 20px;
   color: #2c3e50;
 }
 
 /* Product details */
-.product-details {
+/*.product-details {
   background: #f9fafc;
   padding: 15px;
   border-radius: 10px;
@@ -52,7 +52,7 @@ body {
 }
 
 /* Form */
-form {
+/*form {
   display: flex;
   flex-direction: column;
 }
@@ -80,7 +80,7 @@ form select:focus {
 }
 
 /* Buttons */
-button {
+/*button {
   margin-top: 20px;
   padding: 12px;
   border: none;
@@ -108,4 +108,121 @@ button.cancel {
 
 button.cancel:hover {
   background: #c0392b;
+}
+
+
+//new
+
+
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+body {
+  background: #233258; /* soft mint for relaxed feel */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Main container */
+.order-container {
+  background: #ffffff; /* clean white for focus */
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 400px;
+  max-width: 95%;
+}
+
+/* Heading */
+.order-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #1e3a8a; /* deep blue for elegance */
+}
+
+/* Product details */
+.product-details {
+  background: #f3f6f8; /* soft light background */
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.product-details h2 {
+  font-size: 20px;
+  margin-bottom: 8px;
+  color: #0f766e; /* teal calm color */
+}
+
+.product-details p {
+  font-size: 14px;
+  color: #555; /* neutral gray */
+  margin-bottom: 5px;
+}
+
+/* Form */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form label {
+  margin: 10px 0 5px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #34495e; /* soft dark blue-gray */
+}
+
+form input,
+form select {
+  padding: 10px;
+  border: 1px solid #cbd5e1; /* soft border */
+  border-radius: 8px;
+  outline: none;
+  font-size: 14px;
+}
+
+form input:focus,
+form select:focus {
+  border-color: #1e3a8a; /* deep blue on focus */
+  box-shadow: 0 0 4px rgba(30, 58, 138, 0.3);
+}
+
+/* Buttons */
+button {
+  margin-top: 20px;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+button.submit {
+  background: #1e3a8a; /* deep blue */
+  color: white;
+}
+
+button.submit:hover {
+  background: #3b82f6; /* lighter blue on hover */
+}
+
+button.cancel {
+  background: #a3b5c6; /* soft gray-blue */
+  color: white;
+  margin-top: 10px;
+}
+
+button.cancel:hover {
+  background: #829ab1; /* slightly darker gray-blue */
 }
