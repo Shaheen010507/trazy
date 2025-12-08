@@ -1,172 +1,209 @@
-/* Global Styling */
+/* =========================
+   GLOBAL STYLING
+========================= */
 body {
     margin: 0;
     padding: 0;
     font-family: 'Poppins', Arial, sans-serif;
-    background: #f4f7fb;
+    background: linear-gradient(135deg, #f4f7fb, #e6f0ff);
     color: #333;
 }
 
-/* Header / Navbar */
+/* =========================
+   HEADER / NAVBAR
+========================= */
 header {
-    background: #1a73e8;
+    background: linear-gradient(90deg, #1a73e8, #3b82f6);
     color: white;
-    padding: 14px 20px;
+    padding: 16px 25px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
-    position: sticky;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    position: fixed;
     top: 0;
-    z-index: 10;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    transition: background 0.3s ease;
 }
 
 header h1 {
     margin: 0;
-    font-size: 24px;
-    font-weight: 600;
+    font-size: 26px;
+    font-weight: 700;
 }
 
 header button {
     background: white;
     color: #1a73e8;
     border: none;
-    padding: 8px 16px;
+    padding: 10px 20px;
     font-weight: 600;
-    border-radius: 6px;
+    border-radius: 25px;
     cursor: pointer;
-    transition: 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 header button:hover {
     background: #e3edfc;
+    transform: translateY(-2px);
 }
 
-/* Main Layout */
+/* =========================
+   MAIN LAYOUT
+========================= */
 main {
-    padding: 25px;
+    padding: 120px 40px 40px; /* extra top padding for fixed navbar */
 }
 
-/* Section Title */
-section h2 {
-    margin-bottom: 10px;
-    color: #1a73e8;
-    font-size: 22px;
-    font-weight: 600;
-}
-
-/* Card for sections */
+/* =========================
+   SECTION CARD
+========================= */
 section {
     background: white;
-    padding: 18px 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    padding: 20px 25px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
     margin-bottom: 30px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Table */
+section:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+}
+
+section h2 {
+    margin-bottom: 15px;
+    color: #1a73e8;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+/* =========================
+   TABLE STYLING
+========================= */
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 15px;
-    background: white;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    background: transparent;
 }
 
-th {
-    background: #1a73e8;
-    color: white;
-    padding: 12px;
-    font-weight: 600;
-    font-size: 15px;
-}
-
-td {
-    padding: 12px;
-    border-bottom: 1px solid #eee;
+th, td {
+    padding: 14px;
     font-size: 14px;
+    text-align: left;
+    border-radius: 8px;
 }
 
-tr:hover {
-    background: #f4f7ff;
+/* Alternating column background */
+th:nth-child(odd),
+td:nth-child(odd) {
+    background: #f0f4ff;
+}
+
+th:nth-child(even),
+td:nth-child(even) {
+    background: #dbe7ff;
+}
+
+/* Table hover effect */
+tr:hover td {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
 }
 
 /* Buttons */
 button {
-    background: #1a73e8;
+    background: linear-gradient(90deg, #1a73e8, #3b82f6);
     border: none;
     color: white;
-    padding: 7px 14px;
+    padding: 8px 16px;
     font-size: 14px;
-    border-radius: 6px;
+    border-radius: 25px;
     cursor: pointer;
-    transition: 0.3s ease;
+    font-weight: 600;
+    transition: all 0.3s ease;
 }
 
 button:hover {
-    background: #0f5cc8;
+    background: linear-gradient(90deg, #0f5cc8, #2563eb);
+    transform: translateY(-2px) scale(1.03);
 }
 
-/* Dropdown */
+/* Dropdown / Select */
 select {
-    padding: 8px;
-    border-radius: 6px;
+    padding: 10px;
+    border-radius: 12px;
     border: 1px solid #ddd;
     font-size: 14px;
+    background: #fff;
+    transition: all 0.3s ease;
 }
 
-/* Status Badge */
+select:focus {
+    border-color: #1a73e8;
+    box-shadow: 0 0 8px rgba(26,115,232,0.4);
+}
+
+/* Status Badges */
 .status {
-    padding: 6px 10px;
+    padding: 6px 12px;
     border-radius: 20px;
     color: white;
     font-weight: 600;
     font-size: 13px;
+    text-align: center;
+    display: inline-block;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-.status.pending {
-    background: #ff9800;
-}
+.status.pending { background: #ff9800; }
+.status.accepted { background: #4caf50; }
+.status.delivered { background: #1a73e8; }
 
-.status.accepted {
-    background: #4caf50;
-}
-
-.status.delivered {
-    background: #1a73e8;
-}
+/* Dashboard Button */
 .dashboard-btn {
-  background: #1a73e8;
-  color: white;
-  padding: 12px 22px;
-  font-size: 18px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: 0.2s ease;
+    background: linear-gradient(90deg, #1a73e8, #3b82f6);
+    color: white;
+    padding: 12px 24px;
+    font-size: 18px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 700;
 }
 
 .dashboard-btn:hover {
-  background: #0f5acc;
-  transform: translateY(-2px);
+    background: linear-gradient(90deg, #0f5cc8, #2563eb);
+    transform: translateY(-3px) scale(1.02);
 }
 
-.dashboard-btn:active {
-  transform: scale(0.97);
-}
-/* Add horizontal line between each order row */
-table tr {
-    border-bottom: 2px solid #d1d9f0; /* soft blue line */
-}
-
-table tr:last-child {
-    border-bottom: none; /* remove line after last row */
+/* =========================
+   MEDIA QUERIES
+========================= */
+@media (max-width: 1024px) {
+    main { padding: 120px 20px 30px; }
+    header { padding: 16px 20px; }
+    section h2 { font-size: 22px; }
+    button { font-size: 13px; padding: 7px 14px; }
 }
 
-/* Optional: add spacing between rows for better clarity */
-table td {
-    padding: 12px 12px;
+@media (max-width: 768px) {
+    header { flex-direction: column; gap: 10px; align-items: flex-start; }
+    main { padding: 120px 15px 20px; }
+    section h2 { font-size: 20px; }
+    table th, table td { font-size: 13px; padding: 10px; }
+    .dashboard-btn { font-size: 16px; padding: 10px 18px; }
+}
+
+@media (max-width: 480px) {
+    header h1 { font-size: 20px; }
+    header button { padding: 8px 16px; font-size: 12px; }
+    table th, table td { font-size: 12px; padding: 8px; }
+    .dashboard-btn { font-size: 14px; padding: 8px 16px; }
 }

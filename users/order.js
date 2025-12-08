@@ -1055,6 +1055,169 @@ document.getElementById("orderForm").addEventListener("submit", async (e) => {
 
 
 
+// import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+// import { getFirestore, doc, getDoc, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+// import { getAuth } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+// // ---------------- Firebase Config ----------------
+// const firebaseConfig = {
+//   apiKey: "AIzaSyDuzBpeML-DAjCqeF3Z5iX6H_0oZR7v3dg",
+//   authDomain: "trazy-2142e.firebaseapp.com",
+//   projectId: "trazy-2142e",
+//   storageBucket: "trazy-2142e.firebasestorage.app",
+//   messagingSenderId: "4891427196",
+//   appId: "1:48914232c25124f9"
+// };
+
+// const app = initializeApp(firebaseConfig);
+// const db = getFirestore(app);
+// const auth = getAuth(app);
+
+// // ---------------- Elements ----------------
+// const params = new URLSearchParams(window.location.search);
+// const shopId = params.get("shopId");
+// const itemId = params.get("itemId");
+
+// const productNameEl = document.getElementById("productName");
+// const productPriceEl = document.getElementById("productPrice");
+// const productDescEl = document.getElementById("productDesc");
+// const orderForm = document.getElementById("orderForm");
+
+// let currentItem = null;
+// let shopData = null;
+
+// // ---------------- Load Product & Shop ----------------
+// async function loadProduct() {
+//   if (!shopId || !itemId) {
+//     alert("Invalid product data!");
+//     window.history.back();
+//     return;
+//   }
+
+//   const itemRef = doc(db, "shops", shopId, "items", itemId);
+//   const snap = await getDoc(itemRef);
+//   if (!snap.exists()) {
+//     productNameEl.innerText = "Product not found!";
+//     return;
+//   }
+
+//   currentItem = snap.data();
+//   currentItem.id = itemId;
+
+//   productNameEl.innerText = currentItem.name || "Unnamed Item";
+//   productPriceEl.innerText = "₹" + (currentItem.price || 0);
+//   productDescEl.innerText = currentItem.description || "No description available.";
+
+//   const shopRef = doc(db, "shops", shopId);
+//   const shopSnap = await getDoc(shopRef);
+//   shopData = shopSnap.exists() ? shopSnap.data() : {};
+// }
+
+// loadProduct();
+
+// // ---------------- Handle Order Submit ----------------
+// orderForm.addEventListener("submit", async (e) => {
+//   e.preventDefault();
+
+//   const user = auth.currentUser;
+//   if (!user) {
+//     alert("You must be logged in to place an order.");
+//     window.location.href = "login.html";
+//     return;
+//   }
+
+//   if (!currentItem) return alert("Product not loaded!");
+
+//   const name = document.getElementById("name").value.trim();
+//   const address = document.getElementById("address").value.trim();
+//   const payment = document.getElementById("payment").value;
+
+//   if (!name || !address) {
+//     alert("Please enter all required fields.");
+//     return;
+//   }
+
+//   try {
+//     const userDocRef = doc(db, "users", user.uid);
+//     const userSnap = await getDoc(userDocRef);
+//     const userData = userSnap.exists() ? userSnap.data() : {};
+//     const customerPhone = userData.phone || "Not Provided";
+
+//     // ---------------- Razorpay Payment ----------------
+//     if ((payment === "upi" || payment === "netbanking") && shopData?.razorpay_key_id) {
+//       const options = {
+//         key: shopData.razorpay_key_id,
+//         amount: (currentItem.price || 0) * 100,
+//         currency: "INR",
+//         name: shopData.shopname || "Shop",
+//         description: currentItem.name,
+//         prefill: { name, email: user.email, contact: customerPhone },
+//         theme: { color: "#4f46e5" },
+//         method: {
+//           netbanking: payment === "netbanking",
+//           upi: payment === "upi"
+//         },
+//         handler: async function(response) {
+//           await addDoc(collection(db, "orders"), {
+//             customerName: name,
+//             customerEmail: user.email,
+//             customerPhone: customerPhone,
+//             address: address,
+//             paymentMethod: payment,
+//             paymentStatus: "success",
+//             shopId: shopId,
+//             item: {
+//               id: currentItem.id,
+//               name: currentItem.name,
+//               price: currentItem.price
+//             },
+//             status: "pending",
+//             rated: false,
+//             rating: 0,
+//             razorpayPaymentId: response.razorpay_payment_id,
+//             createdAt: serverTimestamp()
+//           });
+
+//           alert("Payment successful! Order placed.");
+//           window.location.href = "shop.html";
+//         }
+//       };
+//       const rzp = new Razorpay(options);
+//       rzp.open();
+//       return;
+//     }
+
+//     // ---------------- Cash on Delivery ----------------
+//     await addDoc(collection(db, "orders"), {
+//       customerName: name,
+//       customerEmail: user.email,
+//       customerPhone: customerPhone,
+//       address: address,
+//       paymentMethod: payment,
+//       paymentStatus: payment === "cash" ? "pending" : "failed",
+//       shopId: shopId,
+//       item: {
+//         id: currentItem.id,
+//         name: currentItem.name,
+//         price: currentItem.price
+//       },
+//       status: "pending",
+//       rated: false,
+//       rating: 0,
+//       createdAt: serverTimestamp()
+//     });
+
+//     alert("Order placed successfully!");
+//     window.location.href = "thankyou.html";
+
+//   } catch (err) {
+//     alert("Failed to place order: " + err.message);
+//   }
+// });
+
+
+
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 import { getFirestore, doc, getDoc, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
@@ -1072,6 +1235,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
+
+// ---------------- OTP GENERATOR ----------------
+function generateOTP() {
+  return Math.floor(1000 + Math.random() * 9000).toString();
+}
 
 // ---------------- Elements ----------------
 const params = new URLSearchParams(window.location.search);
@@ -1158,6 +1326,9 @@ orderForm.addEventListener("submit", async (e) => {
           upi: payment === "upi"
         },
         handler: async function(response) {
+
+          const otp = generateOTP(); // NEW OTP
+
           await addDoc(collection(db, "orders"), {
             customerName: name,
             customerEmail: user.email,
@@ -1172,13 +1343,14 @@ orderForm.addEventListener("submit", async (e) => {
               price: currentItem.price
             },
             status: "pending",
+            otp: otp, // ADDED OTP
             rated: false,
             rating: 0,
             razorpayPaymentId: response.razorpay_payment_id,
             createdAt: serverTimestamp()
           });
 
-          alert("Payment successful! Order placed.");
+          alert("Payment successful! Your OTP is: " + otp);
           window.location.href = "shop.html";
         }
       };
@@ -1188,6 +1360,8 @@ orderForm.addEventListener("submit", async (e) => {
     }
 
     // ---------------- Cash on Delivery ----------------
+    const otp = generateOTP(); // NEW OTP
+
     await addDoc(collection(db, "orders"), {
       customerName: name,
       customerEmail: user.email,
@@ -1202,12 +1376,13 @@ orderForm.addEventListener("submit", async (e) => {
         price: currentItem.price
       },
       status: "pending",
+      otp: otp, // ADDED OTP
       rated: false,
       rating: 0,
       createdAt: serverTimestamp()
     });
 
-    alert("Order placed successfully!");
+    alert("Order placed successfully! Your OTP is: " + otp);
     window.location.href = "thankyou.html";
 
   } catch (err) {

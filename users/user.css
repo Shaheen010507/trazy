@@ -1,304 +1,211 @@
+/* ======================================================
+   TRAZY FOOD DELIVERY — SOFT LIGHT FOOD THEME
+   Warm • Cozy • App-like Smooth UI
+====================================================== */
 
-/* Reset */
-/** {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
-
-/* Layout 
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  transition: background-color 1s ease;
-  color:whitesmoke
-}
-
-header {
-  background-color: #ff6b35;
-  padding: 1rem;
-  color: white;
-}
-
-.header-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-nav button {
-  margin-left: 10px;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.profile-btn {
-  background-color: #fff;
-  color: #ff6b35;
-}
-
-.logout-btn {
-  background-color: #ff0000;
-  color: white;
-}
-
-main {
-  flex: 1;
-  padding: 20px;
-  background-color: #f8f8f8;
-}
-
-.section-title {
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 22px;
-}
-
-.shops-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 20px;
-}
-
-.shop-card {
-  background: white;
-  padding: 16px;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.shop-card h3 {
-  margin-bottom: 8px;
-  color: #333;
-}
-
-.shop-card p {
-  margin-bottom: 8px;
-  color: #666;
-}
-
-.view-btn {
-  margin-top: auto;
-  padding: 8px;
-  background-color: #ff6b35;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.view-btn:hover {
-  background-color: #e85a2b;
-}
-
-footer {
-  background-color: #333;
-  color: white;
-  text-align: center;
-  padding: 12px;
-  position: relative;
-  bottom: 0;
-  width: 100%;
-}
-/* ensure the body’s color change is visible and smooth 
-html, body { height: 100%; }
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  transition: background-color 1s ease; /* smooth fade 
-}
-
-/* IMPORTANT: remove any solid background on main 
-main { 
-  flex: 1; 
-  background: transparent;   /* not #f8f8f8 
-}
-
-/* if you had this earlier, DELETE it:
-main { background-color: #f8f8f8; }
-*/
-
-/* keep cards white (that’s fine); the gaps will show the changing bg 
-.shop-card { background: #fff; }
-
-
-
-
-
-
-//new 
-
-
-
-
-/* ======================= FORCE THEME (OVERWRITE INLINE STYLES) ======================= */
-/* Theme colors */
 :root{
-  --primary: #F87440;       /* main orange */
-  --primary-dark: #d65a28;  /* darker hover */
-  --accent: #FBC859;        /* soft yellow */
-  --text-strong: #3A2E2E;   /* heading text (not black) */
-  --card-bg: rgba(255,255,255,0.40);
-  --card-shadow: 0 6px 18px rgba(0,0,0,0.12);
-  --radius: 12px;
+  --primary: #FFA64D;          /* Soft Orange */
+  --primary-dark: #FF8A33;     /* Slightly darker orange */
+  --secondary: #FFD89A;        /* Creamy yellow */
+  --cream: #FFF8F0;            /* Very light background */
+  --dark: #3A2E2A;             /* Text dark but soft */
+  --text: #4B3A36;
+  --card-bg: rgba(255,255,255,0.65);
+  --radius: 18px;
 }
 
-/* reset small things */
-*{box-sizing:border-box}
-body,html{height:100%;margin:0;padding:0;font-family:'Poppins',sans-serif}
+/* RESET */
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+html,body{height:100%}
 
-/* Gradient background like your landing */
+/* STRUCTURE FOR STICKY FOOTER */
 body{
-  background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
-  color: var(--text-strong);
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
+  display:flex;
+  flex-direction:column;
+  background: linear-gradient(135deg, #FFF8F0, #FFD89A, #FFA64D, #FF8A33);
+  background-size: 300% 300%;
+  animation: warmFlow 14s ease infinite;
+  color: var(--text);
 }
 
-/* ====== HEADER ====== */
-/* make header translucent (not black) and title color softer */
+@keyframes warmFlow{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+main{
+  flex:1;
+  max-width:1200px;
+  margin:auto;
+  padding:24px;
+}
+
+/* ======================================================
+   HEADER — Light & Friendly
+====================================================== */
 header{
-  padding:16px 22px;
-  background: rgba(255,255,255,0.12); /* translucent to blend with gradient */
-  backdrop-filter: blur(6px);
-  border-bottom: 1px solid rgba(0,0,0,0.06);
-  position: relative;
-  z-index: 20;
+  padding:18px 26px;
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(8px);
+  border-bottom:1px solid rgba(0,0,0,0.08);
+  position:sticky;
+  top:0;
+  z-index:30;
+  border-radius:0 0 20px 20px;
+  box-shadow:0 4px 14px rgba(0,0,0,0.08);
 }
 
 .header-container{
   max-width:1200px;
-  margin:0 auto;
+  margin:auto;
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  gap:12px;
+  align-items:center;
 }
 
 header h1{
-  margin:0;
-  font-size:26px;
+  font-size:28px;
   font-weight:700;
-  color:var(--text-strong); /* softer than black */
-  text-shadow: 0 1px 0 rgba(255,255,255,0.03);
+  color: var(--primary-dark);
 }
 
-/* ====== NAV BUTTONS: FORCE SAME COLOR (OVERRIDE INLINE STYLES) ====== */
-/* target any button inside nav */
+/* NAV BUTTONS — Soft, App-Like */
 header nav button,
-header nav .btn,
-header nav a.button {
-  background: var(--primary) !important;   /* force orange even if inline green */
-  color: #fff !important;
-  border: none !important;
-  border-radius: 10px !important;
-  padding: 10px 16px !important;
+header nav a.button{
+  background: var(--primary);
+  color:white;
+  border:none;
+  padding:10px 20px;
+  border-radius:50px;
   font-weight:600;
   cursor:pointer;
-  box-shadow: none !important;
-  transition: background .18s ease, transform .12s ease;
-  outline: none !important;
+  transition:0.25s ease;
 }
 
-/* hover effect only on the button itself (no orange bleeding) */
-header nav button:hover,
-header nav .btn:hover,
-header nav a.button:hover {
-  background: var(--primary-dark) !important;
-  transform: translateY(-2px);
-  color: #fff !important;
+header nav button:hover{
+  transform:translateY(-2px);
+  background: var(--primary-dark);
+  box-shadow:0 6px 14px rgba(255,134,63,0.38);
 }
 
-/* remove any focus ring that might change large white area */
-header nav button:focus,
-header nav button:active { outline: none !important; box-shadow: none !important; }
-
-/* ====== SECTION TITLE ====== */
+/* ======================================================
+   SECTION TITLE
+====================================================== */
 .section-title{
   font-size:24px;
+  margin-top:28px;
+  margin-left:4px;
+  color: var(--dark);
   font-weight:700;
-  margin:20px 0 8px 22px;
-  color:var(--text-strong);
 }
 
-/* ====== SHOPS CONTAINER & CARDS ====== */
-main{max-width:1200px;margin:0 auto;padding:18px}
-
+/* ======================================================
+   SHOP CARDS — Softer & Cozy Glow
+====================================================== */
 .shops-container{
   display:flex;
   flex-wrap:wrap;
-  gap:20px;
-  padding: 14px 20px 60px;
+  gap:22px;
+  padding-bottom:60px;
   justify-content:flex-start;
 }
 
-/* card style - softer glass so it matches the gradient */
 .shop-card{
-  width:250px;
-  background: var(--card-bg); /* glass */
-  backdrop-filter: blur(6px);
+  width:260px;
+  background: var(--card-bg);
   border-radius: var(--radius);
-  padding:16px;
-  box-shadow: var(--card-shadow);
-  transition: transform .18s ease, box-shadow .18s ease;
+  padding:18px;
+  backdrop-filter: blur(10px);
+  border:1px solid rgba(255,255,255,0.40);
+  box-shadow:0 8px 20px rgba(0,0,0,0.08);
+  transition:0.25s ease;
+  position:relative;
+  overflow:hidden;
 }
 
 .shop-card:hover{
-  transform: translateY(-6px);
-  box-shadow: 0 10px 28px rgba(0,0,0,0.14);
+  transform: translateY(-6px) scale(1.02);
+  box-shadow:0 14px 30px rgba(255,134,63,0.20);
 }
 
-.shop-card h3{margin:0 0 6px 0;color:var(--text-strong);font-size:18px}
-.shop-card p{margin:4px 0;color:rgba(0,0,0,0.6);font-size:14px}
+/* subtle warm highlight */
+.shop-card::before{
+  content:"";
+  position:absolute;
+  top:-55px;
+  right:-55px;
+  width:140px;
+  height:140px;
+  background: rgba(255,200,120,0.22);
+  border-radius:50%;
+  filter: blur(35px);
+  transition:0.3s ease;
+}
 
-/* ====== VIEW BUTTON — FORCE ORANGE (handle both class names) ====== */
-/* many of your files use .view-btn or .view-menu-btn — cover both */
-.view-btn, .view-menu-btn, button.view{
-  background: var(--primary) !important;
-  color: #fff !important;
-  border-radius: 10px !important;
-  padding: 10px 12px !important;
-  border: none !important;
+.shop-card:hover::before{
+  top:-45px;
+  right:-45px;
+  filter: blur(25px);
+}
+
+.shop-card h3{
+  font-size:20px;
+  color: var(--dark);
+  margin-bottom:6px;
+}
+
+.shop-card p{
+  font-size:14px;
+  color: #5d4d44;
+}
+
+/* ======================================================
+   VIEW / ORDER BUTTON — Friendly & Soft
+====================================================== */
+.view-btn, .view-menu-btn{
+  background: var(--primary);
+  color:white !important;
+  padding:12px;
+  border:none;
   width:100%;
+  margin-top:12px;
+  border-radius:50px;
   font-weight:600;
   cursor:pointer;
-  transition: background .18s ease, transform .12s ease;
-  box-shadow: none !important;
+  transition:0.25s ease;
 }
 
-.view-btn:hover, .view-menu-btn:hover, button.view:hover {
-  background: var(--primary-dark) !important;
-  transform: translateY(-2px);
+.view-btn:hover, .view-menu-btn:hover{
+  background: var(--primary-dark);
+  transform: translateY(-3px);
+  box-shadow:0 8px 16px rgba(255,134,63,0.36);
 }
 
-/* If some button was rendered white by inline CSS, hide that by forcing color */
-.view-btn[style], .view-menu-btn[style] { background: var(--primary) !important; color:#fff !important; }
-
-/* ====== FOOTER ====== */
+/* ======================================================
+   STICKY FOOTER — Light & Warm
+====================================================== */
 footer{
   text-align:center;
   padding:20px;
-  color:var(--text-strong);
   font-weight:600;
+  color: var(--dark);
+  backdrop-filter: blur(8px);
+  background: rgba(255,255,255,0.25);
+  border-top:1px solid rgba(0,0,0,0.08);
+  border-radius:20px 20px 0 0;
+  box-shadow:0 -4px 12px rgba(0,0,0,0.08);
 }
 
-/* ====== RESPONSIVE TWEAKS ====== */
-@media (max-width:900px){
-  .header-container{flex-direction:column;align-items:flex-start;gap:10px}
+/* ======================================================
+   RESPONSIVE
+====================================================== */
+@media(max-width:900px){
+  .header-container{flex-direction:column;gap:10px}
   .shops-container{justify-content:center}
 }
 
-@media (max-width:600px){
-  header h1{font-size:20px}
+@media(max-width:600px){
+  header h1{font-size:24px}
   .shop-card{width:100%}
-  header nav button{width:100%}
 }

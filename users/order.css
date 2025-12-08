@@ -116,7 +116,7 @@ button.cancel:hover {
 
 
 /* Reset */
-* {
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -124,16 +124,16 @@ button.cancel:hover {
 }
 
 body {
-  background: #233258; /* soft mint for relaxed feel */
+  background: #233258; 
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
 }
 
-/* Main container */
+
 .order-container {
-  background: #ffffff; /* clean white for focus */
+  background: #ffffff; 
   padding: 30px;
   border-radius: 15px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
@@ -141,16 +141,14 @@ body {
   max-width: 95%;
 }
 
-/* Heading */
 .order-container h1 {
   text-align: center;
   margin-bottom: 20px;
-  color: #1e3a8a; /* deep blue for elegance */
+  color: #1e3a8a; 
 }
 
-/* Product details */
 .product-details {
-  background: #f3f6f8; /* soft light background */
+  background: #f3f6f8; 
   padding: 15px;
   border-radius: 10px;
   margin-bottom: 20px;
@@ -159,16 +157,16 @@ body {
 .product-details h2 {
   font-size: 20px;
   margin-bottom: 8px;
-  color: #0f766e; /* teal calm color */
+  color: #0f766e;
 }
 
 .product-details p {
   font-size: 14px;
-  color: #555; /* neutral gray */
+  color: #555;
   margin-bottom: 5px;
 }
 
-/* Form */
+
 form {
   display: flex;
   flex-direction: column;
@@ -178,13 +176,13 @@ form label {
   margin: 10px 0 5px;
   font-size: 14px;
   font-weight: bold;
-  color: #34495e; /* soft dark blue-gray */
+  color: #34495e; 
 }
 
 form input,
 form select {
   padding: 10px;
-  border: 1px solid #cbd5e1; /* soft border */
+  border: 1px solid #cbd5e1; 
   border-radius: 8px;
   outline: none;
   font-size: 14px;
@@ -192,11 +190,10 @@ form select {
 
 form input:focus,
 form select:focus {
-  border-color: #1e3a8a; /* deep blue on focus */
+  border-color: #1e3a8a; 
   box-shadow: 0 0 4px rgba(30, 58, 138, 0.3);
 }
 
-/* Buttons */
 button {
   margin-top: 20px;
   padding: 12px;
@@ -209,20 +206,247 @@ button {
 }
 
 button.submit {
-  background: #1e3a8a; /* deep blue */
+  background: #1e3a8a; 
   color: white;
 }
 
 button.submit:hover {
-  background: #3b82f6; /* lighter blue on hover */
+  background: #3b82f6; 
 }
 
 button.cancel {
-  background: #a3b5c6; /* soft gray-blue */
+  background: #a3b5c6;
   color: white;
   margin-top: 10px;
 }
 
 button.cancel:hover {
-  background: #829ab1; /* slightly darker gray-blue */
+  background: #829ab1; 
+} */
+
+
+
+/* ======================================================
+   TRAZY FOOD DELIVERY — INTERACTIVE PREMIUM THEME
+====================================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #e0f7f1, #c1f0e8, #b0f0f5);
+  background-size: 300% 300%;
+  animation: gradientFlow 15s ease infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: #333;
+}
+
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ======================================================
+   MAIN ORDER CONTAINER
+====================================================== */
+.order-container {
+  background: #ffffffcc;
+  padding: 30px;
+  border-radius: 25px;
+  box-shadow: 0 10px 35px rgba(0,0,0,0.15);
+  width: 400px;
+  max-width: 95%;
+  backdrop-filter: blur(10px);
+  position: relative;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.order-container:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 18px 45px rgba(0,0,0,0.25);
+}
+
+/* ======================================================
+   HEADING
+====================================================== */
+.order-container h1 {
+  text-align: center;
+  font-size: 34px;
+  margin-bottom: 30px;
+  color: #FF5A2F;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+
+/* ======================================================
+   PRODUCT DETAILS CARD
+====================================================== */
+.product-details {
+  background: #fff9f4;
+  padding: 20px;
+  border-radius: 18px;
+  margin-bottom: 25px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-details:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 15px 38px rgba(0,0,0,0.18);
+}
+
+/* Floating Steam */
+.product-details::before {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 40px;
+  background: rgba(255,140,90,0.3);
+  border-radius: 50%;
+  top: -10px;
+  left: 20%;
+  animation: steamRise 3s infinite ease-in-out;
+}
+
+@keyframes steamRise {
+  0% { transform: translateY(0) scaleX(1); opacity: 0.3; }
+  50% { transform: translateY(-30px) scaleX(1.2); opacity: 0.6; }
+  100% { transform: translateY(0) scaleX(1); opacity: 0.3; }
+}
+
+/* Floating Ingredient Dots */
+.floating-dot {
+  position: absolute;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #FF5A2F;
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.product-details:hover .floating-dot {
+  opacity: 1;
+  animation: ingredientPop 1.8s infinite ease-in-out;
+}
+
+@keyframes ingredientPop {
+  0% { transform: translate(0,0) scale(1); opacity: 0; }
+  50% { transform: translate(20px,-20px) scale(1.3); opacity: 1; }
+  100% { transform: translate(0,0) scale(1); opacity: 0; }
+}
+
+/* PRODUCT TITLE & DESCRIPTION */
+.product-details h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: #FF5A2F;
+}
+
+.product-details p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 6px;
+}
+
+/* ======================================================
+   FORM STYLING
+====================================================== */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form label {
+  margin: 12px 0 6px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+form input,
+form select {
+  padding: 12px;
+  border: 1px solid #ffd6b6;
+  border-radius: 10px;
+  outline: none;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+form input:focus,
+form select:focus {
+  border-color: #FF5A2F;
+  box-shadow: 0 0 6px rgba(255,90,47,0.3);
+}
+
+/* ======================================================
+   BUTTONS — SUBMIT / CANCEL
+====================================================== */
+button {
+  margin-top: 18px;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: 600;
+  position: relative;
+  overflow: hidden;
+  transition: 0.3s ease, transform 0.2s ease;
+}
+
+button.submit {
+  background: linear-gradient(45deg, #FF5A2F, #FF9C5E);
+  color: white;
+  box-shadow: 0 6px 15px rgba(255,90,47,0.3);
+}
+
+button.submit::after {
+  content: '';
+  position: absolute;
+  width: 120%;
+  height: 100%;
+  top: 0;
+  left: -120%;
+  background: rgba(255,255,255,0.25);
+  transform: skewX(-20deg);
+  transition: 0.5s;
+}
+
+button.submit:hover::after {
+  left: 120%;
+}
+
+button.submit:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 22px rgba(255,90,47,0.42);
+}
+
+button.cancel {
+  background: #ccc3b0;
+  color: #333;
+}
+
+button.cancel:hover {
+  background: #b0a18c;
+}
+
+/* ======================================================
+   RESPONSIVE
+====================================================== */
+@media(max-width:480px){
+  .order-container { padding: 20px; border-radius: 15px; }
+  .product-details { padding: 15px; border-radius: 12px; }
+  .product-details h2 { font-size: 18px; }
+  form input, form select { padding: 10px; font-size: 13px; }
+  button { padding: 10px; font-size: 14px; }
 }

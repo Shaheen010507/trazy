@@ -6,96 +6,157 @@
   <title>Thank You - Trazy</title>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.2/dist/tailwind.min.css" rel="stylesheet">
   <style>
-    body {
-      background: linear-gradient(-45deg, #6EE7B7, #3B82F6, #9333EA, #F59E0B);
-      background-size: 400% 400%;
-      animation: gradientBG 12s ease infinite;
-      font-family: 'Poppins', sans-serif;
-      overflow: hidden;
-    }
+   /* ======================================================
+   DYNAMIC THANK YOU PAGE — INTERACTIVE VERSION
+====================================================== */
 
-    @keyframes gradientBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+body {
+  background: linear-gradient(-45deg, #6EE7B7, #3B82F6, #9333EA, #F59E0B);
+  background-size: 400% 400%;
+  animation: gradientBG 12s ease infinite;
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
 
-    .thankyou-card {
-      background: rgba(255, 255, 255, 0.95);
-      border-radius: 25px;
-      padding: 40px;
-      text-align: center;
-      box-shadow: 0px 12px 30px rgba(0,0,0,0.2);
-      animation: fadeIn 1.5s ease-in-out;
-      position: relative;
-      z-index: 10;
-    }
+/* Background Gradient Animation */
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(30px) scale(0.95); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
+/* ======================================================
+   THANK YOU CARD
+====================================================== */
+.thankyou-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 25px;
+  padding: 40px 35px;
+  text-align: center;
+  box-shadow: 0px 12px 40px rgba(0,0,0,0.25);
+  animation: fadeIn 1.5s ease-in-out;
+  position: relative;
+  z-index: 10;
+  overflow: hidden;
+}
 
-    .emoji {
-      font-size: 70px;
-      animation: bounce 1.8s infinite;
-    }
+/* Fade-in Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
 
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
-    }
+/* ======================================================
+   CELEBRATION EMOJI
+====================================================== */
+.emoji {
+  font-size: 80px;
+  display: inline-block;
+  animation: bounce 1.8s infinite, rotateEmoji 5s linear infinite;
+}
 
-    .title {
-      font-size: 2.5rem;
-      font-weight: bold;
-      background: linear-gradient(90deg, #10B981, #3B82F6, #9333EA);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      animation: glow 2s ease-in-out infinite alternate;
-    }
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
 
-    @keyframes glow {
-      from { text-shadow: 0 0 10px rgba(16,185,129,0.5); }
-      to { text-shadow: 0 0 20px rgba(59,130,246,0.8); }
-    }
+@keyframes rotateEmoji {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 
-    .btn {
-      display: inline-block;
-      margin-top: 25px;
-      padding: 14px 28px;
-      background: linear-gradient(90deg, #10B981, #059669);
-      color: white;
-      border-radius: 12px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
+/* ======================================================
+   TITLE WITH GRADIENT GLOW
+====================================================== */
+.title {
+  font-size: 2.8rem;
+  font-weight: bold;
+  margin-top: 15px;
+  background: linear-gradient(90deg, #10B981, #3B82F6, #9333EA);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: glow 2s ease-in-out infinite alternate;
+}
 
-    .btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0px 8px 20px rgba(0,0,0,0.3);
-    }
+@keyframes glow {
+  from { text-shadow: 0 0 10px rgba(16,185,129,0.5); }
+  to { text-shadow: 0 0 25px rgba(59,130,246,0.8); }
+}
 
-    /* Floating confetti effect */
-    .confetti {
-      position: absolute;
-      top: -10px;
-      width: 10px;
-      height: 10px;
-      background: #F59E0B;
-      opacity: 0.8;
-      animation: fall 6s linear infinite;
-    }
-    .confetti:nth-child(2) { left: 20%; background: #3B82F6; animation-delay: 1s; }
-    .confetti:nth-child(3) { left: 40%; background: #10B981; animation-delay: 2s; }
-    .confetti:nth-child(4) { left: 60%; background: #9333EA; animation-delay: 3s; }
-    .confetti:nth-child(5) { left: 80%; background: #EF4444; animation-delay: 4s; }
+/* ======================================================
+   BUTTONS — INTERACTIVE
+====================================================== */
+.btn {
+  display: inline-block;
+  margin-top: 25px;
+  padding: 14px 28px;
+  background: linear-gradient(90deg, #10B981, #059669);
+  color: white;
+  border-radius: 12px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+  transition: transform 0.3s, box-shadow 0.3s, background 0.5s;
+  position: relative;
+  overflow: hidden;
+}
 
-    @keyframes fall {
-      0% { transform: translateY(0) rotate(0deg); }
-      100% { transform: translateY(100vh) rotate(720deg); }
-    }
+.btn:hover {
+  transform: scale(1.08) rotate(-2deg);
+  box-shadow: 0px 12px 30px rgba(0,0,0,0.35);
+  background: linear-gradient(45deg, #3B82F6, #10B981);
+}
+
+/* ======================================================
+   FLOATING CONFETTI
+====================================================== */
+.confetti {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  opacity: 0.9;
+  animation: fall linear infinite;
+  z-index: 5;
+}
+
+/* Confetti different colors and delays */
+.confetti:nth-child(1) { left: 10%; background: #F59E0B; animation-duration: 5s; animation-delay: 0s; }
+.confetti:nth-child(2) { left: 20%; background: #3B82F6; animation-duration: 6s; animation-delay: 0.5s; }
+.confetti:nth-child(3) { left: 35%; background: #10B981; animation-duration: 4s; animation-delay: 1s; }
+.confetti:nth-child(4) { left: 50%; background: #9333EA; animation-duration: 5.5s; animation-delay: 1.2s; }
+.confetti:nth-child(5) { left: 65%; background: #EF4444; animation-duration: 4.5s; animation-delay: 0.8s; }
+.confetti:nth-child(6) { left: 80%; background: #F59E0B; animation-duration: 6.2s; animation-delay: 1.5s; }
+
+/* Falling animation with rotation */
+@keyframes fall {
+  0% { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(100vh) rotate(720deg); }
+}
+
+/* ======================================================
+   SPARKLE PARTICLES BEHIND CARD
+====================================================== */
+.sparkle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #fff;
+  opacity: 0.6;
+  animation: sparkleMove 4s linear infinite;
+}
+
+@keyframes sparkleMove {
+  0% { transform: translate(0,0) scale(0.8); opacity:0.6; }
+  50% { transform: translate(30px,-20px) scale(1.2); opacity:1; }
+  100% { transform: translate(0,0) scale(0.8); opacity:0.6; }
+}
+
   </style>
 </head>
 <body class="flex items-center justify-center h-screen">

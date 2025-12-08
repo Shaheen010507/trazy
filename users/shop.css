@@ -261,79 +261,102 @@
 
 /*new
 /* ===== Global Styling ===== */
+/* ======================================================
+   TRAZY MENU — DYNAMIC & APPETIZING THEME
+   Fresh • Vibrant • Smooth Animations
+====================================================== */
+
 body {
     font-family: "Poppins", sans-serif;
-    background-color: #e0f7f1; /* light mint background */
+    background: linear-gradient(120deg, #E0F7F1, #FFF7EB, #FFD9B6);
+    background-size: 300% 300%;
+    animation: bgFlow 15s ease infinite;
     margin: 0;
     padding: 0;
     color: #333;
 }
 
+@keyframes bgFlow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 /* ===== Shop Header ===== */
 h1#shopName {
     text-align: center;
-    font-size: 32px;
-    font-weight: 600;
-    margin: 20px 0 10px;
-    color: #1dd1a1; /* updated color */
+    font-size: 36px;
+    font-weight: 700;
+    margin: 25px 0 12px;
+    color: #ff6b6b; /* warm food orange */
+    text-shadow: 0 2px 4px rgba(0,0,0,0.12);
 }
 
 #shopDescription,
 #shopLocation {
     text-align: center;
     font-size: 16px;
-    color: #555; /* updated color */
+    color: #555;
     margin: 4px 0;
+    font-style: italic;
 }
 
 /* ===== Section Titles ===== */
 h2 {
     margin: 30px 20px 10px;
-    font-size: 24px;
-    color: #1dd1a1; /* updated color */
-    border-left: 5px solid #1dd1a1;
-    padding-left: 10px;
+    font-size: 26px;
+    color: #1dd1a1; /* vibrant green */
+    border-left: 6px solid #1dd1a1;
+    padding-left: 12px;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
 /* ===== Menu Container ===== */
 #menu {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 20px;
+    gap: 22px;
     margin-top: 20px;
     padding: 10px;
 }
 
 /* ===== Menu Item Card ===== */
 .menu-item {
-    background: #fff;
-    border-radius: 12px;
+    background: linear-gradient(145deg, #fff, #fff7f2);
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
+    position: relative;
 }
 
 .menu-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 12px 28px rgba(255,107,107,0.22);
 }
 
 .menu-item img {
     width: 100%;
-    height: 150px;
+    height: 180px;
     object-fit: cover;
     display: block;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+}
+
+.menu-item:hover img {
+    transform: scale(1.05);
 }
 
 /* ===== Item Details ===== */
 .item-details {
-    padding: 12px;
+    padding: 14px;
     text-align: center;
 }
 
 .item-details h3 {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     margin: 8px 0;
     color: #333;
 }
@@ -341,7 +364,7 @@ h2 {
 .item-details p {
     font-size: 1rem;
     font-weight: bold;
-    color: #007b5e; /* updated color */
+    color: #FF6B6B; /* warm accent for price */
 }
 
 /* ===== Popup Overlay ===== */
@@ -351,7 +374,7 @@ h2 {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.6);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -362,110 +385,234 @@ h2 {
 
 /* ===== Popup Box ===== */
 #itemPopup .popup-content {
-    background: #ffffff;
-    border-radius: 15px;
+    background: linear-gradient(145deg, #fff, #fffaf5);
+    border-radius: 20px;
     width: 100%;
-    max-width: 400px;
+    max-width: 420px;
     text-align: center;
-    padding: 20px;
-    box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+    padding: 22px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.28);
     position: relative;
-    animation: scaleIn 0.3s ease-in-out;
+    animation: popupIn 0.35s ease-in-out;
+}
 
-    /* Shift slightly to the right */
-    transform: translateX(20px);
+@keyframes popupIn {
+    from { transform: scale(0.9) translateY(-10px); opacity: 0; }
+    to { transform: scale(1) translateY(0); opacity: 1; }
 }
 
 /* Close Button */
 #itemPopup #closePopup {
     position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 24px;
+    top: 12px;
+    right: 16px;
+    font-size: 26px;
     font-weight: bold;
     color: #333;
     cursor: pointer;
+    transition: transform 0.2s;
+}
+
+#itemPopup #closePopup:hover {
+    transform: rotate(90deg);
+    color: #ff6b6b;
 }
 
 /* Popup Image */
 #itemPopup img {
     width: 100%;
-    max-height: 220px;
+    max-height: 240px;
     object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 15px;
+    border-radius: 12px;
+    margin-bottom: 18px;
+    transition: transform 0.3s;
+}
+
+#itemPopup img:hover {
+    transform: scale(1.03);
 }
 
 /* Popup Food Name */
 #itemPopup h2 {
     margin: 0;
-    font-size: 20px;
-    color: #222;
+    font-size: 22px;
+    color: #333;
 }
 
 /* Popup Description / Price */
 #itemPopup p {
     font-size: 18px;
     color: #555;
-    margin: 10px 0 20px 0;
+    margin: 12px 0 20px 0;
 }
 
 /* ===== Buttons Container ===== */
 .popup-actions {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 12px;
     flex-wrap: wrap;
 }
 
 .popup-actions button {
     flex: 1;
-    min-width: 120px;
-    padding: 10px;
+    min-width: 130px;
+    padding: 12px;
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
     cursor: pointer;
     font-size: 16px;
-    transition: 0.2s;
+    transition: all 0.25s ease;
 }
 
 /* Add to Cart Button */
 #addToCartBtn {
-    background: #ff6b6b; /* red */
+    background: #ff6b6b;
     color: #fff;
+    box-shadow: 0 4px 14px rgba(255,107,107,0.3);
+}
+
+#addToCartBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(255,107,107,0.45);
 }
 
 /* Buy Now Button */
 #buyNowBtn {
-    background: #1dd1a1; /* green */
+    background: #1dd1a1;
     color: #fff;
+    box-shadow: 0 4px 14px rgba(29,209,161,0.3);
 }
 
-.popup-actions button:hover {
-    opacity: 0.9;
-}
-
-/* ===== Popup Animation ===== */
-@keyframes scaleIn {
-    from { transform: scale(0.9); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
+#buyNowBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(29,209,161,0.45);
 }
 
 /* ===== Responsive ===== */
 @media (max-width: 480px) {
     #itemPopup .popup-content {
-        padding: 15px;
-        border-radius: 10px;
+        padding: 16px;
+        border-radius: 12px;
     }
-    #itemPopup h2 {
-        font-size: 18px;
-    }
-    #itemPopup p {
-        font-size: 16px;
-    }
+    #itemPopup h2 { font-size: 20px; }
+    #itemPopup p { font-size: 16px; }
     .popup-actions button {
         font-size: 14px;
         min-width: 100px;
-        padding: 8px;
+        padding: 10px;
     }
+}
+/* ===== Floating Steam Effect ===== */
+@keyframes floatSteam {
+    0% { transform: translateY(0) scale(1); opacity: 0.2; }
+    50% { transform: translateY(-15px) scale(1.05); opacity: 0.4; }
+    100% { transform: translateY(-30px) scale(1.1); opacity: 0; }
+}
+
+/* Add pseudo-elements to menu items for steam */
+.menu-item::after {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    width: 30px;
+    height: 40px;
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%);
+    border-radius: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    animation: floatSteam 3s ease-in-out infinite;
+}
+
+/* Slight variation for popup image */
+#itemPopup img::after {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    width: 40px;
+    height: 50px;
+    background: radial-gradient(circle, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0) 70%);
+    border-radius: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    animation: floatSteam 3.5s ease-in-out infinite;
+}
+
+/* Add a tiny blur for smoother steam */
+.menu-item::after, #itemPopup img::after {
+    filter: blur(4px);
+}
+/* ===== Pulse Glow on Cards ===== */
+@keyframes pulseGlow {
+    0% { box-shadow: 0 6px 18px rgba(255,107,107,0.2); }
+    50% { box-shadow: 0 12px 28px rgba(255,107,107,0.35); }
+    100% { box-shadow: 0 6px 18px rgba(255,107,107,0.2); }
+}
+
+.menu-item {
+    position: relative;
+    animation: pulseGlow 3s ease-in-out infinite;
+}
+
+/* ===== Sizzle Hover Tilt & Shine ===== */
+.menu-item:hover {
+    transform: translateY(-6px) rotate(-1deg) scale(1.04);
+}
+
+.menu-item::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(120deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.0) 60%);
+    transform: rotate(45deg) translateX(-100%);
+    transition: transform 0.8s ease;
+}
+
+.menu-item:hover::before {
+    transform: rotate(45deg) translateX(100%);
+}
+
+/* ===== Popup Light Sweep ===== */
+#itemPopup img {
+    position: relative;
+    overflow: hidden;
+}
+
+#itemPopup img::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg, rgba(255,255,255,0.0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0.0) 100%);
+    transform: skewX(-20deg);
+    transition: 0.6s ease;
+}
+
+#itemPopup img:hover::before {
+    left: 125%;
+}
+
+/* ===== Floating Ingredients (optional tiny sparkles) ===== */
+.menu-item .floating {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #ff6b6b;
+    top: 10%;
+    left: 20%;
+    opacity: 0.7;
+    animation: floatTiny 4s infinite;
+}
+
+@keyframes floatTiny {
+    0% { transform: translateY(0) translateX(0) scale(1); opacity: 0.5; }
+    50% { transform: translateY(-12px) translateX(6px) scale(1.2); opacity: 1; }
+    100% { transform: translateY(0) translateX(0) scale(1); opacity: 0.5; }
 }

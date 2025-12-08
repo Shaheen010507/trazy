@@ -1499,6 +1499,7 @@ function renderOrders(orders) {
       <tr>
         <td>${escapeHtml(o.item?.name || "Unknown")}</td>
         <td>₹${escapeHtml(String(o.item?.price ?? "0"))}</td>
+        <td>${escapeHtml(o.otp || "—")}</td>    <!-- ⭐ ADD THIS -->
         <td>${escapeHtml(statusRaw)}</td>
         <td>${escapeHtml(created)}</td>
         <td>${rateCell}</td>
@@ -1513,6 +1514,7 @@ function renderOrders(orders) {
           <tr style="text-align:left;">
             <th style="padding:8px">Food</th>
             <th style="padding:8px">Price</th>
+            <th style="padding:8px">OTP</th> 
             <th style="padding:8px">Status</th>
             <th style="padding:8px">Date & Time</th>
             <th style="padding:8px">Rate</th>

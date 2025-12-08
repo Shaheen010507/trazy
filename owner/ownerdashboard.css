@@ -5,28 +5,41 @@ body {
   padding: 0;
   background: #fafafa;
   color: #333;
+  overflow-x: hidden; /* prevent horizontal scroll */
+  padding-top: 90px;  /* space for fixed header */
+  box-sizing: border-box;
 }
 
 /* ---- Header ---- */
 header {
-  background: #f39c12;
+  background: linear-gradient(90deg, #f39c12, #fbc531);
   color: white;
   padding: 15px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;         /* use 100% instead of 100vw to avoid scrollbar issue */
+  z-index: 1000;
+  box-sizing: border-box;
 }
 
 header h1 {
   margin: 0;
   font-size: 26px;
-  font-weight: 600;
+  font-weight: 700;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
 }
 
 header div {
-  font-size: 16px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px; /* space between buttons */
 }
 
 #signOutBtn {
@@ -34,72 +47,104 @@ header div {
   color: #f39c12;
   padding: 6px 14px;
   border: none;
-  border-radius: 8px;
+  border-radius: 25px;
   font-weight: 600;
-  margin-left: 10px;
   cursor: pointer;
-  transition: 0.2s ease;
+  transition: all 0.3s ease;
+  white-space: nowrap; /* prevents wrapping */
 }
 
 #signOutBtn:hover {
   background: #fff5e6;
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.05);
 }
 
 /* ---- Main Content ---- */
 main {
-  padding: 25px;
+  padding: 25px 20px;
+  max-width: 1200px;
+  margin: auto;
 }
 
 /* ---- Section ---- */
 section {
-  margin-bottom: 35px;
+  margin-bottom: 25px; /* less spacing for compact look */
   background: white;
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+section:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.12);
 }
 
 section h2 {
   margin-top: 0;
   color: #f39c12;
-  font-size: 22px;
-  font-weight: 600;
+  font-size: 24px;
+  font-weight: 700;
+  position: relative;
+}
+
+section h2::after {
+  content: '';
+  display: block;
+  width: 50px;
+  height: 3px;
+  background: #f39c12;
+  border-radius: 2px;
+  margin-top: 5px;
+  transition: width 0.3s ease;
+}
+
+section:hover h2::after {
+  width: 80px;
 }
 
 /* ---- Item Form ---- */
 #itemForm label {
   display: block;
-  margin-top: 10px;
+  margin-top: 12px;
   font-weight: 500;
 }
 
 #itemForm input[type=text],
 #itemForm input[type=number] {
   width: 100%;
-  padding: 10px;
-  margin-top: 4px;
+  padding: 12px;
+  margin-top: 6px;
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 10px;
   font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+#itemForm input[type=text]:focus,
+#itemForm input[type=number]:focus {
+  border-color: #f39c12;
+  box-shadow: 0 0 8px rgba(243,156,18,0.3);
+  outline: none;
 }
 
 #saveBtn {
   margin-top: 15px;
-  padding: 10px 18px;
-  background: #f39c12;
+  padding: 12px 20px;
+  background: linear-gradient(90deg, #f39c12, #fbc531);
   color: white;
   border: none;
-  border-radius: 10px;
+  border-radius: 25px;
   cursor: pointer;
   font-size: 16px;
   font-weight: 600;
-  transition: 0.2s ease;
+  transition: all 0.3s ease;
 }
 
 #saveBtn:hover {
-  background: #d98a0e;
-  transform: translateY(-2px);
+  background: linear-gradient(90deg, #d98a0e, #f5b429);
+  transform: translateY(-2px) scale(1.03);
 }
 
 /* ---- Table ---- */
@@ -107,32 +152,53 @@ table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 15px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.05);
 }
 
 th, td {
-  border: 1px solid #eee;
   padding: 12px;
   text-align: center;
+  transition: all 0.3s ease;
 }
 
 th {
-  background: #f39c12;
+  background: linear-gradient(-45deg, #f39c12, #fbc531, #f39c12);
   color: white;
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 15px;
+  animation: gradientGlow 3s ease infinite;
+}
+
+@keyframes gradientGlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 td {
   background: #fff;
 }
 
+tr:nth-child(even) td {
+  background: #fff7e6;
+}
+
+tr:hover td {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+
+/* ---- Action Buttons ---- */
 .action-btn {
   padding: 6px 12px;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   cursor: pointer;
   font-size: 14px;
-  font-weight: 500;
-  transition: 0.2s ease;
+  font-weight: 600;
+  transition: all 0.3s ease;
 }
 
 .edit-btn {
@@ -142,6 +208,7 @@ td {
 
 .edit-btn:hover {
   background: #2d82ba;
+  transform: translateY(-2px) scale(1.05);
 }
 
 .delete-btn {
@@ -151,18 +218,56 @@ td {
 
 .delete-btn:hover {
   background: #c4372a;
+  transform: translateY(-2px) scale(1.05);
 }
 
 /* ---- Orders Section ---- */
 #ordersContainer div {
-  border: 1px solid #ddd;
-  padding: 15px;
-  margin-bottom: 12px;
-  border-radius: 10px;
-  background: #fffef6;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  border-radius: 12px;
+  background: linear-gradient(135deg, #fffef6, #fff8e1);
+  padding: 18px;
+  margin-bottom: 14px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+
+#ordersContainer div:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
 #ordersContainer strong {
   color: #f39c12;
+  animation: pulse 1.5s infinite alternate;
+}
+
+@keyframes pulse {
+  0% { text-shadow: 0 0 2px #f39c12; transform: scale(1); }
+  50% { text-shadow: 0 0 8px #f39c12; transform: scale(1.05); }
+  100% { text-shadow: 0 0 2px #f39c12; transform: scale(1); }
+}
+
+/* ---- MEDIA QUERIES ---- */
+@media (max-width: 1024px) {
+  main { padding: 120px 20px 20px; }
+  section h2 { font-size: 22px; }
+  #saveBtn, .action-btn { font-size: 15px; padding: 10px 16px; }
+}
+
+@media (max-width: 768px) {
+  header { flex-direction: column; align-items: flex-start; }
+  header div { margin-top: 10px; }
+  main { padding: 140px 15px 20px; }
+  section h2 { font-size: 20px; }
+  table th, table td { font-size: 13px; padding: 10px; }
+  #saveBtn, .action-btn { font-size: 14px; padding: 8px 14px; }
+}
+
+@media (max-width: 480px) {
+  header h1 { font-size: 20px; }
+  header div { font-size: 14px; flex-direction: column; align-items: flex-start; }
+  #signOutBtn { margin-top: 6px; }
+  main { padding: 130px 10px 15px; }
+  table th, table td { font-size: 12px; padding: 8px; }
+  #saveBtn, .action-btn { font-size: 13px; padding: 6px 12px; }
 }

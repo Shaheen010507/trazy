@@ -66,7 +66,7 @@ p {
 
 
 /* Reset + Base */
-* {
+/* * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -76,10 +76,10 @@ p {
 body {
   background: #fffaf7;
   color: #333;
-  padding-top: 80px; /* because navbar is fixed */
+  padding-top: 80px; 
 }
 
-/* Top Header / Navbar Style */
+
 header {
   position: fixed;
   top: 0;
@@ -99,7 +99,7 @@ header {
   color: #ff7043;
 }
 
-/* Logout Button */
+
 #logoutBtn {
   background: #ff7043;
   color: #fff;
@@ -114,12 +114,10 @@ header {
   background: #ff3d00;
 }
 
-/* Main Container */
 main {
   padding: 40px 60px;
 }
 
-/* Section Title */
 h2 {
   font-size: 28px;
   color: #ff7043;
@@ -128,7 +126,6 @@ h2 {
   font-weight: 700;
 }
 
-/* Orders Table Container */
 #order-history table {
   width: 100%;
   border-collapse: collapse;
@@ -138,7 +135,6 @@ h2 {
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-/* Table Header */
 #order-history th {
   background: #ff7043;
   color: #fff;
@@ -147,19 +143,16 @@ h2 {
   font-weight: 600;
 }
 
-/* Table Rows */
 #order-history td {
   padding: 14px;
   border-bottom: 1px solid #ffe0cc;
   color: #444;
 }
 
-/* Remove border from last row */
 #order-history tr:last-child td {
   border-bottom: none;
 }
 
-/* Rate Button */
 #order-history button {
   padding: 8px 18px;
   background: #ff7043;
@@ -174,7 +167,6 @@ h2 {
   background: #ff5722;
 }
 
-/* Rating Popup */
 #ratingPopup {
   backdrop-filter: blur(3px);
 }
@@ -191,7 +183,6 @@ h2 {
   letter-spacing: 5px;
 }
 
-/* Submit + Cancel Buttons */
 #submitRatingBtn,
 #closePopupBtn {
   padding: 10px 20px;
@@ -219,4 +210,234 @@ h2 {
 #closePopupBtn:hover {
   background: #ff7043;
   color: #fff;
+} */
+
+
+/* ======================================================
+   TRAZY ORDER HISTORY — DYNAMIC & ATTRACTIVE
+====================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #fffaf7, #ffeedd);
+  color: #333;
+  padding-top: 90px; /* accommodate fixed navbar */
+  min-height: 100vh;
+  transition: background 0.5s;
+}
+
+/* Top Header / Navbar */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  padding: 20px 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  z-index: 1000;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+header:hover {
+  background: #fff2e6;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+#userName {
+  font-weight: 600;
+  color: #ff7043;
+  font-size: 18px;
+  transition: transform 0.3s;
+}
+#userName:hover {
+  transform: scale(1.05);
+}
+
+/* Logout Button */
+#logoutBtn {
+  background: linear-gradient(45deg, #ff7043, #ff3d00);
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: 25px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+#logoutBtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(255,80,0,0.4);
+}
+
+/* Main Container */
+main {
+  padding: 40px 60px;
+  max-width: 1200px;
+  margin: auto;
+  transition: padding 0.3s;
+}
+
+/* Section Title */
+h2 {
+  font-size: 28px;
+  color: #ff7043;
+  margin-bottom: 25px;
+  text-align: center;
+  font-weight: 700;
+  position: relative;
+}
+h2::after {
+  content: '';
+  width: 60px;
+  height: 4px;
+  background: #ff7043;
+  display: block;
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+/* Orders Table */
+#order-history table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff8f3;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+#order-history table:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+/* Table Header */
+#order-history th {
+  background: linear-gradient(45deg, #ff7043, #ff3d00);
+  color: #fff;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Table Rows */
+#order-history td {
+  padding: 14px;
+  border-bottom: 1px solid #ffe0cc;
+  color: #444;
+  text-align: center;
+  transition: background 0.3s, transform 0.2s;
+}
+#order-history tr:hover td {
+  background: #fff2e6;
+  transform: scale(1.02);
+}
+#order-history tr:last-child td {
+  border-bottom: none;
+}
+
+/* Rate Button */
+#order-history button {
+  padding: 8px 20px;
+  background: linear-gradient(45deg, #ff7043, #ff5722);
+  border: none;
+  color: white;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+#order-history button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 18px rgba(255,80,0,0.4);
+}
+
+/* Rating Popup */
+#ratingPopup {
+  backdrop-filter: blur(4px);
+}
+#ratingPopup div {
+  background: #fffaf4 !important;
+  border-radius: 25px !important;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+  padding: 25px;
+  max-width: 400px;
+  margin: auto;
+  text-align: center;
+  animation: popupIn 0.4s ease forwards;
+}
+@keyframes popupIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Stars */
+#stars {
+  color: #ff7043;
+  font-size: 38px;
+  letter-spacing: 6px;
+  margin-bottom: 20px;
+}
+
+/* Submit + Cancel Buttons */
+#submitRatingBtn,
+#closePopupBtn {
+  padding: 10px 20px;
+  border-radius: 25px;
+  border: none;
+  font-weight: 600;
+  margin: 10px;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+}
+#submitRatingBtn {
+  background: linear-gradient(45deg, #ff7043, #ff3d00);
+  color: #fff;
+}
+#submitRatingBtn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(255,80,0,0.4);
+}
+#closePopupBtn {
+  background: #fff;
+  color: #ff7043;
+  border: 2px solid #ff7043;
+}
+#closePopupBtn:hover {
+  background: #ff7043;
+  color: #fff;
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(255,80,0,0.3);
+}
+
+/* Media Queries — Responsive */
+@media(max-width: 1024px) {
+  main { padding: 30px 40px; }
+  #order-history th, #order-history td { font-size: 14px; padding: 12px; }
+}
+
+@media(max-width: 768px) {
+  header { padding: 15px 25px; flex-direction: column; gap: 12px; }
+  #userName { font-size: 16px; }
+  #logoutBtn { padding: 8px 18px; font-size: 14px; }
+  main { padding: 20px 25px; }
+  h2 { font-size: 24px; }
+}
+
+@media(max-width: 480px) {
+  #order-history table { font-size: 12px; }
+  #order-history button { padding: 6px 14px; font-size: 13px; }
+  #submitRatingBtn, #closePopupBtn { padding: 8px 14px; font-size: 13px; }
 }
